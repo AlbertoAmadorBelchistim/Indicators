@@ -14,9 +14,11 @@ namespace ATAS.Indicators.Technical
 	using OFT.Rendering.Settings;
 	using OFT.Rendering.Tools;
 
+	using Res = ATAS.Indicators.Technical.EquivalentStrikesResources;
+
 	[Category("Custom")]
 	[DisplayName("Equivalent Strikes")]
-	[Description("Option strikes of an underlying (QQQ, NDX, SPY, SPX) drawn on the chart of its future.")]
+	[Display(ResourceType = typeof(Res), Description = nameof(Res.EquivalentStrikesDescription))]
 	public sealed class EquivalentStrikes : Indicator
 	{
 		#region Fields
@@ -39,7 +41,7 @@ namespace ATAS.Indicators.Technical
 
 		#region Pair
 
-		[Display(Name = "Pair", GroupName = "Underlying", Description = "Fills the factor and the strike ladder of a known pair. Custom changes nothing.", Order = 100)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Pair), GroupName = nameof(Res.Underlying), Description = nameof(Res.PairDescription), Order = 100)]
 		public StrikePreset Preset
 		{
 			get => _preset;
@@ -64,7 +66,7 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Name", GroupName = "Underlying", Description = "Shown in front of every strike.", Order = 110)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Name), GroupName = nameof(Res.Underlying), Description = nameof(Res.NameDescription), Order = 110)]
 		public string UnderlyingName
 		{
 			get => _underlyingName;
@@ -75,7 +77,7 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Factor", GroupName = "Underlying", Description = "Points of the chart per point of the underlying: the ratio between the index and its ETF, or 1 for the index itself.", Order = 120)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Factor), GroupName = nameof(Res.Underlying), Description = nameof(Res.FactorDescription), Order = 120)]
 		[Range(0.000001, 1000000)]
 		public decimal Factor
 		{
@@ -92,7 +94,7 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Basis", GroupName = "Underlying", Description = "Added after the factor: what the future is worth over the index. Negative below it.", Order = 130)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Basis), GroupName = nameof(Res.Underlying), Description = nameof(Res.BasisDescription), Order = 130)]
 		public decimal Basis
 		{
 			get => _grid.Basis;
@@ -107,16 +109,16 @@ namespace ATAS.Indicators.Technical
 
 		#region Anchor
 
-		[Display(Name = "Underlying price", GroupName = "Anchor", Description = "Price of the underlying right now, taken from its own chart or from the option chain.", Order = 200)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.UnderlyingPrice), GroupName = nameof(Res.Anchor), Description = nameof(Res.UnderlyingPriceDescription), Order = 200)]
 		public decimal AnchorUnderlyingPrice { get; set; }
 
-		[Display(Name = "Index price", GroupName = "Anchor", Description = "Price of the index right now. Optional: with it the factor and the basis are both exact, since the factor is the ratio between the index and the underlying.", Order = 210)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.IndexPrice), GroupName = nameof(Res.Anchor), Description = nameof(Res.IndexPriceDescription), Order = 210)]
 		public decimal AnchorIndexPrice { get; set; }
 
-		[Display(Name = "Solve", GroupName = "Anchor", Description = "What a single price of the underlying computes. Ignored when the index price is set, which gives both.", Order = 220)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Solve), GroupName = nameof(Res.Anchor), Description = nameof(Res.SolveDescription), Order = 220)]
 		public AnchorTarget AnchorSolves { get; set; } = AnchorTarget.Basis;
 
-		[Display(Name = "Apply anchor", GroupName = "Anchor", Description = "Maps the prices above onto the last price of the chart. Clears itself.", Order = 230)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.ApplyAnchor), GroupName = nameof(Res.Anchor), Description = nameof(Res.ApplyAnchorDescription), Order = 230)]
 		public bool ApplyAnchor
 		{
 			get => false;
@@ -133,7 +135,7 @@ namespace ATAS.Indicators.Technical
 
 		#region Grid
 
-		[Display(Name = "Strike spacing", GroupName = "Grid", Description = "Distance between strikes, in points of the underlying.", Order = 300)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.StrikeSpacing), GroupName = nameof(Res.Grid), Description = nameof(Res.StrikeSpacingDescription), Order = 300)]
 		[Range(0.000001, 100000)]
 		public decimal Spacing
 		{
@@ -148,7 +150,7 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Major every", GroupName = "Grid", Description = "Strikes that are a multiple of this value get the major line. Zero draws them all alike.", Order = 310)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.MajorEvery), GroupName = nameof(Res.Grid), Description = nameof(Res.MajorEveryDescription), Order = 310)]
 		[Range(0, 100000)]
 		public decimal MajorSpacing
 		{
@@ -163,7 +165,7 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Maximum lines", GroupName = "Grid", Description = "Above this count the spacing is doubled, then multiplied by five, and so on, instead of covering the chart.", Order = 320)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.MaximumLines), GroupName = nameof(Res.Grid), Description = nameof(Res.MaximumLinesDescription), Order = 320)]
 		[Range(1, 500)]
 		public int MaxLines
 		{
@@ -175,34 +177,34 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Minor lines", GroupName = "Grid", Description = "Draw the strikes that are not major.", Order = 330)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.MinorLines), GroupName = nameof(Res.Grid), Description = nameof(Res.MinorLinesDescription), Order = 330)]
 		public bool ShowMinorLines { get; set; } = true;
 
 		#endregion
 
 		#region Visualization
 
-		[Display(Name = "Minor line", GroupName = "Visualization", Order = 400)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.MinorLine), GroupName = nameof(Res.Visualization), Order = 400)]
 		public PenSettings MinorPen { get; set; } = new()
 			{ Color = DefaultColors.Gray.Convert(), Width = 1 };
 
-		[Display(Name = "Major line", GroupName = "Visualization", Order = 410)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.MajorLine), GroupName = nameof(Res.Visualization), Order = 410)]
 		public PenSettings MajorPen { get; set; } = new()
 			{ Color = DefaultColors.Blue.Convert(), Width = 2 };
 
-		[Display(Name = "Labels", GroupName = "Visualization", Description = "Write the strike over its line.", Order = 420)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Labels), GroupName = nameof(Res.Visualization), Description = nameof(Res.LabelsDescription), Order = 420)]
 		public bool ShowLabels { get; set; } = true;
 
-		[Display(Name = "Labels on major lines only", GroupName = "Visualization", Order = 430)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.MajorLabelsOnly), GroupName = nameof(Res.Visualization), Order = 430)]
 		public bool MajorLabelsOnly { get; set; }
 
-		[Display(Name = "Labels on the left", GroupName = "Visualization", Description = "By default they go against the price scale.", Order = 440)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.LabelsOnLeft), GroupName = nameof(Res.Visualization), Description = nameof(Res.LabelsOnLeftDescription), Order = 440)]
 		public bool LabelsOnLeft { get; set; }
 
-		[Display(Name = "Price in the label", GroupName = "Visualization", Description = "Adds the price of the chart the strike maps to.", Order = 450)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.PriceInLabel), GroupName = nameof(Res.Visualization), Description = nameof(Res.PriceInLabelDescription), Order = 450)]
 		public bool ShowPriceInLabel { get; set; }
 
-		[Display(Name = "Font size", GroupName = "Visualization", Order = 460)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.FontSize), GroupName = nameof(Res.Visualization), Order = 460)]
 		[Range(5, 30)]
 		public float FontSize
 		{
@@ -214,10 +216,10 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Equivalence", GroupName = "Visualization", Description = "Reads the last price of the chart as a price of the underlying, in a corner.", Order = 470)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Equivalence), GroupName = nameof(Res.Visualization), Description = nameof(Res.EquivalenceDescription), Order = 470)]
 		public bool ShowEquivalence { get; set; } = true;
 
-		[Display(Name = "Equivalence text", GroupName = "Visualization", Order = 480)]
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.EquivalenceText), GroupName = nameof(Res.Visualization), Order = 480)]
 		public CrossColor EquivalenceColor { get; set; } = DefaultColors.Blue.Convert();
 
 		#endregion

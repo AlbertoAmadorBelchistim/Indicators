@@ -1,14 +1,19 @@
 namespace ATAS.Indicators.Technical.EquivalentStrikesCore;
 
 using System;
+using System.ComponentModel.DataAnnotations;
+
+using Res = ATAS.Indicators.Technical.EquivalentStrikesResources;
 
 /// <summary>What a single quote of the underlying is used to compute.</summary>
 public enum AnchorTarget
 {
 	/// <summary>Keep the factor and move the grid: the basis absorbs the premium of the future.</summary>
+	[Display(ResourceType = typeof(Res), Name = nameof(Res.Basis))]
 	Basis,
 
 	/// <summary>Keep the basis and stretch the grid.</summary>
+	[Display(ResourceType = typeof(Res), Name = nameof(Res.Factor))]
 	Factor,
 }
 

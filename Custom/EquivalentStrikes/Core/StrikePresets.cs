@@ -1,21 +1,30 @@
 namespace ATAS.Indicators.Technical.EquivalentStrikesCore;
 
+using System.ComponentModel.DataAnnotations;
+
+using Res = ATAS.Indicators.Technical.EquivalentStrikesResources;
+
 /// <summary>Instrument pairs with known strike ladders.</summary>
 public enum StrikePreset
 {
 	/// <summary>Nothing is filled in: the map and the spacing are the ones already set.</summary>
+	[Display(ResourceType = typeof(Res), Name = nameof(Res.Custom))]
 	Custom,
 
 	/// <summary>QQQ strikes on a Nasdaq 100 future (NQ, MNQ).</summary>
+	[Display(ResourceType = typeof(Res), Name = nameof(Res.QqqOnNq))]
 	QqqOnNq,
 
 	/// <summary>NDX strikes on a Nasdaq 100 future (NQ, MNQ).</summary>
+	[Display(ResourceType = typeof(Res), Name = nameof(Res.NdxOnNq))]
 	NdxOnNq,
 
 	/// <summary>SPY strikes on an S&amp;P 500 future (ES, MES).</summary>
+	[Display(ResourceType = typeof(Res), Name = nameof(Res.SpyOnEs))]
 	SpyOnEs,
 
 	/// <summary>SPX strikes on an S&amp;P 500 future (ES, MES).</summary>
+	[Display(ResourceType = typeof(Res), Name = nameof(Res.SpxOnEs))]
 	SpxOnEs,
 }
 

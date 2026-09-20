@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EquivalentStrikesDescription" xml:space="preserve">
+    <value>किसी अंडरलाइंग (QQQ, NDX, SPY, SPX) के ऑप्शन स्ट्राइक उसके फ्यूचर के चार्ट पर।</value>
+  </data>
+  <data name="Underlying" xml:space="preserve">
+    <value>अंडरलाइंग</value>
+  </data>
+  <data name="Anchor" xml:space="preserve">
+    <value>एंकर</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>ग्रिड</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>विज़ुअलाइज़ेशन</value>
+  </data>
+  <data name="Pair" xml:space="preserve">
+    <value>जोड़ी</value>
+  </data>
+  <data name="PairDescription" xml:space="preserve">
+    <value>किसी ज्ञात जोड़ी का फैक्टर और स्ट्राइक क्रम भर देता है। कस्टम कुछ नहीं बदलता।</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>नाम</value>
+  </data>
+  <data name="NameDescription" xml:space="preserve">
+    <value>हर स्ट्राइक के आगे लिखा जाता है।</value>
+  </data>
+  <data name="Factor" xml:space="preserve">
+    <value>फैक्टर</value>
+  </data>
+  <data name="FactorDescription" xml:space="preserve">
+    <value>अंडरलाइंग के प्रति पॉइंट चार्ट पॉइंट: इंडेक्स और उसके ETF का अनुपात, या इंडेक्स के लिए 1।</value>
+  </data>
+  <data name="Basis" xml:space="preserve">
+    <value>बेसिस</value>
+  </data>
+  <data name="BasisDescription" xml:space="preserve">
+    <value>फैक्टर के बाद जोड़ा जाता है: फ्यूचर इंडेक्स से कितना ऊपर है। नीचे हो तो ऋणात्मक।</value>
+  </data>
+  <data name="UnderlyingPrice" xml:space="preserve">
+    <value>अंडरलाइंग का भाव</value>
+  </data>
+  <data name="UnderlyingPriceDescription" xml:space="preserve">
+    <value>अंडरलाइंग का अभी का भाव, उसके अपने चार्ट या ऑप्शन चेन से।</value>
+  </data>
+  <data name="IndexPrice" xml:space="preserve">
+    <value>इंडेक्स का भाव</value>
+  </data>
+  <data name="IndexPriceDescription" xml:space="preserve">
+    <value>इंडेक्स का अभी का भाव। वैकल्पिक: इससे फैक्टर और बेसिस दोनों सटीक निकलते हैं, क्योंकि फैक्टर इंडेक्स और अंडरलाइंग का अनुपात है।</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>निकालें</value>
+  </data>
+  <data name="SolveDescription" xml:space="preserve">
+    <value>अंडरलाइंग का अकेला भाव क्या निकालेगा। इंडेक्स भाव भरा हो तो अनदेखा, वह दोनों दे देता है।</value>
+  </data>
+  <data name="ApplyAnchor" xml:space="preserve">
+    <value>एंकर लागू करें</value>
+  </data>
+  <data name="ApplyAnchorDescription" xml:space="preserve">
+    <value>ऊपर के भावों को चार्ट के आखिरी भाव पर मिलाता है। अपने आप हट जाता है।</value>
+  </data>
+  <data name="StrikeSpacing" xml:space="preserve">
+    <value>स्ट्राइक अंतराल</value>
+  </data>
+  <data name="StrikeSpacingDescription" xml:space="preserve">
+    <value>स्ट्राइक के बीच की दूरी, अंडरलाइंग के पॉइंट में।</value>
+  </data>
+  <data name="MajorEvery" xml:space="preserve">
+    <value>मुख्य हर</value>
+  </data>
+  <data name="MajorEveryDescription" xml:space="preserve">
+    <value>इस मान के गुणज वाले स्ट्राइक मुख्य रेखा पाते हैं। शून्य पर सभी एक जैसे।</value>
+  </data>
+  <data name="MaximumLines" xml:space="preserve">
+    <value>अधिकतम रेखाएँ</value>
+  </data>
+  <data name="MaximumLinesDescription" xml:space="preserve">
+    <value>इस संख्या से ऊपर अंतराल दोगुना, फिर पाँच गुना, और आगे बढ़ता है, चार्ट ढकने के बजाय।</value>
+  </data>
+  <data name="MinorLines" xml:space="preserve">
+    <value>गौण रेखाएँ</value>
+  </data>
+  <data name="MinorLinesDescription" xml:space="preserve">
+    <value>जो स्ट्राइक मुख्य नहीं हैं, उन्हें बनाएँ।</value>
+  </data>
+  <data name="MinorLine" xml:space="preserve">
+    <value>गौण रेखा</value>
+  </data>
+  <data name="MajorLine" xml:space="preserve">
+    <value>मुख्य रेखा</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>लेबल</value>
+  </data>
+  <data name="LabelsDescription" xml:space="preserve">
+    <value>स्ट्राइक को उसकी रेखा के ऊपर लिखें।</value>
+  </data>
+  <data name="MajorLabelsOnly" xml:space="preserve">
+    <value>लेबल केवल मुख्य रेखाओं पर</value>
+  </data>
+  <data name="LabelsOnLeft" xml:space="preserve">
+    <value>लेबल बाईं ओर</value>
+  </data>
+  <data name="LabelsOnLeftDescription" xml:space="preserve">
+    <value>डिफ़ॉल्ट रूप से ये प्राइस स्केल से सटे रहते हैं।</value>
+  </data>
+  <data name="PriceInLabel" xml:space="preserve">
+    <value>लेबल में भाव</value>
+  </data>
+  <data name="PriceInLabelDescription" xml:space="preserve">
+    <value>स्ट्राइक जिस चार्ट भाव पर पड़ता है, वह जोड़ता है।</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>फ़ॉन्ट आकार</value>
+  </data>
+  <data name="Equivalence" xml:space="preserve">
+    <value>समतुल्यता</value>
+  </data>
+  <data name="EquivalenceDescription" xml:space="preserve">
+    <value>चार्ट के आखिरी भाव को कोने में अंडरलाइंग के भाव के रूप में दिखाता है।</value>
+  </data>
+  <data name="EquivalenceText" xml:space="preserve">
+    <value>समतुल्यता का टेक्स्ट</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>कस्टम</value>
+  </data>
+  <data name="QqqOnNq" xml:space="preserve">
+    <value>NQ पर QQQ</value>
+  </data>
+  <data name="NdxOnNq" xml:space="preserve">
+    <value>NQ पर NDX</value>
+  </data>
+  <data name="SpyOnEs" xml:space="preserve">
+    <value>ES पर SPY</value>
+  </data>
+  <data name="SpxOnEs" xml:space="preserve">
+    <value>ES पर SPX</value>
+  </data>
+</root>

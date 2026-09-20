@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EquivalentStrikesDescription" xml:space="preserve">
+    <value>Option strikes of an underlying (QQQ, NDX, SPY, SPX) drawn on the chart of its future.</value>
+  </data>
+  <data name="Underlying" xml:space="preserve">
+    <value>Underlying</value>
+  </data>
+  <data name="Anchor" xml:space="preserve">
+    <value>Anchor</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>Grid</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Visualization</value>
+  </data>
+  <data name="Pair" xml:space="preserve">
+    <value>Pair</value>
+  </data>
+  <data name="PairDescription" xml:space="preserve">
+    <value>Fills in the factor and the strike ladder of a known pair. Custom changes nothing.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameDescription" xml:space="preserve">
+    <value>Written in front of every strike.</value>
+  </data>
+  <data name="Factor" xml:space="preserve">
+    <value>Factor</value>
+  </data>
+  <data name="FactorDescription" xml:space="preserve">
+    <value>Chart points per point of the underlying: the ratio between the index and its ETF, or 1 for the index itself.</value>
+  </data>
+  <data name="Basis" xml:space="preserve">
+    <value>Basis</value>
+  </data>
+  <data name="BasisDescription" xml:space="preserve">
+    <value>Added after the factor: what the future is worth over the index. Negative below it.</value>
+  </data>
+  <data name="UnderlyingPrice" xml:space="preserve">
+    <value>Underlying price</value>
+  </data>
+  <data name="UnderlyingPriceDescription" xml:space="preserve">
+    <value>Price of the underlying right now, from its own chart or from the option chain.</value>
+  </data>
+  <data name="IndexPrice" xml:space="preserve">
+    <value>Index price</value>
+  </data>
+  <data name="IndexPriceDescription" xml:space="preserve">
+    <value>Price of the index right now. Optional: with it the factor and the basis are both exact, because the factor is the ratio between the index and the underlying.</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>Solve</value>
+  </data>
+  <data name="SolveDescription" xml:space="preserve">
+    <value>What a single price of the underlying computes. Ignored when the index price is set, which gives both.</value>
+  </data>
+  <data name="ApplyAnchor" xml:space="preserve">
+    <value>Apply anchor</value>
+  </data>
+  <data name="ApplyAnchorDescription" xml:space="preserve">
+    <value>Maps the prices above onto the last price of the chart. Clears itself.</value>
+  </data>
+  <data name="StrikeSpacing" xml:space="preserve">
+    <value>Strike spacing</value>
+  </data>
+  <data name="StrikeSpacingDescription" xml:space="preserve">
+    <value>Distance between strikes, in points of the underlying.</value>
+  </data>
+  <data name="MajorEvery" xml:space="preserve">
+    <value>Major every</value>
+  </data>
+  <data name="MajorEveryDescription" xml:space="preserve">
+    <value>Strikes that are a multiple of this value get the major line. Zero draws them all alike.</value>
+  </data>
+  <data name="MaximumLines" xml:space="preserve">
+    <value>Maximum lines</value>
+  </data>
+  <data name="MaximumLinesDescription" xml:space="preserve">
+    <value>Above this count the spacing is doubled, then multiplied by five, and so on, instead of covering the chart.</value>
+  </data>
+  <data name="MinorLines" xml:space="preserve">
+    <value>Minor lines</value>
+  </data>
+  <data name="MinorLinesDescription" xml:space="preserve">
+    <value>Draw the strikes that are not major.</value>
+  </data>
+  <data name="MinorLine" xml:space="preserve">
+    <value>Minor line</value>
+  </data>
+  <data name="MajorLine" xml:space="preserve">
+    <value>Major line</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="LabelsDescription" xml:space="preserve">
+    <value>Write the strike over its line.</value>
+  </data>
+  <data name="MajorLabelsOnly" xml:space="preserve">
+    <value>Labels on major lines only</value>
+  </data>
+  <data name="LabelsOnLeft" xml:space="preserve">
+    <value>Labels on the left</value>
+  </data>
+  <data name="LabelsOnLeftDescription" xml:space="preserve">
+    <value>By default they go against the price scale.</value>
+  </data>
+  <data name="PriceInLabel" xml:space="preserve">
+    <value>Price in the label</value>
+  </data>
+  <data name="PriceInLabelDescription" xml:space="preserve">
+    <value>Adds the chart price the strike maps to.</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Font size</value>
+  </data>
+  <data name="Equivalence" xml:space="preserve">
+    <value>Equivalence</value>
+  </data>
+  <data name="EquivalenceDescription" xml:space="preserve">
+    <value>Reads the last price of the chart as a price of the underlying, in a corner.</value>
+  </data>
+  <data name="EquivalenceText" xml:space="preserve">
+    <value>Equivalence text</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="QqqOnNq" xml:space="preserve">
+    <value>QQQ on NQ</value>
+  </data>
+  <data name="NdxOnNq" xml:space="preserve">
+    <value>NDX on NQ</value>
+  </data>
+  <data name="SpyOnEs" xml:space="preserve">
+    <value>SPY on ES</value>
+  </data>
+  <data name="SpxOnEs" xml:space="preserve">
+    <value>SPX on ES</value>
+  </data>
+</root>

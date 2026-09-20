@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EquivalentStrikesDescription" xml:space="preserve">
+    <value>将标的（QQQ、NDX、SPY、SPX）的期权行权价画在其期货图表上。</value>
+  </data>
+  <data name="Underlying" xml:space="preserve">
+    <value>标的</value>
+  </data>
+  <data name="Anchor" xml:space="preserve">
+    <value>锚定</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>网格</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="Pair" xml:space="preserve">
+    <value>组合</value>
+  </data>
+  <data name="PairDescription" xml:space="preserve">
+    <value>填入已知组合的系数与行权价步长。自定义不做任何改动。</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="NameDescription" xml:space="preserve">
+    <value>显示在每个行权价前面。</value>
+  </data>
+  <data name="Factor" xml:space="preserve">
+    <value>系数</value>
+  </data>
+  <data name="FactorDescription" xml:space="preserve">
+    <value>标的每一点对应的图表点数：指数与其 ETF 的比值，指数本身则为 1。</value>
+  </data>
+  <data name="Basis" xml:space="preserve">
+    <value>基差</value>
+  </data>
+  <data name="BasisDescription" xml:space="preserve">
+    <value>在系数之后相加：期货高于指数的部分，低于时为负。</value>
+  </data>
+  <data name="UnderlyingPrice" xml:space="preserve">
+    <value>标的价格</value>
+  </data>
+  <data name="UnderlyingPriceDescription" xml:space="preserve">
+    <value>标的此刻的价格，来自它自己的图表或期权链。</value>
+  </data>
+  <data name="IndexPrice" xml:space="preserve">
+    <value>指数价格</value>
+  </data>
+  <data name="IndexPriceDescription" xml:space="preserve">
+    <value>指数此刻的价格。可选：有了它，系数和基差都是精确的，因为系数就是指数与标的的比值。</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>求解</value>
+  </data>
+  <data name="SolveDescription" xml:space="preserve">
+    <value>仅有标的价格时计算哪一项。填了指数价格时忽略，因为那会同时给出两者。</value>
+  </data>
+  <data name="ApplyAnchor" xml:space="preserve">
+    <value>应用锚定</value>
+  </data>
+  <data name="ApplyAnchorDescription" xml:space="preserve">
+    <value>把上面的价格对齐到图表的最新价。会自动取消勾选。</value>
+  </data>
+  <data name="StrikeSpacing" xml:space="preserve">
+    <value>行权价步长</value>
+  </data>
+  <data name="StrikeSpacingDescription" xml:space="preserve">
+    <value>相邻行权价的距离，以标的的点数计。</value>
+  </data>
+  <data name="MajorEvery" xml:space="preserve">
+    <value>主线间隔</value>
+  </data>
+  <data name="MajorEveryDescription" xml:space="preserve">
+    <value>行权价为该值倍数时使用主线。为零则全部相同。</value>
+  </data>
+  <data name="MaximumLines" xml:space="preserve">
+    <value>最多线条</value>
+  </data>
+  <data name="MaximumLinesDescription" xml:space="preserve">
+    <value>超过该数量时，步长会翻倍、再乘五，以此类推，而不是铺满图表。</value>
+  </data>
+  <data name="MinorLines" xml:space="preserve">
+    <value>次要线条</value>
+  </data>
+  <data name="MinorLinesDescription" xml:space="preserve">
+    <value>绘制非主线的行权价。</value>
+  </data>
+  <data name="MinorLine" xml:space="preserve">
+    <value>次要线</value>
+  </data>
+  <data name="MajorLine" xml:space="preserve">
+    <value>主线</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="LabelsDescription" xml:space="preserve">
+    <value>在线条上方写出行权价。</value>
+  </data>
+  <data name="MajorLabelsOnly" xml:space="preserve">
+    <value>仅主线显示标签</value>
+  </data>
+  <data name="LabelsOnLeft" xml:space="preserve">
+    <value>标签靠左</value>
+  </data>
+  <data name="LabelsOnLeftDescription" xml:space="preserve">
+    <value>默认贴着价格坐标轴。</value>
+  </data>
+  <data name="PriceInLabel" xml:space="preserve">
+    <value>标签显示价格</value>
+  </data>
+  <data name="PriceInLabelDescription" xml:space="preserve">
+    <value>附上该行权价对应的图表价格。</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>字体大小</value>
+  </data>
+  <data name="Equivalence" xml:space="preserve">
+    <value>等价换算</value>
+  </data>
+  <data name="EquivalenceDescription" xml:space="preserve">
+    <value>在角落里把图表最新价换算成标的价格。</value>
+  </data>
+  <data name="EquivalenceText" xml:space="preserve">
+    <value>等价换算文字</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="QqqOnNq" xml:space="preserve">
+    <value>NQ 上的 QQQ</value>
+  </data>
+  <data name="NdxOnNq" xml:space="preserve">
+    <value>NQ 上的 NDX</value>
+  </data>
+  <data name="SpyOnEs" xml:space="preserve">
+    <value>ES 上的 SPY</value>
+  </data>
+  <data name="SpxOnEs" xml:space="preserve">
+    <value>ES 上的 SPX</value>
+  </data>
+</root>

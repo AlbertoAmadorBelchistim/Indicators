@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EquivalentStrikesDescription" xml:space="preserve">
+    <value>Optionsstrikes eines Basiswerts (QQQ, NDX, SPY, SPX), gezeichnet im Chart seines Futures.</value>
+  </data>
+  <data name="Underlying" xml:space="preserve">
+    <value>Basiswert</value>
+  </data>
+  <data name="Anchor" xml:space="preserve">
+    <value>Anker</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>Raster</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Darstellung</value>
+  </data>
+  <data name="Pair" xml:space="preserve">
+    <value>Paar</value>
+  </data>
+  <data name="PairDescription" xml:space="preserve">
+    <value>Füllt Faktor und Strike-Raster eines bekannten Paares. Benutzerdefiniert ändert nichts.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NameDescription" xml:space="preserve">
+    <value>Steht vor jedem Strike.</value>
+  </data>
+  <data name="Factor" xml:space="preserve">
+    <value>Faktor</value>
+  </data>
+  <data name="FactorDescription" xml:space="preserve">
+    <value>Chartpunkte je Punkt des Basiswerts: das Verhältnis zwischen Index und ETF, oder 1 für den Index selbst.</value>
+  </data>
+  <data name="Basis" xml:space="preserve">
+    <value>Basis</value>
+  </data>
+  <data name="BasisDescription" xml:space="preserve">
+    <value>Wird nach dem Faktor addiert: was der Future über dem Index wert ist. Negativ, wenn darunter.</value>
+  </data>
+  <data name="UnderlyingPrice" xml:space="preserve">
+    <value>Kurs des Basiswerts</value>
+  </data>
+  <data name="UnderlyingPriceDescription" xml:space="preserve">
+    <value>Aktueller Kurs des Basiswerts, aus seinem Chart oder aus der Optionskette.</value>
+  </data>
+  <data name="IndexPrice" xml:space="preserve">
+    <value>Indexstand</value>
+  </data>
+  <data name="IndexPriceDescription" xml:space="preserve">
+    <value>Aktueller Indexstand. Optional: damit werden Faktor und Basis exakt, denn der Faktor ist das Verhältnis zwischen Index und Basiswert.</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>Berechnen</value>
+  </data>
+  <data name="SolveDescription" xml:space="preserve">
+    <value>Was ein einzelner Kurs des Basiswerts berechnet. Wird ignoriert, wenn der Indexstand gesetzt ist, der beides liefert.</value>
+  </data>
+  <data name="ApplyAnchor" xml:space="preserve">
+    <value>Anker anwenden</value>
+  </data>
+  <data name="ApplyAnchorDescription" xml:space="preserve">
+    <value>Bildet die Kurse oben auf den letzten Kurs des Charts ab. Setzt sich selbst zurück.</value>
+  </data>
+  <data name="StrikeSpacing" xml:space="preserve">
+    <value>Strike-Abstand</value>
+  </data>
+  <data name="StrikeSpacingDescription" xml:space="preserve">
+    <value>Abstand zwischen Strikes, in Punkten des Basiswerts.</value>
+  </data>
+  <data name="MajorEvery" xml:space="preserve">
+    <value>Hauptlinie alle</value>
+  </data>
+  <data name="MajorEveryDescription" xml:space="preserve">
+    <value>Strikes, die ein Vielfaches dieses Werts sind, bekommen die Hauptlinie. Null zeichnet alle gleich.</value>
+  </data>
+  <data name="MaximumLines" xml:space="preserve">
+    <value>Maximale Linien</value>
+  </data>
+  <data name="MaximumLinesDescription" xml:space="preserve">
+    <value>Oberhalb dieser Anzahl wird der Abstand verdoppelt, dann verfünffacht und so weiter, statt den Chart zuzudecken.</value>
+  </data>
+  <data name="MinorLines" xml:space="preserve">
+    <value>Nebenlinien</value>
+  </data>
+  <data name="MinorLinesDescription" xml:space="preserve">
+    <value>Zeichnet die Strikes, die keine Hauptlinie sind.</value>
+  </data>
+  <data name="MinorLine" xml:space="preserve">
+    <value>Nebenlinie</value>
+  </data>
+  <data name="MajorLine" xml:space="preserve">
+    <value>Hauptlinie</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Beschriftungen</value>
+  </data>
+  <data name="LabelsDescription" xml:space="preserve">
+    <value>Schreibt den Strike über seine Linie.</value>
+  </data>
+  <data name="MajorLabelsOnly" xml:space="preserve">
+    <value>Beschriftung nur an Hauptlinien</value>
+  </data>
+  <data name="LabelsOnLeft" xml:space="preserve">
+    <value>Beschriftungen links</value>
+  </data>
+  <data name="LabelsOnLeftDescription" xml:space="preserve">
+    <value>Standardmäßig stehen sie an der Preisskala.</value>
+  </data>
+  <data name="PriceInLabel" xml:space="preserve">
+    <value>Kurs in der Beschriftung</value>
+  </data>
+  <data name="PriceInLabelDescription" xml:space="preserve">
+    <value>Ergänzt den Chartkurs, auf den der Strike fällt.</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Schriftgröße</value>
+  </data>
+  <data name="Equivalence" xml:space="preserve">
+    <value>Entsprechung</value>
+  </data>
+  <data name="EquivalenceDescription" xml:space="preserve">
+    <value>Zeigt den letzten Kurs des Charts als Kurs des Basiswerts, in einer Ecke.</value>
+  </data>
+  <data name="EquivalenceText" xml:space="preserve">
+    <value>Text der Entsprechung</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Benutzerdefiniert</value>
+  </data>
+  <data name="QqqOnNq" xml:space="preserve">
+    <value>QQQ auf NQ</value>
+  </data>
+  <data name="NdxOnNq" xml:space="preserve">
+    <value>NDX auf NQ</value>
+  </data>
+  <data name="SpyOnEs" xml:space="preserve">
+    <value>SPY auf ES</value>
+  </data>
+  <data name="SpxOnEs" xml:space="preserve">
+    <value>SPX auf ES</value>
+  </data>
+</root>

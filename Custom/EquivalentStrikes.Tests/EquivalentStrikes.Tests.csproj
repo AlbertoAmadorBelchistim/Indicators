@@ -14,4 +14,17 @@
 	<ItemGroup>
 		<Compile Include="..\EquivalentStrikes\Core\**\*.cs" Link="Core\%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+
+	<!-- The enums of Core carry the localized names of their members, so the tests generate the same
+	     resource class as the indicator. The culture files are left out: the tests never read them. -->
+	<ItemGroup>
+		<EmbeddedResource Include="..\EquivalentStrikes\Resources\EquivalentStrikesResources.resx" Link="Resources\EquivalentStrikesResources.resx">
+			<StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+			<StronglyTypedNamespace>ATAS.Indicators.Technical</StronglyTypedNamespace>
+			<StronglyTypedClassName>EquivalentStrikesResources</StronglyTypedClassName>
+			<StronglyTypedFileName>$(IntermediateOutputPath)EquivalentStrikesResources.Designer.cs</StronglyTypedFileName>
+			<StronglyTypedManifestPrefix>ATAS.Indicators.Technical.Resources</StronglyTypedManifestPrefix>
+			<PublicClass>true</PublicClass>
+		</EmbeddedResource>
+	</ItemGroup>
 </Project>

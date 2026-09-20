@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="EquivalentStrikesDescription" xml:space="preserve">
+    <value>Страйки опционов базового актива (QQQ, NDX, SPY, SPX) на графике его фьючерса.</value>
+  </data>
+  <data name="Underlying" xml:space="preserve">
+    <value>Базовый актив</value>
+  </data>
+  <data name="Anchor" xml:space="preserve">
+    <value>Привязка</value>
+  </data>
+  <data name="Grid" xml:space="preserve">
+    <value>Сетка</value>
+  </data>
+  <data name="Visualization" xml:space="preserve">
+    <value>Отображение</value>
+  </data>
+  <data name="Pair" xml:space="preserve">
+    <value>Пара</value>
+  </data>
+  <data name="PairDescription" xml:space="preserve">
+    <value>Заполняет коэффициент и шаг страйков известной пары. «Свои» ничего не меняет.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="NameDescription" xml:space="preserve">
+    <value>Пишется перед каждым страйком.</value>
+  </data>
+  <data name="Factor" xml:space="preserve">
+    <value>Коэффициент</value>
+  </data>
+  <data name="FactorDescription" xml:space="preserve">
+    <value>Пунктов графика на пункт базового актива: отношение индекса к его ETF или 1 для самого индекса.</value>
+  </data>
+  <data name="Basis" xml:space="preserve">
+    <value>Базис</value>
+  </data>
+  <data name="BasisDescription" xml:space="preserve">
+    <value>Прибавляется после коэффициента: насколько фьючерс дороже индекса. Отрицательный, если дешевле.</value>
+  </data>
+  <data name="UnderlyingPrice" xml:space="preserve">
+    <value>Цена базового актива</value>
+  </data>
+  <data name="UnderlyingPriceDescription" xml:space="preserve">
+    <value>Цена базового актива прямо сейчас — с его графика или из опционной доски.</value>
+  </data>
+  <data name="IndexPrice" xml:space="preserve">
+    <value>Цена индекса</value>
+  </data>
+  <data name="IndexPriceDescription" xml:space="preserve">
+    <value>Цена индекса прямо сейчас. Необязательно: с ней коэффициент и базис получаются точными, ведь коэффициент — это отношение индекса к базовому активу.</value>
+  </data>
+  <data name="Solve" xml:space="preserve">
+    <value>Вычислять</value>
+  </data>
+  <data name="SolveDescription" xml:space="preserve">
+    <value>Что вычисляет одна цена базового актива. Игнорируется, если задана цена индекса — она даёт оба значения.</value>
+  </data>
+  <data name="ApplyAnchor" xml:space="preserve">
+    <value>Применить привязку</value>
+  </data>
+  <data name="ApplyAnchorDescription" xml:space="preserve">
+    <value>Сопоставляет цены выше с последней ценой графика. Снимается сам.</value>
+  </data>
+  <data name="StrikeSpacing" xml:space="preserve">
+    <value>Шаг страйков</value>
+  </data>
+  <data name="StrikeSpacingDescription" xml:space="preserve">
+    <value>Расстояние между страйками в пунктах базового актива.</value>
+  </data>
+  <data name="MajorEvery" xml:space="preserve">
+    <value>Основная каждые</value>
+  </data>
+  <data name="MajorEveryDescription" xml:space="preserve">
+    <value>Страйки, кратные этому значению, получают основную линию. Ноль рисует все одинаково.</value>
+  </data>
+  <data name="MaximumLines" xml:space="preserve">
+    <value>Максимум линий</value>
+  </data>
+  <data name="MaximumLinesDescription" xml:space="preserve">
+    <value>Сверх этого количества шаг удваивается, затем умножается на пять и так далее, вместо того чтобы закрыть график.</value>
+  </data>
+  <data name="MinorLines" xml:space="preserve">
+    <value>Второстепенные линии</value>
+  </data>
+  <data name="MinorLinesDescription" xml:space="preserve">
+    <value>Рисовать страйки, которые не основные.</value>
+  </data>
+  <data name="MinorLine" xml:space="preserve">
+    <value>Второстепенная линия</value>
+  </data>
+  <data name="MajorLine" xml:space="preserve">
+    <value>Основная линия</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Подписи</value>
+  </data>
+  <data name="LabelsDescription" xml:space="preserve">
+    <value>Писать страйк над его линией.</value>
+  </data>
+  <data name="MajorLabelsOnly" xml:space="preserve">
+    <value>Подписи только на основных</value>
+  </data>
+  <data name="LabelsOnLeft" xml:space="preserve">
+    <value>Подписи слева</value>
+  </data>
+  <data name="LabelsOnLeftDescription" xml:space="preserve">
+    <value>По умолчанию они прижаты к шкале цены.</value>
+  </data>
+  <data name="PriceInLabel" xml:space="preserve">
+    <value>Цена в подписи</value>
+  </data>
+  <data name="PriceInLabelDescription" xml:space="preserve">
+    <value>Добавляет цену графика, которой соответствует страйк.</value>
+  </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Размер шрифта</value>
+  </data>
+  <data name="Equivalence" xml:space="preserve">
+    <value>Соответствие</value>
+  </data>
+  <data name="EquivalenceDescription" xml:space="preserve">
+    <value>Показывает в углу последнюю цену графика как цену базового актива.</value>
+  </data>
+  <data name="EquivalenceText" xml:space="preserve">
+    <value>Текст соответствия</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Свои значения</value>
+  </data>
+  <data name="QqqOnNq" xml:space="preserve">
+    <value>QQQ на NQ</value>
+  </data>
+  <data name="NdxOnNq" xml:space="preserve">
+    <value>NDX на NQ</value>
+  </data>
+  <data name="SpyOnEs" xml:space="preserve">
+    <value>SPY на ES</value>
+  </data>
+  <data name="SpxOnEs" xml:space="preserve">
+    <value>SPX на ES</value>
+  </data>
+</root>
