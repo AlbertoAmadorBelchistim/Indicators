@@ -111,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>इस स्तर का चार्ट पर टेक्स्ट, टेम्पलेट से बने टेक्स्ट की जगह। खाली रहने पर टेम्पलेट चलता है।</value>
   </data>
+  <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
+    <value>स्कीम चालू होने पर भी यह स्तर अपना रंग, मोटाई और शैली बनाए रखता है।</value>
+  </data>
   <data name="OhlcPlusSchemeDescription" xml:space="preserve">
     <value>हर रेखा का रंग, मोटाई और शैली कहाँ से आते हैं। स्तर चुनने पर हर स्तर अपने ही रहते हैं, जैसे प्लेटफ़ॉर्म इंडिकेटर में।</value>
   </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>स्तर के टेक्स्ट का रंग: चार्ट पर लेबल, प्राइस स्केल पर भाव और स्तर का बैज। ऑटो चुनने पर रंग अपने आप ऐसा चुना जाता है कि टेक्स्ट के पीछे की पृष्ठभूमि से अंतर दिखे।</value>
+  </data>
+  <data name="OwnStyle" xml:space="preserve">
+    <value>अपनी शैली</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>

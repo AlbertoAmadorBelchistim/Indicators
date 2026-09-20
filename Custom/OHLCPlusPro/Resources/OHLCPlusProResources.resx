@@ -111,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Text of this level on the chart, in place of the one built from the template. Empty uses the template.</value>
   </data>
+  <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
+    <value>This level keeps its color, width and style even when a scheme is active.</value>
+  </data>
   <data name="OhlcPlusSchemeDescription" xml:space="preserve">
     <value>Where the color, the width and the style of every line come from. With Levels each level keeps its own, which is how the platform indicator works.</value>
   </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Color of the level's text: the label on the chart, the price on the price scale and the level badge. With Auto selected, the color is picked automatically for contrast with the background behind the text.</value>
+  </data>
+  <data name="OwnStyle" xml:space="preserve">
+    <value>Own style</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>

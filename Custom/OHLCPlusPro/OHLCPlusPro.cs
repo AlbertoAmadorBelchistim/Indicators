@@ -90,6 +90,7 @@ public class LevelSettings : NotifiableObject
     private LineDashStyle _lineStyle;
     private LabelPosition _labelPosition;
     private string _text = string.Empty;
+    private bool _ownStyle;
     private RenderPen? _renderPen;
 
     #endregion
@@ -101,6 +102,16 @@ public class LevelSettings : NotifiableObject
     {
         get => _enabled;
         set => SetField(ref _enabled, value);
+    }
+
+    /// <summary>
+    /// Keeps the color, the width and the style of this level when a scheme is active.
+    /// </summary>
+    [Display(ResourceType = typeof(Res), Name = nameof(Res.OwnStyle), Description = nameof(Res.OhlcPlusOwnStyleDescription))]
+    public bool OwnStyle
+    {
+        get => _ownStyle;
+        set => SetField(ref _ownStyle, value);
     }
 
     [Display(ResourceType = typeof(Res), Name = nameof(Res.Color))]
@@ -1635,7 +1646,7 @@ public class OHLCPlusPro : Indicator
     /// </summary>
     private RenderPen PenFor(FixedProfilePeriods period, int kind, LevelSettings levelSettings)
     {
-        if (_visualScheme == VisualScheme.Levels)
+        if (_visualScheme == VisualScheme.Levels || levelSettings.OwnStyle)
             return levelSettings.RenderPen;
 
         var index = IndexOf(period);

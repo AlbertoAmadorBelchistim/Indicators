@@ -111,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Text dieses Levels im Chart anstelle des aus der Vorlage gebildeten. Leer verwendet die Vorlage.</value>
   </data>
+  <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
+    <value>Dieses Level behält Farbe, Breite und Stil, auch wenn ein Schema aktiv ist.</value>
+  </data>
   <data name="OhlcPlusSchemeDescription" xml:space="preserve">
     <value>Woher Farbe, Breite und Stil jeder Linie kommen. Mit Level behält jedes Level seine eigenen, wie im Indikator der Plattform.</value>
   </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Farbe des Level-Textes: Beschriftung im Chart, Kurs an der Preisskala und Level-Badge. Bei Auto wird die Farbe automatisch für den Kontrast zum Hintergrund gewählt.</value>
+  </data>
+  <data name="OwnStyle" xml:space="preserve">
+    <value>Eigener Stil</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>

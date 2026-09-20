@@ -111,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Текст этого уровня на графике вместо построенного по шаблону. Пусто — используется шаблон.</value>
   </data>
+  <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
+    <value>Этот уровень сохраняет свой цвет, толщину и стиль даже при активной схеме.</value>
+  </data>
   <data name="OhlcPlusSchemeDescription" xml:space="preserve">
     <value>Откуда берутся цвет, толщина и стиль каждой линии. В режиме «Уровни» каждый уровень сохраняет свои, как в индикаторе платформы.</value>
   </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Цвет текста уровня: подпись на графике, цена на шкале и бейдж уровня. При «Авто» цвет подбирается автоматически для контраста с фоном под текстом.</value>
+  </data>
+  <data name="OwnStyle" xml:space="preserve">
+    <value>Свой стиль</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>

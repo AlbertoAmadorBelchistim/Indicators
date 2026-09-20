@@ -111,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Texte de ce niveau sur le graphique, à la place de celui construit par le modèle. Vide utilise le modèle.</value>
   </data>
+  <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
+    <value>Ce niveau conserve sa couleur, son épaisseur et son style même lorsqu'un schéma est actif.</value>
+  </data>
   <data name="OhlcPlusSchemeDescription" xml:space="preserve">
     <value>D'où viennent la couleur, l'épaisseur et le style de chaque ligne. Avec Niveaux, chaque niveau garde les siens, comme dans l'indicateur de la plateforme.</value>
   </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Couleur du texte du niveau : l'étiquette sur le graphique, le prix sur l'échelle et le badge du niveau. Avec Auto, la couleur est choisie pour contraster avec le fond derrière le texte.</value>
+  </data>
+  <data name="OwnStyle" xml:space="preserve">
+    <value>Style propre</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>

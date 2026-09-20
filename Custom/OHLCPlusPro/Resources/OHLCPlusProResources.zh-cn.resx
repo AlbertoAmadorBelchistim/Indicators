@@ -111,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>该水平线在图表上的文字，取代按模板生成的文字。留空则用模板。</value>
   </data>
+  <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
+    <value>即使启用了配色方案，该水平线仍保留自己的颜色、粗细和线型。</value>
+  </data>
   <data name="OhlcPlusSchemeDescription" xml:space="preserve">
     <value>每条线的颜色、粗细和线型来自哪里。选择「水平线」时各自保留自己的设置，与平台指标一致。</value>
   </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>水平线文字的颜色：图表上的标签、价格坐标轴上的价格以及水平线标记。选择自动时，颜色会自动挑选以与文字背后的背景形成对比。</value>
+  </data>
+  <data name="OwnStyle" xml:space="preserve">
+    <value>自有样式</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
