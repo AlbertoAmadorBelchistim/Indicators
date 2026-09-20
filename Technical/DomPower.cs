@@ -79,8 +79,7 @@ public class DomPower : Indicator
 					_levelDepth.PropertyChanged += DepthFilterChanged;
 			}
 
-			DataSeries.ForEach(x => x.Clear());
-            RedrawChart();
+			ResetAfterFilterChange();
 		}
 	}
 
@@ -107,22 +106,7 @@ public class DomPower : Indicator
 	protected override void OnCalculate(int bar, decimal value)
 	{
 		if (bar is 0)
-		{
-			lock (_locker)
-			{
-				_mDepthAsk.Clear();
-				_mDepthBid.Clear();
-				var depths = MarketDepthInfo.GetMarketDepthSnapshot();
-
-				foreach (var depth in depths)
-				{
-					if (depth.DataType is MarketDataType.Ask)
-						_mDepthAsk[depth.Price] = depth.Volume;
-					else
-						_mDepthBid[depth.Price] = depth.Volume;
-				}
-			}
-		}
+			LoadBooks();
 
 		if (bar > 0 && bar != _lastBar) 
 		{
@@ -261,8 +245,46 @@ public class DomPower : Indicator
 
 	private void DepthFilterChanged(object sender, PropertyChangedEventArgs e)
 	{
+		ResetAfterFilterChange();
+	}
+
+	private void ResetAfterFilterChange()
+	{
+		// The books are only kept up to date while the filter is on: reload them, or turning
+		// the filter on would add up a snapshot from when the chart was loaded.
+		LoadBooks();
+
 		DataSeries.ForEach(x => x.Clear());
+
+		// The last bar's extremes were cleared too: start them again from the next update,
+		// not from a false 0.
+		lock (_locker)
+			_isLastDeltaCalc = false;
+
 		RedrawChart();
+	}
+
+	private void LoadBooks()
+	{
+		// Null while the settings are loaded, before the indicator is attached to a chart.
+		var marketDepth = MarketDepthInfo;
+
+		lock (_locker)
+		{
+			_mDepthAsk.Clear();
+			_mDepthBid.Clear();
+
+			if (marketDepth is null)
+				return;
+
+			foreach (var depth in marketDepth.GetMarketDepthSnapshot())
+			{
+				if (depth.DataType is MarketDataType.Ask)
+					_mDepthAsk[depth.Price] = depth.Volume;
+				else
+					_mDepthBid[depth.Price] = depth.Volume;
+			}
+		}
 	}
 
 	#endregion
