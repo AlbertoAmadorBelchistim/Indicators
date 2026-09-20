@@ -1036,6 +1036,15 @@ public class OHLCPlus : Indicator
         SubscribeAllLevels();
     }
 
+    protected override void OnDispose()
+    {
+        foreach (var ls in _subscribedLevels)
+            ls.PropertyChanged -= OnLevelSettingsChanged;
+
+        _subscribedLevels.Clear();
+        _periodByLevel.Clear();
+    }
+
     public override bool ProcessKeyDown(CrossKeyEventArgs e)
     {
         if (ToggleVisibilityHotKey != null && ToggleVisibilityHotKey.Contains(e.Key))
@@ -1054,6 +1063,11 @@ public class OHLCPlus : Indicator
             _profileCandles.Clear();
             _originProfileCandles.Clear();
             _levels.Clear();
+
+            // Loading a template or a workspace replaces the LevelSettings objects after
+            // OnInitialize: follow the new ones and request the periods they need.
+            RecalcAllNeeds();
+            SubscribeAllLevels();
         }
 
         if (bar == 0 || IsNewSession(bar) && _lastBar != bar)
@@ -1469,8 +1483,21 @@ public class OHLCPlus : Indicator
 
     private void SubscribeAllLevels()
     {
+        var current = new HashSet<LevelSettings>(RefEqComparer.Instance);
+
         foreach (var (ls, period) in EnumerateAllLevelSettingsWithPeriods())
+        {
+            current.Add(ls);
             TrySubscribe(ls, period);
+        }
+
+        // Stop following the settings objects that were replaced.
+        foreach (var ls in _subscribedLevels.Where(ls => !current.Contains(ls)).ToList())
+        {
+            ls.PropertyChanged -= OnLevelSettingsChanged;
+            _subscribedLevels.Remove(ls);
+            _periodByLevel.Remove(ls);
+        }
     }
 
     private IEnumerable<(LevelSettings ls, FixedProfilePeriods period)> EnumerateAllLevelSettingsWithPeriods()
@@ -1513,7 +1540,13 @@ public class OHLCPlus : Indicator
                 else
                     RedrawChart();
             }
+
+            return;
         }
+
+        // Color, text color, width, style, line type, label position and price only change the
+        // drawing.
+        RedrawChart();
     }
 
     private bool IsNeeded(FixedProfilePeriods period)
