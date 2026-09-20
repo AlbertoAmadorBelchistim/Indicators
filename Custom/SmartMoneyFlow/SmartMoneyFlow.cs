@@ -66,6 +66,9 @@ public class SmartMoneyFlow : Indicator
 	// Number of trade-size filters.
 	private const int FilterCount = 5;
 
+	// Number of most recent bars written to the log after the history (detailed log).
+	private const int LoggedHistoryBars = 20;
+
 	// One cumulative delta line per trade-size filter. Filter 1 replaces the default series.
 	private readonly ValueDataSeries[] _filterSeries = new ValueDataSeries[FilterCount];
 
@@ -87,6 +90,16 @@ public class SmartMoneyFlow : Indicator
 		UseMinimizedModeIfEnabled = true
 	};
 
+	private ViewMode _viewMode = ViewMode.Filters;
+
+	// Cumulative trades (default) or individual ticks.
+	private bool _cumulativeTrades = true;
+
+	// Number of sessions calculated, counting the current one; 0 = every loaded bar.
+	private int _sessions = 1;
+	private SessionMode _sessionMode = SessionMode.Default;
+	private TimeSpan _customSessionStart = new(15, 30, 0);
+
 	// Trade-size range of each filter: a trade matches when Min <= volume <= Max; Max 0 means no maximum.
 	// Defaults are the MultiMarketPower ranges.
 	private readonly decimal[] _minVolume = { 0, 6, 11, 21, 41 };
@@ -96,8 +109,6 @@ public class SmartMoneyFlow : Indicator
 	// Spread = sum of the smart money filters - sum of the dumb money filters.
 	// Default: the two largest sizes against the two smallest.
 	private readonly FilterRole[] _role = { FilterRole.Dumb, FilterRole.Dumb, FilterRole.None, FilterRole.Smart, FilterRole.Smart };
-
-	private ViewMode _viewMode = ViewMode.Filters;
 
 	// Spread histogram colors, by sign.
 	private CrossColor _spreadPositiveColor = CrossColor.FromArgb(255, 0, 255, 0);
@@ -119,42 +130,18 @@ public class SmartMoneyFlow : Indicator
 	private string _alertFile = "alert2";
 	private int _alertCooldownSeconds = 60;
 
-	// Last non-zero sign seen in realtime of the spread and of spread - signal; 0 until the first
-	// observation after a recalculation or a new session, which never alerts.
-	private int _spreadSign;
-	private int _signalSign;
-	private DateTime _lastZeroAlertUtc = DateTime.MinValue;
-	private DateTime _lastSignalAlertUtc = DateTime.MinValue;
-
 	private bool _detailedLog;
-
-	// Number of most recent bars written to the log after the history (detailed log).
-	private const int LoggedHistoryBars = 20;
-
-	// Realtime updates that did not match the last trade and were counted as new trades.
-	private int _orphanUpdates;
-
-	// Alerts produced under _calcLock and raised after it is released.
-	private readonly List<(string Message, bool Positive)> _pendingAlerts = new();
-
-	// Cumulative trades (default) or individual ticks.
-	private bool _cumulativeTrades = true;
-
-	// Running signed volume (buy +, sell -) of each filter since the first calculated bar.
-	private readonly decimal[] _delta = new decimal[FilterCount];
 
 	// Guards the calculation state: the history response, realtime trades and the
 	// calculation thread can all update it.
 	private readonly object _calcLock = new();
 
+	// Running signed volume (buy +, sell -) of each filter since the first calculated bar.
+	private readonly decimal[] _delta = new decimal[FilterCount];
+
 	// First bar of the calculation and last bar written.
 	private int _firstBar;
 	private int _lastBar = -1;
-
-	// Number of sessions calculated, counting the current one; 0 = every loaded bar.
-	private int _sessions = 1;
-	private SessionMode _sessionMode = SessionMode.Default;
-	private TimeSpan _customSessionStart = new(15, 30, 0);
 
 	// Whether each written bar starts a session: the lines restart from 0 there.
 	private readonly List<bool> _sessionStart = new();
@@ -173,6 +160,18 @@ public class SmartMoneyFlow : Indicator
 	// Realtime ticks received while the history is pending (tick mode).
 	private readonly List<MarketDataArg> _pendingTicks = new();
 
+	// Time of the last trade in the history response, and the response trades counted at that
+	// time with their bar. Buffered trades before it, or equal to one of those, are already counted
+	// in the history. Several trades can share the last timestamp and the response does not say
+	// which one is still aggregating, so an update of any of them replaces its volume.
+	private DateTime _historyEndTime;
+	private readonly List<(CumulativeTrade Trade, int Bar)> _boundaryTrades = new();
+
+	// Last trade counted and the bar it was counted in. A cumulative trade keeps growing while
+	// it aggregates, and its updates replace the volume counted for it.
+	private CumulativeTrade _lastTrade;
+	private int _lastTradeBar;
+
 	// Tick mode: number of response ticks with the last response time. Ticks carry no identity,
 	// so the buffered ticks with that time are matched by count: the response ticks at that time
 	// that the buffer does not have were received before the recalculation.
@@ -185,17 +184,18 @@ public class SmartMoneyFlow : Indicator
 	private DateTime _bufferStartTickTime;
 	private int _bufferStartTickCount;
 
-	// Time of the last trade in the history response, and the response trades counted at that
-	// time with their bar. Buffered trades before it, or equal to one of those, are already counted
-	// in the history. Several trades can share the last timestamp and the response does not say
-	// which one is still aggregating, so an update of any of them replaces its volume.
-	private DateTime _historyEndTime;
-	private readonly List<(CumulativeTrade Trade, int Bar)> _boundaryTrades = new();
+	// Realtime updates that did not match the last trade and were counted as new trades.
+	private int _orphanUpdates;
 
-	// Last trade counted and the bar it was counted in. A cumulative trade keeps growing while
-	// it aggregates, and its updates replace the volume counted for it.
-	private CumulativeTrade _lastTrade;
-	private int _lastTradeBar;
+	// Last non-zero sign seen in realtime of the spread and of spread - signal; 0 until the first
+	// observation after a recalculation or a new session, which never alerts.
+	private int _spreadSign;
+	private int _signalSign;
+	private DateTime _lastZeroAlertUtc = DateTime.MinValue;
+	private DateTime _lastSignalAlertUtc = DateTime.MinValue;
+
+	// Alerts produced under _calcLock and raised after it is released.
+	private readonly List<(string Message, bool Positive)> _pendingAlerts = new();
 
 	#endregion
 
@@ -218,163 +218,25 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Positive color", GroupName = "Spread", Description = "Color of the spread bars at or above zero (two colors).", Order = 1010)]
-	public CrossColor SpreadPositiveColor
+	[Display(Name = "Cumulative trades", GroupName = "Calculation",
+		Description = "Counts cumulative trades (all the ticks of one aggressive order as one trade). Off: counts individual ticks.",
+		Order = 10)]
+	public bool CumulativeTrades
 	{
-		get => _spreadPositiveColor;
+		get => _cumulativeTrades;
 		set
 		{
-			_spreadPositiveColor = value;
-			RefreshSpreadColors();
-		}
-	}
-
-	[Display(Name = "Negative color", GroupName = "Spread", Description = "Color of the spread bars below zero (two colors).", Order = 1020)]
-	public CrossColor SpreadNegativeColor
-	{
-		get => _spreadNegativeColor;
-		set
-		{
-			_spreadNegativeColor = value;
-			RefreshSpreadColors();
-		}
-	}
-
-	[Display(Name = "Show signal line", GroupName = "Spread", Description = "Draws the signal line over the spread in the Spread view.", Order = 1030)]
-	public bool ShowSignalLine
-	{
-		get => _showSignalLine;
-		set
-		{
-			_showSignalLine = value;
-			UpdateVisibility();
-			RedrawChart();
-		}
-	}
-
-	[Display(Name = "Signal period", GroupName = "Spread", Description = "Number of bars of the signal line, a simple moving average of the spread. It restarts with each session.", Order = 1040)]
-	[Range(2, 500)]
-	[PostValueMode(PostValueModes.OnLostFocus)]
-	public int SignalPeriod
-	{
-		get => _signalPeriod;
-		set
-		{
-			if (_signalPeriod == value)
+			if (_cumulativeTrades == value)
 				return;
 
-			_signalPeriod = value;
-			RefreshSpreadColors();
+			_cumulativeTrades = value;
+			RecalculateValues();
 		}
 	}
 
-	[Display(Name = "Signal color", GroupName = "Spread", Description = "Color of the signal line.", Order = 1050)]
-	public CrossColor SignalColor
-	{
-		get => _signalSeries.Color;
-		set => _signalSeries.Color = value;
-	}
+	#endregion
 
-	[Display(Name = "Signal line width", GroupName = "Spread", Description = "Width of the signal line.", Order = 1060)]
-	[Range(1, 20)]
-	public int SignalWidth
-	{
-		get => _signalSeries.Width;
-		set => _signalSeries.Width = value;
-	}
-
-	[Display(Name = "Four colors", GroupName = "Spread", Description = "Colors the spread by its sign and by the direction of the signal line (rising or falling), instead of by sign only.", Order = 1070)]
-	public bool UseFourColors
-	{
-		get => _useFourColors;
-		set
-		{
-			_useFourColors = value;
-			RefreshSpreadColors();
-		}
-	}
-
-	[Display(Name = "Positive, signal rising", GroupName = "Spread", Description = "Four colors: spread at or above zero with a rising signal.", Order = 1080)]
-	public CrossColor PositiveRisingColor
-	{
-		get => _positiveRisingColor;
-		set
-		{
-			_positiveRisingColor = value;
-			RefreshSpreadColors();
-		}
-	}
-
-	[Display(Name = "Positive, signal falling", GroupName = "Spread", Description = "Four colors: spread at or above zero with a falling signal.", Order = 1090)]
-	public CrossColor PositiveFallingColor
-	{
-		get => _positiveFallingColor;
-		set
-		{
-			_positiveFallingColor = value;
-			RefreshSpreadColors();
-		}
-	}
-
-	[Display(Name = "Negative, signal rising", GroupName = "Spread", Description = "Four colors: spread below zero with a rising signal.", Order = 1100)]
-	public CrossColor NegativeRisingColor
-	{
-		get => _negativeRisingColor;
-		set
-		{
-			_negativeRisingColor = value;
-			RefreshSpreadColors();
-		}
-	}
-
-	[Display(Name = "Negative, signal falling", GroupName = "Spread", Description = "Four colors: spread below zero with a falling signal.", Order = 1110)]
-	public CrossColor NegativeFallingColor
-	{
-		get => _negativeFallingColor;
-		set
-		{
-			_negativeFallingColor = value;
-			RefreshSpreadColors();
-		}
-	}
-
-	[Display(Name = "Spread crosses zero", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar changes sign.", Order = 2010)]
-	public bool AlertOnZeroCross
-	{
-		get => _alertOnZeroCross;
-		set => _alertOnZeroCross = value;
-	}
-
-	[Display(Name = "Spread crosses signal", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar crosses the signal line.", Order = 2020)]
-	public bool AlertOnSignalCross
-	{
-		get => _alertOnSignalCross;
-		set => _alertOnSignalCross = value;
-	}
-
-	[Display(Name = "Alert sound", GroupName = "Alerts", Description = "Sound file of the alerts.", Order = 2030)]
-	public string AlertFile
-	{
-		get => _alertFile;
-		set => _alertFile = value;
-	}
-
-	[Display(Name = "Minimum time between alerts (seconds)", GroupName = "Alerts", Description = "Minimum time between two alerts of the same kind. Crosses in between do not alert.", Order = 2040)]
-	[Range(0, 3600)]
-	public int AlertCooldownSeconds
-	{
-		get => _alertCooldownSeconds;
-		set => _alertCooldownSeconds = value;
-	}
-
-	[Display(Name = "Detailed log", GroupName = "Diagnostics",
-		Description = "Writes to the ATAS log the values of the last 20 bars after each recalculation and of every bar that closes afterwards.",
-		Order = 3010)]
-	public bool DetailedLog
-	{
-		get => _detailedLog;
-		set => _detailedLog = value;
-	}
+	#region Properties: Session
 
 	[Display(Name = "Session", GroupName = "Session",
 		Description = "Where the lines restart from 0: at each default session of the chart, every day at a custom time, or never (continuous).",
@@ -427,21 +289,9 @@ public class SmartMoneyFlow : Indicator
 		}
 	}
 
-	[Display(Name = "Cumulative trades", GroupName = "Calculation",
-		Description = "Counts cumulative trades (all the ticks of one aggressive order as one trade). Off: counts individual ticks.",
-		Order = 10)]
-	public bool CumulativeTrades
-	{
-		get => _cumulativeTrades;
-		set
-		{
-			if (_cumulativeTrades == value)
-				return;
+	#endregion
 
-			_cumulativeTrades = value;
-			RecalculateValues();
-		}
-	}
+	#region Properties: Filters
 
 	[Display(Name = "Enabled", GroupName = "Filter 1", Description = "Shows the line of this filter in the Filters view. The filter still counts in the spread.", Order = 100)]
 	public bool UseFilter1
@@ -676,6 +526,176 @@ public class SmartMoneyFlow : Indicator
 	{
 		get => _filterSeries[4].Width;
 		set => _filterSeries[4].Width = value;
+	}
+
+	#endregion
+
+	#region Properties: Spread
+
+	[Display(Name = "Positive color", GroupName = "Spread", Description = "Color of the spread bars at or above zero (two colors).", Order = 1010)]
+	public CrossColor SpreadPositiveColor
+	{
+		get => _spreadPositiveColor;
+		set
+		{
+			_spreadPositiveColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Negative color", GroupName = "Spread", Description = "Color of the spread bars below zero (two colors).", Order = 1020)]
+	public CrossColor SpreadNegativeColor
+	{
+		get => _spreadNegativeColor;
+		set
+		{
+			_spreadNegativeColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Show signal line", GroupName = "Spread", Description = "Draws the signal line over the spread in the Spread view.", Order = 1030)]
+	public bool ShowSignalLine
+	{
+		get => _showSignalLine;
+		set
+		{
+			_showSignalLine = value;
+			UpdateVisibility();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Signal period", GroupName = "Spread", Description = "Number of bars of the signal line, a simple moving average of the spread. It restarts with each session.", Order = 1040)]
+	[Range(2, 500)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int SignalPeriod
+	{
+		get => _signalPeriod;
+		set
+		{
+			if (_signalPeriod == value)
+				return;
+
+			_signalPeriod = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Signal color", GroupName = "Spread", Description = "Color of the signal line.", Order = 1050)]
+	public CrossColor SignalColor
+	{
+		get => _signalSeries.Color;
+		set => _signalSeries.Color = value;
+	}
+
+	[Display(Name = "Signal line width", GroupName = "Spread", Description = "Width of the signal line.", Order = 1060)]
+	[Range(1, 20)]
+	public int SignalWidth
+	{
+		get => _signalSeries.Width;
+		set => _signalSeries.Width = value;
+	}
+
+	[Display(Name = "Four colors", GroupName = "Spread", Description = "Colors the spread by its sign and by the direction of the signal line (rising or falling), instead of by sign only.", Order = 1070)]
+	public bool UseFourColors
+	{
+		get => _useFourColors;
+		set
+		{
+			_useFourColors = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Positive, signal rising", GroupName = "Spread", Description = "Four colors: spread at or above zero with a rising signal.", Order = 1080)]
+	public CrossColor PositiveRisingColor
+	{
+		get => _positiveRisingColor;
+		set
+		{
+			_positiveRisingColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Positive, signal falling", GroupName = "Spread", Description = "Four colors: spread at or above zero with a falling signal.", Order = 1090)]
+	public CrossColor PositiveFallingColor
+	{
+		get => _positiveFallingColor;
+		set
+		{
+			_positiveFallingColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Negative, signal rising", GroupName = "Spread", Description = "Four colors: spread below zero with a rising signal.", Order = 1100)]
+	public CrossColor NegativeRisingColor
+	{
+		get => _negativeRisingColor;
+		set
+		{
+			_negativeRisingColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	[Display(Name = "Negative, signal falling", GroupName = "Spread", Description = "Four colors: spread below zero with a falling signal.", Order = 1110)]
+	public CrossColor NegativeFallingColor
+	{
+		get => _negativeFallingColor;
+		set
+		{
+			_negativeFallingColor = value;
+			RefreshSpreadColors();
+		}
+	}
+
+	#endregion
+
+	#region Properties: Alerts
+
+	[Display(Name = "Spread crosses zero", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar changes sign.", Order = 2010)]
+	public bool AlertOnZeroCross
+	{
+		get => _alertOnZeroCross;
+		set => _alertOnZeroCross = value;
+	}
+
+	[Display(Name = "Spread crosses signal", GroupName = "Alerts", Description = "Alerts when the spread of the forming bar crosses the signal line.", Order = 2020)]
+	public bool AlertOnSignalCross
+	{
+		get => _alertOnSignalCross;
+		set => _alertOnSignalCross = value;
+	}
+
+	[Display(Name = "Alert sound", GroupName = "Alerts", Description = "Sound file of the alerts.", Order = 2030)]
+	public string AlertFile
+	{
+		get => _alertFile;
+		set => _alertFile = value;
+	}
+
+	[Display(Name = "Minimum time between alerts (seconds)", GroupName = "Alerts", Description = "Minimum time between two alerts of the same kind. Crosses in between do not alert.", Order = 2040)]
+	[Range(0, 3600)]
+	public int AlertCooldownSeconds
+	{
+		get => _alertCooldownSeconds;
+		set => _alertCooldownSeconds = value;
+	}
+
+	#endregion
+
+	#region Properties: Diagnostics
+
+	[Display(Name = "Detailed log", GroupName = "Diagnostics",
+		Description = "Writes to the ATAS log the values of the last 20 bars after each recalculation and of every bar that closes afterwards.",
+		Order = 3010)]
+	public bool DetailedLog
+	{
+		get => _detailedLog;
+		set => _detailedLog = value;
 	}
 
 	#endregion
