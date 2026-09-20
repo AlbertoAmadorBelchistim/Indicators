@@ -85,18 +85,57 @@ public class DiagonalImbalance : Indicator
 
 		public int Levels { get; }
 
-		// Bar that traded through the zone; -1 while the zone is active.
-		public int EndBar { get; set; } = -1;
+		// Last bar covered by the zone; -1 while the zone is active.
+		public int EndBar { get; private set; } = -1;
+
+		public ZoneEnd EndReason { get; private set; } = ZoneEnd.Active;
 
 		public bool IsActive => EndBar < 0;
 
-		// A buy zone (stacked Ask imbalances, acting as support) breaks when price trades below
-		// its lowest level; a sell zone (stacked Bid imbalances, resistance) when it trades above
-		// its highest level.
-		public bool IsBrokenBy(decimal barLow, decimal barHigh)
+		public void End(int bar, ZoneEnd reason)
 		{
-			return IsBuy ? barLow < Low : barHigh > High;
+			EndBar = bar;
+			EndReason = reason;
 		}
+
+		// A buy zone (stacked Ask imbalances) acts as support and a sell zone (stacked Bid
+		// imbalances) as resistance; the far edge is Low for a buy zone and High for a sell zone.
+		public bool IsBrokenBy(ZoneBreakMode mode, decimal barLow, decimal barHigh, decimal barClose)
+		{
+			return mode switch
+			{
+				ZoneBreakMode.Touch => IsBuy ? barLow <= High : barHigh >= Low,
+				ZoneBreakMode.CloseBeyond => IsBuy ? barClose < Low : barClose > High,
+				_ => IsBuy ? barLow < Low : barHigh > High
+			};
+		}
+	}
+
+	#endregion
+
+	#region Nested Types: Zones
+
+	public enum ZoneBreakMode
+	{
+		// Price trades into the zone.
+		[Display(Name = "Touch")]
+		Touch,
+
+		// Price trades beyond the far edge of the zone (below a buy zone, above a sell zone).
+		[Display(Name = "Trade through")]
+		TradeThrough,
+
+		// A bar closes beyond the far edge of the zone. Only closed bars can break it.
+		[Display(Name = "Close beyond")]
+		CloseBeyond
+	}
+
+	internal enum ZoneEnd
+	{
+		Active,
+		Broken,
+		Expired,
+		Replaced
 	}
 
 	#endregion
@@ -130,8 +169,9 @@ public class DiagonalImbalance : Indicator
 	private int _formingBar = -1;
 	private ImbalanceLevel[] _formingLevels = NoImbalances;
 
-	// Zones in creation order (StartBar ascending). Guarded by _barsLock.
+	// Zones in creation order (StartBar ascending), and the subset still active. Guarded by _barsLock.
 	private readonly List<ImbalanceZone> _zones = new();
+	private readonly List<ImbalanceZone> _activeZones = new();
 
 	// Visible zones copied under the lock by OnRender, reused between frames: (start, end, zone).
 	private readonly List<(int StartBar, int EndBar, ImbalanceZone Zone)> _renderZones = new();
@@ -146,6 +186,10 @@ public class DiagonalImbalance : Indicator
 	private bool _ignoreZeroLevels;
 	private decimal _minVolumeDifference;
 	private int _minStackedLevels = 3;
+
+	private ZoneBreakMode _zoneBreakMode = ZoneBreakMode.TradeThrough;
+	private int _maxZoneAgeBars;
+	private int _maxActiveZones = 50;
 
 	private bool _showMarks = true;
 	private Color _buyColor = Color.FromArgb(140, 0, 200, 83);
@@ -246,6 +290,60 @@ public class DiagonalImbalance : Indicator
 				return;
 
 			_minStackedLevels = value;
+			RecalculateValues();
+		}
+	}
+
+	#endregion
+
+	#region Properties: Zones
+
+	[Display(Name = "Zone break rule", GroupName = "Zones", Order = 300,
+		Description = "Touch: price trades into the zone. Trade through: price trades beyond its far edge " +
+			"(below a buy zone, above a sell zone). Close beyond: a bar closes beyond its far edge.")]
+	public ZoneBreakMode BreakMode
+	{
+		get => _zoneBreakMode;
+		set
+		{
+			if (_zoneBreakMode == value)
+				return;
+
+			_zoneBreakMode = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Maximum zone age (bars)", GroupName = "Zones", Order = 310,
+		Description = "A zone that has not been broken after this many bars stops extending. 0 = no limit.")]
+	[Range(0, 100000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int MaxZoneAgeBars
+	{
+		get => _maxZoneAgeBars;
+		set
+		{
+			if (_maxZoneAgeBars == value)
+				return;
+
+			_maxZoneAgeBars = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Maximum active zones", GroupName = "Zones", Order = 320,
+		Description = "When a new zone would exceed this number of active zones, the oldest active zone stops extending. 0 = no limit.")]
+	[Range(0, 1000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int MaxActiveZones
+	{
+		get => _maxActiveZones;
+		set
+		{
+			if (_maxActiveZones == value)
+				return;
+
+			_maxActiveZones = value;
 			RecalculateValues();
 		}
 	}
@@ -360,6 +458,7 @@ public class DiagonalImbalance : Indicator
 			_barImbalances.Clear();
 			_barStacks.Clear();
 			_zones.Clear();
+			_activeZones.Clear();
 			_formingBar = -1;
 			_formingLevels = NoImbalances;
 		}
@@ -403,7 +502,8 @@ public class DiagonalImbalance : Indicator
 			$"{_historyBuyStacks} buy / {_historySellStacks} sell stacks " +
 			$"(ratio {_imbalanceRatio}, min dominant volume {_minDominantVolume}, " +
 			$"min volume difference {_minVolumeDifference}, ignore zero levels {_ignoreZeroLevels}, " +
-			$"stacked levels {_minStackedLevels}), {CountActiveZones()} active zones.");
+			$"stacked levels {_minStackedLevels}), {CountActiveZones()} active zones " +
+			$"(break rule {_zoneBreakMode}, max age {_maxZoneAgeBars}, max active {_maxActiveZones}).");
 
 		for (var bar = Math.Max(0, lastClosed - LoggedHistoryBars + 1); bar <= lastClosed; bar++)
 			LogBar(bar);
@@ -520,8 +620,9 @@ public class DiagonalImbalance : Indicator
 			_formingBar = bar;
 			_formingLevels = levels;
 
-			// The High and Low of a forming bar only extend, so a break seen now is final.
-			BreakZones(bar, candle.Low, candle.High);
+			// The High and Low of a forming bar only extend, so a touch or a trade through seen now
+			// is final. Its Close is not, so CloseBeyond waits for the bar to close.
+			UpdateZones(bar, candle.Low, candle.High, candle.Close, false);
 		}
 	}
 
@@ -544,10 +645,10 @@ public class DiagonalImbalance : Indicator
 			// Existing zones are tested against this bar first; the bar's own stacks become
 			// zones afterwards, so a zone is only ever broken by a later bar.
 			var candle = GetCandle(bar);
-			BreakZones(bar, candle.Low, candle.High);
+			UpdateZones(bar, candle.Low, candle.High, candle.Close, true);
 
 			foreach (var stack in stacks)
-				_zones.Add(new ImbalanceZone(bar, stack));
+				AddZone(new ImbalanceZone(bar, stack));
 
 			if (_formingBar == bar)
 			{
@@ -578,38 +679,59 @@ public class DiagonalImbalance : Indicator
 			LogBar(bar);
 	}
 
-	// Called under _barsLock. Ends every active zone older than the bar that the bar trades through.
-	private void BreakZones(int bar, decimal barLow, decimal barHigh)
+	// Called under _barsLock. Ends the active zones older than the bar that the bar breaks
+	// (according to BreakMode) or that reach MaxZoneAgeBars at this bar.
+	private void UpdateZones(int bar, decimal barLow, decimal barHigh, decimal barClose, bool barClosed)
 	{
-		foreach (var zone in _zones)
+		for (var i = _activeZones.Count - 1; i >= 0; i--)
 		{
-			if (!zone.IsActive || zone.StartBar >= bar || !zone.IsBrokenBy(barLow, barHigh))
+			var zone = _activeZones[i];
+
+			if (zone.StartBar >= bar)
 				continue;
 
-			zone.EndBar = bar;
+			ZoneEnd reason;
 
-			if (_historyLoaded)
-			{
-				this.LogInfo($"DiagonalImbalance: zone {(zone.IsBuy ? "B" : "S")} {zone.Low}-{zone.High} " +
-					$"from bar {zone.StartBar} broken at bar {bar}.");
-			}
+			if ((barClosed || _zoneBreakMode != ZoneBreakMode.CloseBeyond)
+				&& zone.IsBrokenBy(_zoneBreakMode, barLow, barHigh, barClose))
+				reason = ZoneEnd.Broken;
+			else if (_maxZoneAgeBars > 0 && bar - zone.StartBar >= _maxZoneAgeBars)
+				reason = ZoneEnd.Expired;
+			else
+				continue;
+
+			EndZone(i, bar, reason);
+		}
+	}
+
+	// Called under _barsLock. Adds a zone; beyond MaxActiveZones the oldest active zone is retired.
+	private void AddZone(ImbalanceZone zone)
+	{
+		_zones.Add(zone);
+		_activeZones.Add(zone);
+
+		// _activeZones keeps creation order, so index 0 is the oldest active zone.
+		while (_maxActiveZones > 0 && _activeZones.Count > _maxActiveZones)
+			EndZone(0, zone.StartBar, ZoneEnd.Replaced);
+	}
+
+	private void EndZone(int activeIndex, int bar, ZoneEnd reason)
+	{
+		var zone = _activeZones[activeIndex];
+		_activeZones.RemoveAt(activeIndex);
+		zone.End(bar, reason);
+
+		if (_historyLoaded)
+		{
+			this.LogInfo($"DiagonalImbalance: zone {(zone.IsBuy ? "B" : "S")} {zone.Low}-{zone.High} " +
+				$"from bar {zone.StartBar} {reason.ToString().ToLowerInvariant()} at bar {bar}.");
 		}
 	}
 
 	private int CountActiveZones()
 	{
 		lock (_barsLock)
-		{
-			var active = 0;
-
-			foreach (var zone in _zones)
-			{
-				if (zone.IsActive)
-					active++;
-			}
-
-			return active;
-		}
+			return _activeZones.Count;
 	}
 
 	// Walks the bar from Low to High. At each price P the Ask of P and the Bid of P - 1 tick
