@@ -2442,22 +2442,13 @@ namespace ATAS.Indicators.Technical
 
 		private void DetectAndFireAlerts(int bar)
 		{
-			if (!_enableAlerts) return;
-			if (_levels == null || _levels.Length == 0) return;
 			if (bar < CurrentBar - 1) return;
 
-			var current = GetCandle(bar);
-			var currentClose = current.Close;
-			var now = DateTime.Now;
-			var ticker = InstrumentInfo?.Instrument ?? string.Empty;
+			var currentClose = GetCandle(bar).Close;
 
-			// Process pending alerts whose cooldown has expired. May emit
-			// reversal notifications as a side effect. Done first so the
-			// _pendingAlerts table is in its post-expiry state when the
-			// cross-detection loop below consults it.
-			ProcessExpiredAlerts(currentClose, ticker, now);
-
-			// First call ever — seed and exit. No previous tick to compare.
+			// The last price is tracked even while the alerts are off: otherwise switching them on
+			// compared the first tick with a price from long before and alerted for every level
+			// crossed in between.
 			if (!_alertStateInitialised)
 			{
 				_lastObservedClose = currentClose;
@@ -2468,10 +2459,25 @@ namespace ATAS.Indicators.Technical
 			var prevObserved = _lastObservedClose;
 			_lastObservedClose = currentClose;
 
+			if (!_enableAlerts)
+			{
+				_pendingAlerts.Clear();
+				return;
+			}
+
+			if (_levels == null || _levels.Length == 0) return;
+
+			var now = DateTime.Now;
+			var ticker = InstrumentInfo?.Instrument ?? string.Empty;
+
+			// Process pending alerts whose cooldown has expired. May emit
+			// reversal notifications as a side effect. Done first so the
+			// _pendingAlerts table is in its post-expiry state when the
+			// cross-detection loop below consults it.
+			ProcessExpiredAlerts(currentClose, ticker, now);
+
 			if (currentClose == prevObserved) return;
 
-			var lo = Math.Min(prevObserved, currentClose);
-			var hi = Math.Max(prevObserved, currentClose);
 			var directionAbove = currentClose > prevObserved;
 
 			for (int i = 0; i < _levels.Length; i++)
@@ -2481,7 +2487,14 @@ namespace ATAS.Indicators.Technical
 				if (!IsCategoryVisible(level.Winner.Category))
 					continue;
 
-				if (level.Price <= lo || level.Price >= hi)
+				// A level is crossed when the price reaches it from the other side. With a strict
+				// check on both ends, a price that stopped exactly on the level and then went on
+				// was never seen crossing it, and futures levels usually sit on a tick.
+				var crossed = directionAbove
+					? prevObserved < level.Price && currentClose >= level.Price
+					: prevObserved > level.Price && currentClose <= level.Price;
+
+				if (!crossed)
 					continue;
 
 				// Cooldown gate. ContainsKey is now equivalent to "cooldown
