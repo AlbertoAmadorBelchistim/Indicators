@@ -1,5 +1,6 @@
 namespace ATAS.Indicators.Technical;
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -16,6 +17,48 @@ using Utils.Common.Logging;
 public class DeltaThresholds : Indicator
 {
 	#region Nested Types
+
+	public enum ThresholdSource
+	{
+		// The four levels set in the settings.
+		[Display(Name = "Fixed")]
+		Fixed,
+
+		// Mean and standard deviation of the bar extremes of the session so far.
+		[Display(Name = "Dynamic (session statistics)")]
+		Dynamic
+	}
+
+	// Running mean and variance (Welford). One sample per closed bar.
+	internal struct RunningStats
+	{
+		public int Count { get; private set; }
+
+		public decimal Mean { get; private set; }
+
+		private decimal _m2;
+
+		public void Add(decimal x)
+		{
+			Count++;
+			var delta = x - Mean;
+			Mean += delta / Count;
+			_m2 += delta * (x - Mean);
+		}
+
+		// Sample standard deviation; 0 with fewer than two samples.
+		public decimal StdDev()
+		{
+			return Count > 1 ? (decimal)Math.Sqrt((double)(_m2 / (Count - 1))) : 0;
+		}
+
+		public void Reset()
+		{
+			Count = 0;
+			Mean = 0;
+			_m2 = 0;
+		}
+	}
 
 	// Threshold levels of one bar. A level of 0 is not drawn and never triggers.
 	internal readonly struct Levels
@@ -58,6 +101,15 @@ public class DeltaThresholds : Indicator
 
 	// Levels of each calculated bar.
 	private readonly List<Levels> _levels = new();
+
+	private ThresholdSource _source = ThresholdSource.Fixed;
+	private decimal _stdMultiplier = 1m;
+	private int _minSamples = 1;
+
+	// Dynamic source: statistics of the positive extreme (MaxDelta > 0) and of the size of the
+	// negative extreme (|MinDelta|, MinDelta < 0) of the closed bars of the current session.
+	private RunningStats _positive;
+	private RunningStats _negative;
 
 	private bool _showThresholdLines = true;
 	private decimal _upMajorLevel = 300;
@@ -104,6 +156,45 @@ public class DeltaThresholds : Indicator
 		set
 		{
 			_downColor = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Threshold source", GroupName = "Thresholds",
+		Description = "Fixed: the four levels below. Dynamic: from the bars of the session so far; minor = mean of the bar extremes, major = mean + multiplier x standard deviation.",
+		Order = 90)]
+	public ThresholdSource Source
+	{
+		get => _source;
+		set
+		{
+			_source = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Standard deviation multiplier", GroupName = "Thresholds", Description = "Dynamic source: major level = mean + this x standard deviation.", Order = 92)]
+	[Range(0, 10)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public decimal StdMultiplier
+	{
+		get => _stdMultiplier;
+		set
+		{
+			_stdMultiplier = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Minimum bars", GroupName = "Thresholds", Description = "Dynamic source: closed bars of the session needed before the levels are drawn and used.", Order = 94)]
+	[Range(1, 5000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int MinSamples
+	{
+		get => _minSamples;
+		set
+		{
+			_minSamples = value;
 			RecalculateValues();
 		}
 	}
@@ -233,6 +324,8 @@ public class DeltaThresholds : Indicator
 	protected override void OnRecalculate()
 	{
 		_levels.Clear();
+		_positive.Reset();
+		_negative.Reset();
 	}
 
 	protected override void OnCalculate(int bar, decimal value)
@@ -273,19 +366,69 @@ public class DeltaThresholds : Indicator
 		_downMajorSeries.VisualType = mode;
 	}
 
-	// Sets the levels of a bar that has just appeared.
+	// Sets the levels of a bar that has just appeared. The previous bar has closed: its extremes
+	// are final and become one sample of the session statistics, before a new session restarts
+	// them. The levels of a bar therefore only use the bars before it (no look-ahead), and the
+	// forming bar, calculated on every update, never adds samples: live values and a
+	// recalculation give the same levels.
 	private void OpenBar(int bar)
 	{
 		while (_levels.Count < bar)
 			_levels.Add(default);
 
-		var levels = new Levels(_upMajorLevel, _upMinorLevel, _downMinorLevel, _downMajorLevel);
+		if (bar > 0)
+			AddSamples(GetCandle(bar - 1));
+
+		if (IsSessionStart(bar))
+		{
+			_positive.Reset();
+			_negative.Reset();
+		}
+
+		var levels = _source == ThresholdSource.Dynamic
+			? DynamicLevels()
+			: new Levels(_upMajorLevel, _upMinorLevel, _downMinorLevel, _downMajorLevel);
+
 		_levels.Add(levels);
 
 		_upMajorSeries[bar] = levels.UpMajor;
 		_upMinorSeries[bar] = levels.UpMinor;
 		_downMinorSeries[bar] = levels.DownMinor;
 		_downMajorSeries[bar] = levels.DownMajor;
+	}
+
+	private bool IsSessionStart(int bar)
+	{
+		return bar == 0 || IsNewSession(bar);
+	}
+
+	private void AddSamples(IndicatorCandle candle)
+	{
+		if (candle.MaxDelta > 0)
+			_positive.Add(candle.MaxDelta);
+
+		if (candle.MinDelta < 0)
+			_negative.Add(-candle.MinDelta);
+	}
+
+	// Levels from the statistics so far; a side without enough samples has no levels (0).
+	private Levels DynamicLevels()
+	{
+		decimal upMajor = 0, upMinor = 0, downMinor = 0, downMajor = 0;
+
+		if (_positive.Count >= _minSamples)
+		{
+			upMinor = _positive.Mean;
+			upMajor = _positive.Mean + _stdMultiplier * _positive.StdDev();
+		}
+
+		if (_negative.Count >= _minSamples)
+		{
+			downMinor = -_negative.Mean;
+			downMajor = -(_negative.Mean + _stdMultiplier * _negative.StdDev());
+		}
+
+		return new Levels(upMajor, upMinor, downMinor, downMajor);
 	}
 
 	#endregion
