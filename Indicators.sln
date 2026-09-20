@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Indicators", "Technical\Ind
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Custom", "Custom", "{2CFBD9EE-AE3C-B756-B380-22A6C2A9666D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelsLolo", "Custom\LevelsLolo\LevelsLolo.csproj", "{87160E14-93FA-5928-B768-83CD0BE576BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Alpha|Any CPU = Alpha|Any CPU
@@ -29,11 +31,26 @@ Global
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Latest|Any CPU.Build.0 = Latest|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Stable|Any CPU.ActiveCfg = Stable|Any CPU
 		{9EA7CEC8-539D-DE90-7084-0F38EF1484C4}.Stable|Any CPU.Build.0 = Stable|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Alpha|Any CPU.ActiveCfg = Alpha|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Alpha|Any CPU.Build.0 = Alpha|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.ATAS_X_Alpha|Cross.ActiveCfg = ATAS_X_Alpha|Cross
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.ATAS_X_Alpha|Cross.Build.0 = ATAS_X_Alpha|Cross
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.ATAS_X_Beta|Cross.ActiveCfg = ATAS_X_Beta|Cross
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.ATAS_X_Beta|Cross.Build.0 = ATAS_X_Beta|Cross
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Beta|Any CPU.ActiveCfg = Beta|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Beta|Any CPU.Build.0 = Beta|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Latest|Any CPU.ActiveCfg = Latest|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Latest|Any CPU.Build.0 = Latest|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Stable|Any CPU.ActiveCfg = Stable|Any CPU
+		{87160E14-93FA-5928-B768-83CD0BE576BA}.Stable|Any CPU.Build.0 = Stable|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {044D1FB4-2383-42B9-96E3-3F43A35FCCD9}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{87160E14-93FA-5928-B768-83CD0BE576BA} = {2CFBD9EE-AE3C-B756-B380-22A6C2A9666D}
 	EndGlobalSection
 EndGlobal
