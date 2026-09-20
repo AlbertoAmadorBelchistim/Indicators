@@ -16,7 +16,7 @@ using Utils.Common.Logging;
 
 [DisplayName("Delta Thresholds")]
 [Category(IndicatorCategories.VolumeOrderFlow)]
-[Description("Bar delta with fixed or session-based dynamic thresholds, price-chart signals and alerts.")]
+[Display(ResourceType = typeof(DeltaThresholdsResources), Description = nameof(DeltaThresholdsResources.DeltaThresholds_Description))]
 public class DeltaThresholds : Indicator
 {
 	#region Nested Types
@@ -24,66 +24,66 @@ public class DeltaThresholds : Indicator
 	public enum ThresholdSource
 	{
 		// The four levels set in the settings.
-		[Display(Name = "Fixed")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ThresholdSource_Fixed))]
 		Fixed,
 
 		// Mean and standard deviation of the bar extremes of the session so far.
-		[Display(Name = "Dynamic (session statistics)")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ThresholdSource_Dynamic))]
 		Dynamic
 	}
 
 	public enum WindowMode
 	{
 		// Every bar of the chart's default session.
-		[Display(Name = "Full session")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.WindowMode_FullSession))]
 		FullSession,
 
 		// Only the bars that open between a start and an end time, in chart time.
-		[Display(Name = "Time window")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.WindowMode_TimeWindow))]
 		TimeWindow
 	}
 
 	public enum ThresholdLevel
 	{
-		[Display(Name = "Major")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ThresholdLevel_Major))]
 		Major,
 
-		[Display(Name = "Minor")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ThresholdLevel_Minor))]
 		Minor
 	}
 
 	public enum SignalTrigger
 	{
 		// The delta of the bar reached the level at some point (MaxDelta or MinDelta).
-		[Display(Name = "Level reached")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalTrigger_Reached))]
 		Reached,
 
 		// The delta of the closed bar is beyond the level.
-		[Display(Name = "Bar close")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalTrigger_BarClose))]
 		BarClose
 	}
 
 	public enum AverageType
 	{
-		[Display(Name = "SMA")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageType_Sma))]
 		Sma,
 
-		[Display(Name = "EMA")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageType_Ema))]
 		Ema
 	}
 
 	public enum AverageColoring
 	{
 		// One color.
-		[Display(Name = "Fixed")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageColoring_Fixed))]
 		Fixed,
 
 		// Up color at or above zero, down color below.
-		[Display(Name = "Zero cross")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageColoring_ZeroCross))]
 		ZeroCross,
 
 		// Up color while the average rises or stays, down color while it falls.
-		[Display(Name = "Slope")]
+		[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageColoring_Slope))]
 		Slope
 	}
 
@@ -146,7 +146,7 @@ public class DeltaThresholds : Indicator
 	private const int LoggedHistoryBars = 20;
 
 	// Delta of each bar (ask volume - bid volume), drawn as a histogram.
-	private readonly ValueDataSeries _deltaSeries = new("DeltaSeries", "Delta")
+	private readonly ValueDataSeries _deltaSeries = new("DeltaSeries", DeltaThresholdsResources.Series_Delta)
 	{
 		VisualType = VisualMode.Histogram,
 		ShowZeroValue = false,
@@ -159,10 +159,10 @@ public class DeltaThresholds : Indicator
 
 	// Threshold lines, drawn as one dash per bar so a level that changes between sessions or
 	// bars never draws a slanted connector. Zero values are not drawn.
-	private readonly ValueDataSeries _upMajorSeries = ThresholdSeries("UpMajor", "Up major", CrossColor.FromArgb(255, 0, 200, 0), 2);
-	private readonly ValueDataSeries _upMinorSeries = ThresholdSeries("UpMinor", "Up minor", CrossColor.FromArgb(255, 144, 238, 144), 1);
-	private readonly ValueDataSeries _downMinorSeries = ThresholdSeries("DownMinor", "Down minor", CrossColor.FromArgb(255, 255, 160, 160), 1);
-	private readonly ValueDataSeries _downMajorSeries = ThresholdSeries("DownMajor", "Down major", CrossColor.FromArgb(255, 220, 0, 0), 2);
+	private readonly ValueDataSeries _upMajorSeries = ThresholdSeries("UpMajor", DeltaThresholdsResources.Series_UpMajor, CrossColor.FromArgb(255, 0, 200, 0), 2);
+	private readonly ValueDataSeries _upMinorSeries = ThresholdSeries("UpMinor", DeltaThresholdsResources.Series_UpMinor, CrossColor.FromArgb(255, 144, 238, 144), 1);
+	private readonly ValueDataSeries _downMinorSeries = ThresholdSeries("DownMinor", DeltaThresholdsResources.Series_DownMinor, CrossColor.FromArgb(255, 255, 160, 160), 1);
+	private readonly ValueDataSeries _downMajorSeries = ThresholdSeries("DownMajor", DeltaThresholdsResources.Series_DownMajor, CrossColor.FromArgb(255, 220, 0, 0), 2);
 
 	// Levels of each calculated bar.
 	private readonly List<Levels> _levels = new();
@@ -220,7 +220,7 @@ public class DeltaThresholds : Indicator
 	private bool _downReachedBefore;
 
 	// Moving average of the bar delta.
-	private readonly ValueDataSeries _averageSeries = new("AverageSeries", "Average")
+	private readonly ValueDataSeries _averageSeries = new("AverageSeries", DeltaThresholdsResources.Series_Average)
 	{
 		Color = CrossColor.FromArgb(255, 255, 215, 0),
 		Width = 2,
@@ -246,9 +246,9 @@ public class DeltaThresholds : Indicator
 
 	#region Properties
 
-	[Display(Name = "Show histogram", GroupName = "Histogram",
-		Description = "Draws the delta of each bar. Turn it off to show only the thresholds, for example over the Delta indicator's panel.",
-		Order = 10)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ShowHistogram_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Histogram), Order = 10,
+		Description = nameof(DeltaThresholdsResources.ShowHistogram_Description))]
 	public bool ShowHistogram
 	{
 		get => _showHistogram;
@@ -259,7 +259,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Positive color", GroupName = "Histogram", Description = "Color of the bars with a positive delta.", Order = 20)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.UpColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Histogram), Order = 20,
+		Description = nameof(DeltaThresholdsResources.UpColor_Description))]
 	public CrossColor UpColor
 	{
 		get => _upColor;
@@ -270,7 +272,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Negative color", GroupName = "Histogram", Description = "Color of the bars with a negative delta.", Order = 30)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.DownColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Histogram), Order = 30,
+		Description = nameof(DeltaThresholdsResources.DownColor_Description))]
 	public CrossColor DownColor
 	{
 		get => _downColor;
@@ -285,9 +289,9 @@ public class DeltaThresholds : Indicator
 
 	#region Properties: Thresholds
 
-	[Display(Name = "Threshold source", GroupName = "Thresholds",
-		Description = "Fixed: the four levels below. Dynamic: from the bars of the session so far; minor = mean of the bar extremes, major = mean + multiplier x standard deviation.",
-		Order = 90)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.Source_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 90,
+		Description = nameof(DeltaThresholdsResources.Source_Description))]
 	public ThresholdSource Source
 	{
 		get => _source;
@@ -298,7 +302,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Standard deviation multiplier", GroupName = "Thresholds", Description = "Dynamic source: major level = mean + this x standard deviation.", Order = 92)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.StdMultiplier_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 92,
+		Description = nameof(DeltaThresholdsResources.StdMultiplier_Description))]
 	[Range(0, 10)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal StdMultiplier
@@ -311,7 +317,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Minimum bars", GroupName = "Thresholds", Description = "Dynamic source: closed bars of the session needed before the levels are drawn and used.", Order = 94)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.MinSamples_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 94,
+		Description = nameof(DeltaThresholdsResources.MinSamples_Description))]
 	[Range(1, 5000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int MinSamples
@@ -324,9 +332,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Statistics window", GroupName = "Thresholds",
-		Description = "Dynamic source: bars used for the statistics. Full session: every bar, restarting at each default session. Time window: only bars that open between the start and end times; the statistics restart at each window start and there are no levels outside the window.",
-		Order = 95)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.Window_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 95,
+		Description = nameof(DeltaThresholdsResources.Window_Description))]
 	public WindowMode Window
 	{
 		get => _windowMode;
@@ -337,7 +345,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Window start", GroupName = "Thresholds", Description = "Time window start, in chart time (included). A start later than the end crosses midnight.", Order = 96)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.WindowStart_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 96,
+		Description = nameof(DeltaThresholdsResources.WindowStart_Description))]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public TimeSpan WindowStart
 	{
@@ -349,7 +359,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Window end", GroupName = "Thresholds", Description = "Time window end, in chart time (not included).", Order = 97)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.WindowEnd_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 97,
+		Description = nameof(DeltaThresholdsResources.WindowEnd_Description))]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public TimeSpan WindowEnd
 	{
@@ -361,7 +373,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Show threshold lines", GroupName = "Thresholds", Description = "Draws the four threshold levels.", Order = 100)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ShowThresholdLines_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 100,
+		Description = nameof(DeltaThresholdsResources.ShowThresholdLines_Description))]
 	public bool ShowThresholdLines
 	{
 		get => _showThresholdLines;
@@ -372,7 +386,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Up major level", GroupName = "Thresholds", Description = "Fixed level: strong positive delta.", Order = 110)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.UpMajorLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 110,
+		Description = nameof(DeltaThresholdsResources.UpMajorLevel_Description))]
 	[Range(0, 1000000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal UpMajorLevel
@@ -385,7 +401,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Up minor level", GroupName = "Thresholds", Description = "Fixed level: moderate positive delta.", Order = 120)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.UpMinorLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 120,
+		Description = nameof(DeltaThresholdsResources.UpMinorLevel_Description))]
 	[Range(0, 1000000000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal UpMinorLevel
@@ -398,7 +416,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Down minor level", GroupName = "Thresholds", Description = "Fixed level: moderate negative delta (0 or below).", Order = 130)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.DownMinorLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 130,
+		Description = nameof(DeltaThresholdsResources.DownMinorLevel_Description))]
 	[Range(-1000000000, 0)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal DownMinorLevel
@@ -411,7 +431,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Down major level", GroupName = "Thresholds", Description = "Fixed level: strong negative delta (0 or below).", Order = 140)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.DownMajorLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 140,
+		Description = nameof(DeltaThresholdsResources.DownMajorLevel_Description))]
 	[Range(-1000000000, 0)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public decimal DownMajorLevel
@@ -424,28 +446,36 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Up major color", GroupName = "Thresholds", Description = "Color of the up major line.", Order = 150)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.UpMajorColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 150,
+		Description = nameof(DeltaThresholdsResources.UpMajorColor_Description))]
 	public CrossColor UpMajorColor
 	{
 		get => _upMajorSeries.Color;
 		set => _upMajorSeries.Color = value;
 	}
 
-	[Display(Name = "Up minor color", GroupName = "Thresholds", Description = "Color of the up minor line.", Order = 160)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.UpMinorColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 160,
+		Description = nameof(DeltaThresholdsResources.UpMinorColor_Description))]
 	public CrossColor UpMinorColor
 	{
 		get => _upMinorSeries.Color;
 		set => _upMinorSeries.Color = value;
 	}
 
-	[Display(Name = "Down minor color", GroupName = "Thresholds", Description = "Color of the down minor line.", Order = 170)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.DownMinorColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 170,
+		Description = nameof(DeltaThresholdsResources.DownMinorColor_Description))]
 	public CrossColor DownMinorColor
 	{
 		get => _downMinorSeries.Color;
 		set => _downMinorSeries.Color = value;
 	}
 
-	[Display(Name = "Down major color", GroupName = "Thresholds", Description = "Color of the down major line.", Order = 180)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.DownMajorColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Thresholds), Order = 180,
+		Description = nameof(DeltaThresholdsResources.DownMajorColor_Description))]
 	public CrossColor DownMajorColor
 	{
 		get => _downMajorSeries.Color;
@@ -456,7 +486,9 @@ public class DeltaThresholds : Indicator
 
 	#region Properties: Signals
 
-	[Display(Name = "Show signals", GroupName = "Signals", Description = "Draws a triangle on the price chart when the delta of a bar reaches the selected level: below the bar for the up side, above it for the down side.", Order = 300)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ShowSignals_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 300,
+		Description = nameof(DeltaThresholdsResources.ShowSignals_Description))]
 	public bool ShowSignals
 	{
 		get => _showSignals;
@@ -467,7 +499,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Trigger", GroupName = "Signals", Description = "Level reached: the delta of the bar reached the level at any time (its maximum or minimum), so the signal appears as soon as it happens and stays. Bar close: the delta of the closed bar is beyond the level.", Order = 310)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.Trigger_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 310,
+		Description = nameof(DeltaThresholdsResources.Trigger_Description))]
 	public SignalTrigger Trigger
 	{
 		get => _signalTrigger;
@@ -478,7 +512,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Up level", GroupName = "Signals", Description = "Level used for the up signals.", Order = 320)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalUpLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 320,
+		Description = nameof(DeltaThresholdsResources.SignalUpLevel_Description))]
 	public ThresholdLevel SignalUpLevel
 	{
 		get => _signalUpLevel;
@@ -489,7 +525,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Down level", GroupName = "Signals", Description = "Level used for the down signals.", Order = 330)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalDownLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 330,
+		Description = nameof(DeltaThresholdsResources.SignalDownLevel_Description))]
 	public ThresholdLevel SignalDownLevel
 	{
 		get => _signalDownLevel;
@@ -500,7 +538,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Offset (ticks)", GroupName = "Signals", Description = "Distance between the bar and the triangle.", Order = 340)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalOffsetTicks_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 340,
+		Description = nameof(DeltaThresholdsResources.SignalOffsetTicks_Description))]
 	[Range(0, 1000)]
 	public int SignalOffsetTicks
 	{
@@ -512,7 +552,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Size", GroupName = "Signals", Description = "Size of the triangles in pixels.", Order = 350)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalSize_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 350,
+		Description = nameof(DeltaThresholdsResources.SignalSize_Description))]
 	[Range(4, 50)]
 	public int SignalSize
 	{
@@ -524,7 +566,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Up color", GroupName = "Signals", Description = "Color of the up triangles.", Order = 360)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalUpColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 360,
+		Description = nameof(DeltaThresholdsResources.SignalUpColor_Description))]
 	public CrossColor SignalUpColor
 	{
 		get => _signalUpColor;
@@ -535,7 +579,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Down color", GroupName = "Signals", Description = "Color of the down triangles.", Order = 370)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.SignalDownColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Signals), Order = 370,
+		Description = nameof(DeltaThresholdsResources.SignalDownColor_Description))]
 	public CrossColor SignalDownColor
 	{
 		get => _signalDownColor;
@@ -550,35 +596,45 @@ public class DeltaThresholds : Indicator
 
 	#region Properties: Alerts
 
-	[Display(Name = "Enabled", GroupName = "Alerts", Description = "Alerts when the delta of a bar reaches the selected level (only in realtime).", Order = 400)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.UseAlerts_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Alerts), Order = 400,
+		Description = nameof(DeltaThresholdsResources.UseAlerts_Description))]
 	public bool UseAlerts
 	{
 		get => _alertsEnabled;
 		set => _alertsEnabled = value;
 	}
 
-	[Display(Name = "Up level", GroupName = "Alerts", Description = "Level used for the up alerts.", Order = 410)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AlertUpLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Alerts), Order = 410,
+		Description = nameof(DeltaThresholdsResources.AlertUpLevel_Description))]
 	public ThresholdLevel AlertUpLevel
 	{
 		get => _alertUpLevel;
 		set => _alertUpLevel = value;
 	}
 
-	[Display(Name = "Down level", GroupName = "Alerts", Description = "Level used for the down alerts.", Order = 420)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AlertDownLevel_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Alerts), Order = 420,
+		Description = nameof(DeltaThresholdsResources.AlertDownLevel_Description))]
 	public ThresholdLevel AlertDownLevel
 	{
 		get => _alertDownLevel;
 		set => _alertDownLevel = value;
 	}
 
-	[Display(Name = "Only at bar close", GroupName = "Alerts", Description = "On: alerts when a bar closes with its delta beyond the level. Off: alerts as soon as the delta of the forming bar reaches the level.", Order = 430)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AlertAtBarClose_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Alerts), Order = 430,
+		Description = nameof(DeltaThresholdsResources.AlertAtBarClose_Description))]
 	public bool AlertAtBarClose
 	{
 		get => _alertAtBarClose;
 		set => _alertAtBarClose = value;
 	}
 
-	[Display(Name = "Minimum bars between alerts", GroupName = "Alerts", Description = "Minimum number of bars between two alerts of the same side.", Order = 440)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AlertCooldownBars_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Alerts), Order = 440,
+		Description = nameof(DeltaThresholdsResources.AlertCooldownBars_Description))]
 	[Range(0, 1000)]
 	public int AlertCooldownBars
 	{
@@ -586,7 +642,9 @@ public class DeltaThresholds : Indicator
 		set => _alertCooldownBars = value;
 	}
 
-	[Display(Name = "Alert sound", GroupName = "Alerts", Description = "Sound file of the alerts.", Order = 450)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AlertFile_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Alerts), Order = 450,
+		Description = nameof(DeltaThresholdsResources.AlertFile_Description))]
 	public string AlertFile
 	{
 		get => _alertFile;
@@ -597,7 +655,9 @@ public class DeltaThresholds : Indicator
 
 	#region Properties: Average
 
-	[Display(Name = "Show average", GroupName = "Average", Description = "Draws a moving average of the bar delta.", Order = 500)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.ShowAverage_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 500,
+		Description = nameof(DeltaThresholdsResources.ShowAverage_Description))]
 	public bool ShowAverage
 	{
 		get => _showAverage;
@@ -608,7 +668,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Period", GroupName = "Average", Description = "Number of bars of the average.", Order = 510)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AveragePeriod_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 510,
+		Description = nameof(DeltaThresholdsResources.AveragePeriod_Description))]
 	[Range(1, 1000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
 	public int AveragePeriod
@@ -621,7 +683,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Type", GroupName = "Average", Description = "Simple (SMA) or exponential (EMA) moving average.", Order = 520)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageKind_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 520,
+		Description = nameof(DeltaThresholdsResources.AverageKind_Description))]
 	public AverageType AverageKind
 	{
 		get => _averageType;
@@ -632,7 +696,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Coloring", GroupName = "Average", Description = "Fixed: the line color. Zero cross: up color at or above zero, down color below. Slope: up color while the average rises or stays, down color while it falls.", Order = 530)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageColorMode_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 530,
+		Description = nameof(DeltaThresholdsResources.AverageColorMode_Description))]
 	public AverageColoring AverageColorMode
 	{
 		get => _averageColoring;
@@ -643,7 +709,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Color", GroupName = "Average", Description = "Line color with fixed coloring.", Order = 540)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 540,
+		Description = nameof(DeltaThresholdsResources.AverageColor_Description))]
 	public CrossColor AverageColor
 	{
 		get => _averageSeries.Color;
@@ -654,7 +722,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Up color", GroupName = "Average", Description = "Zero cross and slope coloring: color above zero or while rising.", Order = 550)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageUpColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 550,
+		Description = nameof(DeltaThresholdsResources.AverageUpColor_Description))]
 	public CrossColor AverageUpColor
 	{
 		get => _averageUpColor;
@@ -665,7 +735,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Down color", GroupName = "Average", Description = "Zero cross and slope coloring: color below zero or while falling.", Order = 560)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageDownColor_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 560,
+		Description = nameof(DeltaThresholdsResources.AverageDownColor_Description))]
 	public CrossColor AverageDownColor
 	{
 		get => _averageDownColor;
@@ -676,7 +748,9 @@ public class DeltaThresholds : Indicator
 		}
 	}
 
-	[Display(Name = "Line width", GroupName = "Average", Description = "Width of the average line.", Order = 570)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.AverageWidth_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Average), Order = 570,
+		Description = nameof(DeltaThresholdsResources.AverageWidth_Description))]
 	[Range(1, 20)]
 	public int AverageWidth
 	{
@@ -688,7 +762,9 @@ public class DeltaThresholds : Indicator
 
 	#region Properties: Diagnostics
 
-	[Display(Name = "Detailed log", GroupName = "Diagnostics", Description = "Writes to the ATAS log the delta, levels and signals of the last 20 bars after each recalculation and of every bar that closes afterwards.", Order = 900)]
+	[Display(ResourceType = typeof(DeltaThresholdsResources), Name = nameof(DeltaThresholdsResources.DetailedLog_DisplayName),
+		GroupName = nameof(DeltaThresholdsResources.Group_Diagnostics), Order = 900,
+		Description = nameof(DeltaThresholdsResources.DetailedLog_Description))]
 	public bool DetailedLog
 	{
 		get => _detailedLog;
