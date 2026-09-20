@@ -250,6 +250,7 @@ public class ClusterStatisticPro : Indicator
 	private int _height = 15;
 
 	private int _lastBar = -1;
+	private bool _alertsArmed;
 	private int _lastAskAlert;
 	private decimal _lastAskValue;
 	private int _lastBidAlert;
@@ -286,6 +287,8 @@ public class ClusterStatisticPro : Indicator
 	private decimal _maxDeltaChange;
 	private decimal _maxDeltaPerVolume;
 	private decimal _maxDuration;
+	private decimal _maxClosedVolumeSec;
+	private int _volumeSecClosedBars;
 	private decimal _maxHeight;
 	private decimal _maxMaxDelta;
 	private decimal _maxMinDelta;
@@ -945,7 +948,7 @@ public class ClusterStatisticPro : Indicator
 			return base.ProcessMouseMove(e);
 
 		if (StrCount <= 1)
-			return base.ProcessMouseDown(e);
+			return base.ProcessMouseMove(e);
 
 		var height = Container.Region.Height / StrCount;
 
@@ -986,6 +989,18 @@ public class ClusterStatisticPro : Indicator
 
 	#region Protected methods
 
+	protected override void OnRecalculate()
+	{
+		// The last bar is calculated with the history too: its values would "cross" the alert
+		// levels from zero and alert on every chart load or settings change.
+		_alertsArmed = false;
+	}
+
+	protected override void OnFinishRecalculate()
+	{
+		_alertsArmed = true;
+	}
+
 	protected override void OnApplyDefaultColors()
 	{
 		HeaderBackground = DefaultColors.Gray.Convert();
@@ -1015,6 +1030,18 @@ public class ClusterStatisticPro : Indicator
 			candleSeconds = 1;
 
 		_volPerSecond[bar] = candle.Volume / candleSeconds;
+
+		// Highest Volume/sec of the closed bars, kept here so rendering does not scan the history.
+		// The bar in progress is added when rendering: its rate is not final (one trade in its
+		// first second can be a very high rate), so it must not stay in the maximum.
+		if (bar == 0)
+		{
+			_maxClosedVolumeSec = 0;
+			_volumeSecClosedBars = 0;
+		}
+
+		for (; _volumeSecClosedBars < bar; _volumeSecClosedBars++)
+			_maxClosedVolumeSec = Math.Max(_volPerSecond[_volumeSecClosedBars], _maxClosedVolumeSec);
 
 		if (bar == 0)
 		{
@@ -1125,7 +1152,7 @@ public class ClusterStatisticPro : Indicator
 			// otherwise alerts would falsely trigger due to "crossing" from 0
 		}
 
-		if (bar == CurrentBar - 1)
+		if (bar == CurrentBar - 1 && _alertsArmed)
 		{
 			// Ask Alert (exceeding)
 			if (UseAskAlert && _lastAskAlert != bar)
@@ -1738,7 +1765,7 @@ public class ClusterStatisticPro : Indicator
 				maxDuration = Math.Max(_candleDurations[i], maxDuration);
 			}
 
-			maxVolumeSec = _volPerSecond.MAX(LastVisibleBarNumber - FirstVisibleBarNumber, LastVisibleBarNumber);
+			maxVolumeSec = _volPerSecond.MAX(LastVisibleBarNumber - FirstVisibleBarNumber + 1, LastVisibleBarNumber);
 		}
 		else
 		{
@@ -1757,7 +1784,9 @@ public class ClusterStatisticPro : Indicator
 			cumVolume = _cumVolume;
 			maxDeltaChange = _maxDeltaChange;
 			maxHeight = _maxHeight;
-			maxVolumeSec = _volPerSecond.MAX(CurrentBar - 1, CurrentBar - 1);
+			maxVolumeSec = CurrentBar > 0
+				? Math.Max(_maxClosedVolumeSec, _volPerSecond[CurrentBar - 1])
+				: 0;
 		}
 
 		return new MaxValues
@@ -1932,8 +1961,14 @@ public class ClusterStatisticPro : Indicator
 				var candle = GetCandle(bar);
 				var prevCandle = GetCandle(bar - 1);
 
-				return prevCandle.Time.Add(TimeOffset).TimeOfDay < CustomSessionStart.Value
-					&& candle.Time.Add(TimeOffset).TimeOfDay >= CustomSessionStart.Value;
+				// A session starts when the bar belongs to a later session day than the previous
+				// one. Shifting the times by the start time makes each session one calendar day,
+				// so a start at 00:00 or one that falls in a gap (overnight, weekend) is not missed.
+				var start = CustomSessionStart.Value;
+				var prevDay = (prevCandle.Time.Add(TimeOffset) - start).Date;
+				var day = (candle.Time.Add(TimeOffset) - start).Date;
+
+				return day > prevDay;
 			default:
 				return false;
 		}
