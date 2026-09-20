@@ -192,8 +192,23 @@
   <data name="RatiosAsPercentDescription" xml:space="preserve">
     <value>Shows Delta/Volume and Session Delta/Volume as a percentage (25%) or as a fraction (0.25).</value>
   </data>
-  <data name="Rows" xml:space="preserve">
-    <value>Строчки</value>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>Контекст свечи</value>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>Дисбалансы</value>
+  </data>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>Темп / Активность</value>
+  </data>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>Направленное давление</value>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>Сырые принты</value>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>Контекст сессии</value>
   </data>
   <data name="Session" xml:space="preserve">
     <value>Сессия</value>

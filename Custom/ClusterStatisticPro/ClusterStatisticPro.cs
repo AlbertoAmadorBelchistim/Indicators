@@ -53,32 +53,32 @@ public class ClusterStatisticPro : Indicator
 
 		public RenderOrder()
 		{
-			Add(DataType.Ask, new RenderInfo(0));
-			Add(DataType.Bid, new RenderInfo(1));
-			Add(DataType.Delta, new RenderInfo(2));
-			Add(DataType.DeltaVolume, new RenderInfo(3));
-			Add(DataType.SessionDelta, new RenderInfo(4));
-			Add(DataType.SessionDeltaVolume, new RenderInfo(5));
-			Add(DataType.MaxDelta, new RenderInfo(6));
-			Add(DataType.MinDelta, new RenderInfo(7));
-			Add(DataType.DeltaChange, new RenderInfo(8));
-			Add(DataType.Volume, new RenderInfo(9));
-			Add(DataType.VolumeSecond, new RenderInfo(10));
-			Add(DataType.SessionVolume, new RenderInfo(11));
-			Add(DataType.Trades, new RenderInfo(12));
-			Add(DataType.Height, new RenderInfo(13));
-			Add(DataType.Time, new RenderInfo(14));
-			Add(DataType.Duration, new RenderInfo(15));
-			Add(DataType.DeltaSecond, new RenderInfo(16));
-			Add(DataType.BuyImbalance, new RenderInfo(17));
-			Add(DataType.SellImbalance, new RenderInfo(18));
-			Add(DataType.NetImbalance, new RenderInfo(19));
-			Add(DataType.StackedBuyImbalance, new RenderInfo(20));
-			Add(DataType.StackedSellImbalance, new RenderInfo(21));
-			Add(DataType.StackedNetImbalance, new RenderInfo(22));
-			Add(DataType.PeakVolPerSec, new RenderInfo(23));
-			Add(DataType.PeakDeltaPerSec, new RenderInfo(24));
-			Add(DataType.PeakDeltaPerVol, new RenderInfo(25));
+			Add(DataType.VolumeSecond, new RenderInfo(0));
+			Add(DataType.DeltaSecond, new RenderInfo(1));
+			Add(DataType.PeakVolPerSec, new RenderInfo(2));
+			Add(DataType.PeakDeltaPerSec, new RenderInfo(3));
+			Add(DataType.PeakDeltaPerVol, new RenderInfo(4));
+			Add(DataType.Delta, new RenderInfo(5));
+			Add(DataType.DeltaVolume, new RenderInfo(6));
+			Add(DataType.DeltaChange, new RenderInfo(7));
+			Add(DataType.MaxDelta, new RenderInfo(8));
+			Add(DataType.MinDelta, new RenderInfo(9));
+			Add(DataType.BuyImbalance, new RenderInfo(10));
+			Add(DataType.SellImbalance, new RenderInfo(11));
+			Add(DataType.NetImbalance, new RenderInfo(12));
+			Add(DataType.StackedBuyImbalance, new RenderInfo(13));
+			Add(DataType.StackedSellImbalance, new RenderInfo(14));
+			Add(DataType.StackedNetImbalance, new RenderInfo(15));
+			Add(DataType.Volume, new RenderInfo(16));
+			Add(DataType.Trades, new RenderInfo(17));
+			Add(DataType.Height, new RenderInfo(18));
+			Add(DataType.Duration, new RenderInfo(19));
+			Add(DataType.Time, new RenderInfo(20));
+			Add(DataType.SessionVolume, new RenderInfo(21));
+			Add(DataType.SessionDelta, new RenderInfo(22));
+			Add(DataType.SessionDeltaVolume, new RenderInfo(23));
+			Add(DataType.Ask, new RenderInfo(24));
+			Add(DataType.Bid, new RenderInfo(25));
 		}
 
 		#endregion
@@ -448,7 +448,7 @@ public class ClusterStatisticPro : Indicator
     #region Rows
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowAsk), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowAsksDescription), Order = 110, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowAsk), GroupName = nameof(Res.RowsRawPrintsGroup), Description = nameof(Res.ShowAsksDescription), Order = 1600, ResourceType = typeof(Res))]
     public bool ShowAsk
     {
         get => _showAsk;
@@ -460,7 +460,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowBid), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowBidsDescription), Order = 110, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowBid), GroupName = nameof(Res.RowsRawPrintsGroup), Description = nameof(Res.ShowBidsDescription), Order = 1610, ResourceType = typeof(Res))]
     public bool ShowBid
     {
         get => _showBid;
@@ -472,7 +472,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowDelta), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowDeltaDescription), Order = 120, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowDelta), GroupName = nameof(Res.RowsPressureGroup), Description = nameof(Res.ShowDeltaDescription), Order = 1200, ResourceType = typeof(Res))]
     public bool ShowDelta
     {
         get => _showDelta;
@@ -484,7 +484,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowDeltaPerVolume), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowDeltaPerVolumeDescription), Order = 130, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowDeltaPerVolume), GroupName = nameof(Res.RowsPressureGroup), Description = nameof(Res.ShowDeltaPerVolumeDescription), Order = 1210, ResourceType = typeof(Res))]
     public bool ShowDeltaPerVolume
     {
         get => _showDeltaPerVolume;
@@ -496,7 +496,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowSessionDelta), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSessionDeltaDescription), Order = 140, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowSessionDelta), GroupName = nameof(Res.RowsSessionContextGroup), Description = nameof(Res.ShowSessionDeltaDescription), Order = 1510, ResourceType = typeof(Res))]
     public bool ShowSessionDelta
     {
         get => _showSessionDelta;
@@ -508,7 +508,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowSessionDeltaPerVolume), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSessionDeltaPerVolumeDescription), Order = 150, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowSessionDeltaPerVolume), GroupName = nameof(Res.RowsSessionContextGroup), Description = nameof(Res.ShowSessionDeltaPerVolumeDescription), Order = 1520, ResourceType = typeof(Res))]
     public bool ShowSessionDeltaPerVolume
     {
         get => _showSessionDeltaPerVolume;
@@ -523,7 +523,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowMaximumDelta), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowMaximumDeltaDescription), Order = 160, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowMaximumDelta), GroupName = nameof(Res.RowsPressureGroup), Description = nameof(Res.ShowMaximumDeltaDescription), Order = 1230, ResourceType = typeof(Res))]
     public bool ShowMaximumDelta
     {
         get => _showMaximumDelta;
@@ -535,7 +535,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowMinimumDelta), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowMinimumDeltaDescription), Order = 170, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowMinimumDelta), GroupName = nameof(Res.RowsPressureGroup), Description = nameof(Res.ShowMinimumDeltaDescription), Order = 1240, ResourceType = typeof(Res))]
     public bool ShowMinimumDelta
     {
         get => _showMinimumDelta;
@@ -547,7 +547,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowDeltaChange), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowDeltaChangeDescription), Order = 175, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowDeltaChange), GroupName = nameof(Res.RowsPressureGroup), Description = nameof(Res.ShowDeltaChangeDescription), Order = 1220, ResourceType = typeof(Res))]
     public bool ShowDeltaChange
     {
         get => _showDeltaChange;
@@ -559,7 +559,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowVolume), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowVolumesDescription), Order = 180, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowVolume), GroupName = nameof(Res.RowsCandleContextGroup), Description = nameof(Res.ShowVolumesDescription), Order = 1400, ResourceType = typeof(Res))]
     public bool ShowVolume
     {
         get => _showVolume;
@@ -571,7 +571,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowVolumePerSecond), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowVolumePerSecondDescription), Order = 190, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowVolumePerSecond), GroupName = nameof(Res.RowsPaceGroup), Description = nameof(Res.ShowVolumePerSecondDescription), Order = 1100, ResourceType = typeof(Res))]
     public bool ShowVolumePerSecond
     {
         get => _showVolumePerSecond;
@@ -583,7 +583,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowDeltaPerSecond), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowDeltaPerSecondDescription), Order = 190, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowDeltaPerSecond), GroupName = nameof(Res.RowsPaceGroup), Description = nameof(Res.ShowDeltaPerSecondDescription), Order = 1110, ResourceType = typeof(Res))]
     public bool ShowDeltaPerSecond
     {
         get => _showDeltaPerSecond;
@@ -595,7 +595,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowBuyImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowBuyImbalancesDescription), Order = 197, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowBuyImbalances), GroupName = nameof(Res.RowsImbalanceRowsGroup), Description = nameof(Res.ShowBuyImbalancesDescription), Order = 1300, ResourceType = typeof(Res))]
     public bool ShowBuyImbalance
     {
         get => RowsOrder[DataType.BuyImbalance].Enabled;
@@ -607,7 +607,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowSellImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSellImbalancesDescription), Order = 198, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowSellImbalances), GroupName = nameof(Res.RowsImbalanceRowsGroup), Description = nameof(Res.ShowSellImbalancesDescription), Order = 1310, ResourceType = typeof(Res))]
     public bool ShowSellImbalance
     {
         get => RowsOrder[DataType.SellImbalance].Enabled;
@@ -619,7 +619,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowNetImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowNetImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowNetImbalances), GroupName = nameof(Res.RowsImbalanceRowsGroup), Description = nameof(Res.ShowNetImbalancesDescription), Order = 1320, ResourceType = typeof(Res))]
     public bool ShowNetImbalance
     {
         get => RowsOrder[DataType.NetImbalance].Enabled;
@@ -631,7 +631,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowStackedBuyImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowStackedBuyImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowStackedBuyImbalances), GroupName = nameof(Res.RowsImbalanceRowsGroup), Description = nameof(Res.ShowStackedBuyImbalancesDescription), Order = 1330, ResourceType = typeof(Res))]
     public bool ShowStackedBuyImbalance
     {
         get => RowsOrder[DataType.StackedBuyImbalance].Enabled;
@@ -643,7 +643,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowStackedSellImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowStackedSellImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowStackedSellImbalances), GroupName = nameof(Res.RowsImbalanceRowsGroup), Description = nameof(Res.ShowStackedSellImbalancesDescription), Order = 1340, ResourceType = typeof(Res))]
     public bool ShowStackedSellImbalance
     {
         get => RowsOrder[DataType.StackedSellImbalance].Enabled;
@@ -655,7 +655,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowStackedNetImbalances), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowStackedNetImbalancesDescription), Order = 199, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowStackedNetImbalances), GroupName = nameof(Res.RowsImbalanceRowsGroup), Description = nameof(Res.ShowStackedNetImbalancesDescription), Order = 1350, ResourceType = typeof(Res))]
     public bool ShowStackedNetImbalance
     {
         get => RowsOrder[DataType.StackedNetImbalance].Enabled;
@@ -667,7 +667,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowPeakVolPerSec), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowPeakVolPerSecDescription), Order = 190, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowPeakVolPerSec), GroupName = nameof(Res.RowsPaceGroup), Description = nameof(Res.ShowPeakVolPerSecDescription), Order = 1120, ResourceType = typeof(Res))]
     public bool ShowPeakVolPerSec
     {
         get => RowsOrder[DataType.PeakVolPerSec].Enabled;
@@ -679,7 +679,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowPeakDeltaPerSec), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowPeakDeltaPerSecDescription), Order = 190, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowPeakDeltaPerSec), GroupName = nameof(Res.RowsPaceGroup), Description = nameof(Res.ShowPeakDeltaPerSecDescription), Order = 1130, ResourceType = typeof(Res))]
     public bool ShowPeakDeltaPerSec
     {
         get => RowsOrder[DataType.PeakDeltaPerSec].Enabled;
@@ -691,7 +691,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowPeakDeltaPerVol), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowPeakDeltaPerVolDescription), Order = 190, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowPeakDeltaPerVol), GroupName = nameof(Res.RowsPaceGroup), Description = nameof(Res.ShowPeakDeltaPerVolDescription), Order = 1140, ResourceType = typeof(Res))]
     public bool ShowPeakDeltaPerVol
     {
         get => RowsOrder[DataType.PeakDeltaPerVol].Enabled;
@@ -703,7 +703,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowSessionVolume), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowSessionVolumeDescription), Order = 191, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowSessionVolume), GroupName = nameof(Res.RowsSessionContextGroup), Description = nameof(Res.ShowSessionVolumeDescription), Order = 1500, ResourceType = typeof(Res))]
     public bool ShowSessionVolume
     {
         get => _showSessionVolume;
@@ -715,7 +715,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowTradesCount), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowTradesCountDescription), Order = 192, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowTradesCount), GroupName = nameof(Res.RowsCandleContextGroup), Description = nameof(Res.ShowTradesCountDescription), Order = 1410, ResourceType = typeof(Res))]
     public bool ShowTicks
     {
         get => _showTicks;
@@ -727,7 +727,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowHeight), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowCandleHeightDescription), Order = 193, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowHeight), GroupName = nameof(Res.RowsCandleContextGroup), Description = nameof(Res.ShowCandleHeightDescription), Order = 1420, ResourceType = typeof(Res))]
     public bool ShowHighLow
     {
         get => _showHighLow;
@@ -739,7 +739,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowTime), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowCandleTimeDescription), Order = 194, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowTime), GroupName = nameof(Res.RowsCandleContextGroup), Description = nameof(Res.ShowCandleTimeDescription), Order = 1440, ResourceType = typeof(Res))]
     public bool ShowTime
     {
         get => _showTime;
@@ -751,7 +751,7 @@ public class ClusterStatisticPro : Indicator
     }
 
     [Tab(TabName = nameof(Res.Data), TabOrder = 0, ResourceType = typeof(Res))]
-    [Display(Name = nameof(Res.ShowDuration), GroupName = nameof(Res.Rows), Description = nameof(Res.ShowCandleDurationDescription), Order = 196, ResourceType = typeof(Res))]
+    [Display(Name = nameof(Res.ShowDuration), GroupName = nameof(Res.RowsCandleContextGroup), Description = nameof(Res.ShowCandleDurationDescription), Order = 1430, ResourceType = typeof(Res))]
     public bool ShowDuration
     {
         get => _showDuration;

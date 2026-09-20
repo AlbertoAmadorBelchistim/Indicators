@@ -192,8 +192,23 @@
   <data name="RatiosAsPercentDescription" xml:space="preserve">
     <value>Shows Delta/Volume and Session Delta/Volume as a percentage (25%) or as a fraction (0.25).</value>
   </data>
-  <data name="Rows" xml:space="preserve">
-    <value>Lignes</value>
+  <data name="RowsCandleContextGroup" xml:space="preserve">
+    <value>Contexte de la bougie</value>
+  </data>
+  <data name="RowsImbalanceRowsGroup" xml:space="preserve">
+    <value>Déséquilibres</value>
+  </data>
+  <data name="RowsPaceGroup" xml:space="preserve">
+    <value>Rythme / Activité</value>
+  </data>
+  <data name="RowsPressureGroup" xml:space="preserve">
+    <value>Pression directionnelle</value>
+  </data>
+  <data name="RowsRawPrintsGroup" xml:space="preserve">
+    <value>Impressions brutes</value>
+  </data>
+  <data name="RowsSessionContextGroup" xml:space="preserve">
+    <value>Contexte de session</value>
   </data>
   <data name="Session" xml:space="preserve">
     <value>Session</value>
