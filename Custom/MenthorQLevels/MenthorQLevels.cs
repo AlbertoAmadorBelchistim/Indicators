@@ -21,6 +21,7 @@ namespace ATAS.Indicators.Technical
 {
 	[Category("Custom")]
 	[DisplayName("MenthorQLevels")]
+	[Display(ResourceType = typeof(MenthorQLevelsResources), Description = nameof(MenthorQLevelsResources.MenthorQLevels_Description))]
 	public sealed class MenthorQLevels : Indicator
 	{
 		#region Nested types: model
@@ -515,7 +516,7 @@ namespace ATAS.Indicators.Technical
 				_color = color;
 			}
 
-			[Display(Name = "Visible", Order = 10)]
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.CategoryStyle_IsVisible_DisplayName), Order = 10)]
 			public bool IsVisible
 			{
 				get => _isVisible;
@@ -527,7 +528,7 @@ namespace ATAS.Indicators.Technical
 				}
 			}
 
-			[Display(Name = "Color", Order = 20)]
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.CategoryStyle_Color_DisplayName), Order = 20)]
 			public Color Color
 			{
 				get => _color;
@@ -541,7 +542,7 @@ namespace ATAS.Indicators.Technical
 
 			// Collapsed-row label. Default ToString would show the full type
 			// name; this gives the user the visibility state at a glance.
-			public override string ToString() => _isVisible ? "Visible" : "Hidden";
+			public override string ToString() => _isVisible ? MenthorQLevelsResources.CategoryStyle_Summary_Visible : MenthorQLevelsResources.CategoryStyle_Summary_Hidden;
 		}
 
 		#endregion
@@ -566,11 +567,17 @@ namespace ATAS.Indicators.Technical
 
 		public enum DebugOverlayLocation
 		{
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DebugOverlayLocation_TopLeft))]
 			TopLeft,
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DebugOverlayLocation_TopCenter))]
 			TopCenter,
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DebugOverlayLocation_TopRight))]
 			TopRight,
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DebugOverlayLocation_BottomLeft))]
 			BottomLeft,
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DebugOverlayLocation_BottomCenter))]
 			BottomCenter,
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DebugOverlayLocation_BottomRight))]
 			BottomRight
 		}
 
@@ -582,8 +589,11 @@ namespace ATAS.Indicators.Technical
 		// anchor.
 		public enum LabelHorizontalAlignment
 		{
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.LabelHorizontalAlignment_Right))]
 			Right,
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.LabelHorizontalAlignment_Center))]
 			Center,
+			[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.LabelHorizontalAlignment_Left))]
 			Left
 		}
 
@@ -756,10 +766,9 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Manual text
 
-		[Display(Name = "Enabled",
-			GroupName = "Manual text",
-			Description = "Enable pasting MenthorQ levels as comma-separated text. Ignored when the API is configured and reachable.",
-			Order = 10)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.EnableManualText_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_ManualText), Order = 10,
+		Description = nameof(MenthorQLevelsResources.EnableManualText_Description))]
 		public bool EnableManualText
 		{
 			get => _enableManualText;
@@ -774,10 +783,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Index text",
-			GroupName = "Manual text",
-			Description = "Paste MenthorQ output for an Index or ETF ticker (SPX / NDX / RUT, or SPY / QQQ / IWM). Multiplier and offset below are applied to these prices in that order.",
-			Order = 20)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.IndexTextRaw_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_ManualText), Order = 20,
+		Description = nameof(MenthorQLevelsResources.IndexTextRaw_Description))]
 		public string IndexTextRaw
 		{
 			get => _indexTextRaw;
@@ -793,10 +801,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Futures text",
-			GroupName = "Manual text",
-			Description = "Paste MenthorQ output for the Futures ticker (ES / NQ / RTY). Offset is not applied to these prices.",
-			Order = 30)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.FuturesTextRaw_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_ManualText), Order = 30,
+		Description = nameof(MenthorQLevelsResources.FuturesTextRaw_Description))]
 		public string FuturesTextRaw
 		{
 			get => _futuresTextRaw;
@@ -812,10 +819,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Multiplier (Index to Chart)",
-			GroupName = "Manual text",
-			Description = "Applied to every Index-text price BEFORE the offset. Most common case: ETF data → Futures chart. Approx ratios at current index levels: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10. Ratios drift with index level — recalibrate periodically. Default 1 (no scaling). Futures text is never transformed.",
-			Order = 35)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.TextMultiplier_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_ManualText), Order = 35,
+		Description = nameof(MenthorQLevelsResources.TextMultiplier_Description))]
 		public decimal TextMultiplier
 		{
 			get => _textMultiplier;
@@ -828,10 +834,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Offset (Index to Chart)",
-			GroupName = "Manual text",
-			Description = "Added to every price parsed from the Index text, to align SPX levels to ES, NDX to NQ, etc. Futures text is never offset.",
-			Order = 40)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.TextOffset_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_ManualText), Order = 40,
+		Description = nameof(MenthorQLevelsResources.TextOffset_Description))]
 		public decimal TextOffset
 		{
 			get => _textOffset;
@@ -846,10 +851,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Clear text fields",
-			GroupName = "Manual text",
-			Description = "Toggle to clear both Index and Futures text fields. Self-resets.",
-			Order = 50)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.ClearManualTextNow_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_ManualText), Order = 50,
+		Description = nameof(MenthorQLevelsResources.ClearManualTextNow_Description))]
 		public bool ClearManualTextNow
 		{
 			get => false;
@@ -877,10 +881,9 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: API
 
-		[Display(Name = "API Key",
-			GroupName = "API",
-			Description = "MenthorQ API key. When set together with User ID, the API becomes the active data source and manual text is ignored.",
-			Order = 110)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.ApiKey_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_API), Order = 110,
+		Description = nameof(MenthorQLevelsResources.ApiKey_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public string ApiKey
 		{
@@ -898,10 +901,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "User ID (email)",
-			GroupName = "API",
-			Description = "Email associated with your MenthorQ account. Sent as the user_id query parameter on every request.",
-			Order = 120)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.UserId_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_API), Order = 120,
+		Description = nameof(MenthorQLevelsResources.UserId_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public string UserId
 		{
@@ -918,10 +920,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Ticker override",
-	GroupName = "API",
-	Description = "Optional. Leave empty to use the chart instrument (micros are auto-stripped: MES→ES, MNQ→NQ). Set a value to force a specific ticker (e.g. SPX on ES, or ES when the feed exposes ESH24).",
-	Order = 130)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.TickerOverride_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_API), Order = 130,
+		Description = nameof(MenthorQLevelsResources.TickerOverride_Description))]
 		[PostValueMode(PostValueModes.OnLostFocus)]
 		public string TickerOverride
 		{
@@ -938,10 +939,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Multiplier (API to Chart)",
-			GroupName = "API",
-			Description = "Applied to every API-fetched price BEFORE the offset. Most common case: ETF API feed → Futures chart. Approx ratios at current index levels: SPY → ES ≈ 10, QQQ → NQ ≈ 41, IWM → RTY ≈ 10. Ratios drift with index level — recalibrate periodically. Default 1 (no scaling). Applied at engine time — does not trigger an API refetch.",
-			Order = 132)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.ApiMultiplier_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_API), Order = 132,
+		Description = nameof(MenthorQLevelsResources.ApiMultiplier_Description))]
 		public decimal ApiMultiplier
 		{
 			get => _apiMultiplier;
@@ -954,10 +954,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Offset (API to Chart)",
-			GroupName = "API",
-			Description = "Added to every API-fetched price AFTER the multiplier. Combined formula: (raw_price × multiplier) + offset. Applied at engine time — changing it does not trigger an API refetch.",
-			Order = 135)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.ApiOffset_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_API), Order = 135,
+		Description = nameof(MenthorQLevelsResources.ApiOffset_Description))]
 		public decimal ApiOffset
 		{
 			get => _apiOffset;
@@ -970,10 +969,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Update Levels",
-	GroupName = "API",
-	Description = "Fetch latest levels from the MenthorQ API. Self-resets.",
-	Order = 140)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.UpdateLevels_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_API), Order = 140,
+		Description = nameof(MenthorQLevelsResources.UpdateLevels_Description))]
 		public bool UpdateLevels
 		{
 			get => false;
@@ -986,9 +984,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Auto refresh", GroupName = "API",
-	Description = "Automatically refresh API levels following MenthorQ's documented intraday schedule (14 fixed EST update slots: pre-market at 08:00 plus every 30 minutes from 09:50 to 15:50). A small post-slot delay lets the data settle on MenthorQ's end before the fetch fires. Toggling this on triggers an immediate catch-up fetch. EOD slots (18:30 / 23:00 EST) are not auto-refreshed; press Update Levels manually after market close if needed.",
-	Order = 142)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.EnableAutoRefresh_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_API), Order = 142,
+		Description = nameof(MenthorQLevelsResources.EnableAutoRefresh_Description))]
 		public bool EnableAutoRefresh
 		{
 			get => _enableAutoRefresh;
@@ -1017,66 +1015,78 @@ namespace ATAS.Indicators.Technical
 		// the inner CategoryStyle's [Display] attributes govern the sub-row
 		// labels (Visible, Color) when the row is expanded.
 
-		[Display(Name = "Gamma Wall", GroupName = "Levels", Order = 200,
-			Description = "Visibility and colour for GW lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.GammaWall_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 200,
+		Description = nameof(MenthorQLevelsResources.GammaWall_Description))]
 		public CategoryStyle GammaWall { get; }
 
-		[Display(Name = "Call Resistance", GroupName = "Levels", Order = 201,
-			Description = "Visibility and colour for CR lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.CallResistance_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 201,
+		Description = nameof(MenthorQLevelsResources.CallResistance_Description))]
 		public CategoryStyle CallResistance { get; }
 
-		[Display(Name = "Put Support", GroupName = "Levels", Order = 202,
-			Description = "Visibility and colour for PS lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.PutSupport_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 202,
+		Description = nameof(MenthorQLevelsResources.PutSupport_Description))]
 		public CategoryStyle PutSupport { get; }
 
-		[Display(Name = "High Volatility Level", GroupName = "Levels", Order = 203,
-			Description = "Visibility and colour for HVL lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.HighVolatilityLevel_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 203,
+		Description = nameof(MenthorQLevelsResources.HighVolatilityLevel_Description))]
 		public CategoryStyle HighVolatilityLevel { get; }
 
-		[Display(Name = "Risk Trigger", GroupName = "Levels", Order = 204,
-			Description = "Visibility and colour for RT lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.RiskTrigger_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 204,
+		Description = nameof(MenthorQLevelsResources.RiskTrigger_Description))]
 		public CategoryStyle RiskTrigger { get; }
 
-		[Display(Name = "Upper Band", GroupName = "Levels", Order = 205,
-			Description = "Visibility and colour for UB lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.UpperBand_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 205,
+		Description = nameof(MenthorQLevelsResources.UpperBand_Description))]
 		public CategoryStyle UpperBand { get; }
 
-		[Display(Name = "Lower Band", GroupName = "Levels", Order = 206,
-			Description = "Visibility and colour for LB lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.LowerBand_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 206,
+		Description = nameof(MenthorQLevelsResources.LowerBand_Description))]
 		public CategoryStyle LowerBand { get; }
 
-		[Display(Name = "Gamma Exposure", GroupName = "Levels", Order = 207,
-			Description = "Visibility and colour for GEX N lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.GammaExposure_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 207,
+		Description = nameof(MenthorQLevelsResources.GammaExposure_Description))]
 		public CategoryStyle GammaExposure { get; }
 
-		[Display(Name = "Blind Spot", GroupName = "Levels", Order = 208,
-			Description = "Visibility and colour for BL N lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.BlindSpot_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 208,
+		Description = nameof(MenthorQLevelsResources.BlindSpot_Description))]
 		public CategoryStyle BlindSpot { get; }
 
-		[Display(Name = "Day Max", GroupName = "Levels", Order = 209,
-			Description = "Visibility and colour for 1D Max lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DayMax_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 209,
+		Description = nameof(MenthorQLevelsResources.DayMax_Description))]
 		public CategoryStyle DayMax { get; }
 
-		[Display(Name = "Day Min", GroupName = "Levels", Order = 210,
-			Description = "Visibility and colour for 1D Min lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.DayMin_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 210,
+		Description = nameof(MenthorQLevelsResources.DayMin_Description))]
 		public CategoryStyle DayMin { get; }
 
-		[Display(Name = "Swing", GroupName = "Levels", Order = 211,
-			Description = "Visibility and colour for Swing lines, halos and labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.Swing_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 211,
+		Description = nameof(MenthorQLevelsResources.Swing_Description))]
 		public CategoryStyle Swing { get; }
 
-		[Display(Name = "Other", GroupName = "Levels", Order = 212,
-			Description = "Visibility and colour for fallback / unrecognised labels.")]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.Other_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Levels), Order = 212,
+		Description = nameof(MenthorQLevelsResources.Other_Description))]
 		public CategoryStyle Other { get; }
 
 		#endregion
 
 		#region Properties: Labels
 
-		[Display(Name = "Horizontal alignment",
-			GroupName = "Labels",
-			Description = "Where to anchor each level's text label horizontally. Right (default) keeps the previous behaviour — labels at the right edge of the chart area, just above the line. Center anchors them to the horizontal middle of the chart area, useful when the right side is busy with the price axis or a heavy DOM. Left anchors them to the left edge with a small padding. Pure visual change, no recalculation.",
-			Order = 300)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.LabelAlignment_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Labels), Order = 300,
+		Description = nameof(MenthorQLevelsResources.LabelAlignment_Description))]
 		public LabelHorizontalAlignment LabelAlignment
 		{
 			get => _labelAlignment;
@@ -1092,36 +1102,36 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Alerts
 
-		[Display(Name = "Enable alerts", GroupName = "Alerts",
-			Description = "Master switch for cross-level alerts. When off, nothing is emitted regardless of category visibility.",
-			Order = 400)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.EnableAlerts_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Alerts), Order = 400,
+		Description = nameof(MenthorQLevelsResources.EnableAlerts_Description))]
 		public bool EnableAlerts
 		{
 			get => _enableAlerts;
 			set => _enableAlerts = value;
 		}
 
-		[Display(Name = "Sound file", GroupName = "Alerts",
-			Description = "Sound played when an alert fires: the name of a file in the ATAS sounds folder (for example alert1).",
-			Order = 410)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.AlertSoundFile_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Alerts), Order = 410,
+		Description = nameof(MenthorQLevelsResources.AlertSoundFile_Description))]
 		public string AlertSoundFile
 		{
 			get => _alertSoundFile;
 			set => _alertSoundFile = value ?? string.Empty;
 		}
 
-		[Display(Name = "Alert on reversal", GroupName = "Alerts",
-	Description = "When a cross alert fires and price reverts back across the level within the cooldown window, emit a follow-up alert at cooldown expiry.",
-	Order = 415)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.EnableReversalAlerts_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Alerts), Order = 415,
+		Description = nameof(MenthorQLevelsResources.EnableReversalAlerts_Description))]
 		public bool EnableReversalAlerts
 		{
 			get => _enableReversalAlerts;
 			set => _enableReversalAlerts = value;
 		}
 
-		[Display(Name = "Cooldown (seconds)", GroupName = "Alerts",
-			Description = "Minimum time between consecutive alerts on the same level price. Prevents alert storms when price oscillates around a level.",
-			Order = 420)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.AlertCooldownSeconds_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Alerts), Order = 420,
+		Description = nameof(MenthorQLevelsResources.AlertCooldownSeconds_Description))]
 		[Range(1, 3600)]
 		public int AlertCooldownSeconds
 		{
@@ -1133,10 +1143,9 @@ namespace ATAS.Indicators.Technical
 
 		#region Properties: Diagnostics
 
-		[Display(Name = "Show debug overlay",
-			GroupName = "Diagnostics",
-			Description = "Renders a small status box on the chart showing internal indicator state: resolved ticker, active source, level/entry counts, pending alerts, API status, and current text/API multiplier+offset values. Default off — turn on when diagnosing why levels are missing or misaligned.",
-			Order = 500)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.EnableDebugOverlay_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Diagnostics), Order = 500,
+		Description = nameof(MenthorQLevelsResources.EnableDebugOverlay_Description))]
 		public bool EnableDebugOverlay
 		{
 			get => _enableDebugOverlay;
@@ -1148,10 +1157,9 @@ namespace ATAS.Indicators.Technical
 			}
 		}
 
-		[Display(Name = "Overlay location",
-	GroupName = "Diagnostics",
-	Description = "Corner of the chart where the debug overlay is anchored. Default TopRight to avoid colliding with the OHLC info that ATAS draws in the top-left under the cursor.",
-	Order = 510)]
+		[Display(ResourceType = typeof(MenthorQLevelsResources), Name = nameof(MenthorQLevelsResources.OverlayLocation_DisplayName),
+		GroupName = nameof(MenthorQLevelsResources.Group_Diagnostics), Order = 510,
+		Description = nameof(MenthorQLevelsResources.OverlayLocation_Description))]
 		public DebugOverlayLocation OverlayLocation
 		{
 			get => _debugOverlayLocation;
@@ -2496,8 +2504,8 @@ namespace ATAS.Indicators.Technical
 					continue;
 
 				var priceStr = level.Price.ToString("0.##", CultureInfo.InvariantCulture);
-				var direction = directionAbove ? "above" : "below";
-				var message = $"crossed {direction} {level.DisplayText} @ {priceStr}";
+				var template = directionAbove ? MenthorQLevelsResources.Alert_CrossedAbove : MenthorQLevelsResources.Alert_CrossedBelow;
+				var message = string.Format(template, level.DisplayText, priceStr);
 
 				try
 				{
@@ -2568,8 +2576,8 @@ namespace ATAS.Indicators.Technical
 				if (!IsCategoryVisible(lvl.Winner.Category)) continue;
 
 				var priceStr = levelPrice.ToString("0.##", CultureInfo.InvariantCulture);
-				var newSide = nowAbove ? "above" : "below";
-				var message = $"back {newSide} {lvl.DisplayText} @ {priceStr}";
+				var template = nowAbove ? MenthorQLevelsResources.Alert_BackAbove : MenthorQLevelsResources.Alert_BackBelow;
+				var message = string.Format(template, lvl.DisplayText, priceStr);
 
 				try
 				{
