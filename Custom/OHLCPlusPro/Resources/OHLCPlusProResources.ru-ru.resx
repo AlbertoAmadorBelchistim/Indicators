@@ -63,6 +63,15 @@
   <data name="Label" xml:space="preserve">
     <value>Надпись</value>
   </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>Шаблон</value>
+  </data>
+  <data name="LabelTemplateDescription" xml:space="preserve">
+    <value>Текст каждой подписи: {prefix} — префикс периода, {level} — название уровня. Оставьте пустым, чтобы писать только название уровня.</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Метки</value>
+  </data>
   <data name="Left" xml:space="preserve">
     <value>Слева</value>
   </data>
@@ -89,6 +98,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Префиксы</value>
   </data>
   <data name="PreviousDay" xml:space="preserve">
     <value>Прошлый день</value>

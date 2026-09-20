@@ -203,16 +203,13 @@ public class OHLCPlusPro : Indicator
     /// </summary>
     private sealed class LevelData
     {
-        public LevelData(string label, decimal price, bool isValid)
+        public LevelData(decimal price, bool isValid)
         {
-            Label = label;
             Price = price;
             IsValid = isValid;
         }
 
         public decimal Price { get; }
-
-        public string Label { get; }
 
         public bool IsValid { get; }
     }
@@ -282,6 +279,14 @@ public class OHLCPlusPro : Indicator
     // edited in place.
     private readonly LevelSettings[][] _levelsByPeriod = new LevelSettings[AllPeriods.Length][];
     private readonly bool[] _needed = new bool[AllPeriods.Length];
+
+    /// <summary>Order of the nine levels of every period, and of the texts that name them.</summary>
+    private const int LevelCount = 9;
+
+    private readonly string[] _levelTexts = ["Open", "High", "Low", "Close", "EQ", "POC", "VWAP", "VAH", "VAL"];
+    private readonly string[] _prefixes = ["D", "PD", "W", "PW", "M", "PM", "C"];
+
+    private string _labelTemplate = "{prefix} {level}";
 
     private int _lastBar = -1;
     private bool _candleRequested;
@@ -1041,6 +1046,133 @@ public class OHLCPlusPro : Indicator
 
     #endregion
 
+    #region Labels
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.LabelTemplate), Description = nameof(Res.LabelTemplateDescription), Order = 1100)]
+    public string LabelTemplate
+    {
+        get => _labelTemplate;
+        set => SetText(ref _labelTemplate, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.BarOpen), Order = 1110)]
+    public string OpenText
+    {
+        get => _levelTexts[0];
+        set => SetLevelText(0, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.BarHigh), Order = 1120)]
+    public string HighText
+    {
+        get => _levelTexts[1];
+        set => SetLevelText(1, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.BarLow), Order = 1130)]
+    public string LowText
+    {
+        get => _levelTexts[2];
+        set => SetLevelText(2, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.BarClose), Order = 1140)]
+    public string CloseText
+    {
+        get => _levelTexts[3];
+        set => SetLevelText(3, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.Equilibrium), Order = 1150)]
+    public string EquilibriumText
+    {
+        get => _levelTexts[4];
+        set => SetLevelText(4, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.POC), Order = 1160)]
+    public string PocText
+    {
+        get => _levelTexts[5];
+        set => SetLevelText(5, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.VWAP), Order = 1170)]
+    public string VwapText
+    {
+        get => _levelTexts[6];
+        set => SetLevelText(6, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.VAH), Order = 1180)]
+    public string VahText
+    {
+        get => _levelTexts[7];
+        set => SetLevelText(7, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.VAL), Order = 1190)]
+    public string ValText
+    {
+        get => _levelTexts[8];
+        set => SetLevelText(8, value);
+    }
+
+    #endregion
+
+    #region Prefixes
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.CurrentDay), Order = 1200)]
+    public string DayPrefix
+    {
+        get => _prefixes[0];
+        set => SetPrefix(0, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.PreviousDay), Order = 1210)]
+    public string PrevDayPrefix
+    {
+        get => _prefixes[1];
+        set => SetPrefix(1, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.CurrentWeek), Order = 1220)]
+    public string WeekPrefix
+    {
+        get => _prefixes[2];
+        set => SetPrefix(2, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.PreviousWeek), Order = 1230)]
+    public string PrevWeekPrefix
+    {
+        get => _prefixes[3];
+        set => SetPrefix(3, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.CurrentMonth), Order = 1240)]
+    public string MonthPrefix
+    {
+        get => _prefixes[4];
+        set => SetPrefix(4, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.PreviousMonth), Order = 1250)]
+    public string PrevMonthPrefix
+    {
+        get => _prefixes[5];
+        set => SetPrefix(5, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Prefixes), Name = nameof(Res.Contract), Order = 1260)]
+    public string ContractPrefix
+    {
+        get => _prefixes[6];
+        set => SetPrefix(6, value);
+    }
+
+    #endregion
+
     #region Visibility Settings
 
     [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Visibility), Name = nameof(Res.ToggleLevelsVisibilityHotKey), Order = 1000)]
@@ -1154,19 +1286,57 @@ public class OHLCPlusPro : Indicator
         if (ChartInfo is null || InstrumentInfo is null)
             return;
 
-        // Render all levels in groups for better organization
-        RenderLevelGroup(context, "d", DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel, DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel);
-        RenderLevelGroup(context, "p", PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel, PrevDayPOCLevel, PrevDayVWAPLevel, PrevDayVAHLevel, PrevDayVALLevel);
-        RenderLevelGroup(context, "w", WeekOpenLevel, WeekHighLevel, WeekLowLevel, WeekCloseLevel, WeekEquilibriumLevel, WeekPOCLevel, WeekVWAPLevel, WeekVAHLevel, WeekVALLevel);
-        RenderLevelGroup(context, "pw", PrevWeekOpenLevel, PrevWeekHighLevel, PrevWeekLowLevel, PrevWeekCloseLevel, PrevWeekEquilibriumLevel, PrevWeekPOCLevel, PrevWeekVWAPLevel, PrevWeekVAHLevel, PrevWeekVALLevel);
-        RenderLevelGroup(context, "m", MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel, MonthPOCLevel, MonthVWAPLevel, MonthVAHLevel, MonthVALLevel);
-        RenderLevelGroup(context, "pm", PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel, PrevMonthPOCLevel, PrevMonthVWAPLevel, PrevMonthVAHLevel, PrevMonthVALLevel);
-        RenderLevelGroup(context, "c", ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel, ContractPOCLevel, ContractVWAPLevel, ContractVAHLevel, ContractVALLevel);
+        foreach (var period in AllPeriods)
+        {
+            var levels = LevelsOf(period);
+
+            if (levels.Length != LevelCount)
+                continue;
+
+            for (var kind = 0; kind < LevelCount; kind++)
+                RenderLevel(context, period, kind, levels[kind]);
+        }
     }
 
     #endregion
 
     #region Private methods
+
+    /// <summary>
+    /// Text of a level: the template with the prefix of its period and the name of its kind.
+    /// </summary>
+    private string BuildLabel(FixedProfilePeriods period, int kind)
+    {
+        var index = IndexOf(period);
+        var prefix = index >= 0 ? _prefixes[index] : string.Empty;
+        var text = kind >= 0 && kind < LevelCount ? _levelTexts[kind] : string.Empty;
+
+        if (_labelTemplate.Length == 0)
+            return text;
+
+        return _labelTemplate
+            .Replace("{prefix}", prefix, StringComparison.Ordinal)
+            .Replace("{level}", text, StringComparison.Ordinal)
+            .Trim();
+    }
+
+    private void SetText(ref string field, string value)
+    {
+        field = value ?? string.Empty;
+        RedrawChart();
+    }
+
+    private void SetLevelText(int kind, string value)
+    {
+        _levelTexts[kind] = value ?? string.Empty;
+        RedrawChart();
+    }
+
+    private void SetPrefix(int index, string value)
+    {
+        _prefixes[index] = value ?? string.Empty;
+        RedrawChart();
+    }
 
     private void ToggleAllLevelsVisibility()
     {
@@ -1301,7 +1471,7 @@ public class OHLCPlusPro : Indicator
         if (_levels.TryGetValue(key, out var previous) && previous.IsValid && previous.Price == price)
             return false;
 
-        _levels[key] = new LevelData(key, price, true);
+        _levels[key] = new LevelData(price, true);
         return true;
     }
 
@@ -1309,22 +1479,9 @@ public class OHLCPlusPro : Indicator
 
     #region OnRender
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static FixedProfilePeriods PeriodFromPrefix(string prefix) => prefix switch
+    private void RenderLevel(RenderContext context, FixedProfilePeriods period, int kind, LevelSettings levelSettings)
     {
-        "d" => FixedProfilePeriods.CurrentDay,
-        "p" => FixedProfilePeriods.LastDay,
-        "w" => FixedProfilePeriods.CurrentWeek,
-        "pw" => FixedProfilePeriods.LastWeek,
-        "m" => FixedProfilePeriods.CurrentMonth,
-        "pm" => FixedProfilePeriods.LastMonth,
-        "c" => FixedProfilePeriods.Contract,
-        _ => FixedProfilePeriods.CurrentDay
-    };
-
-    private void RenderLevel(RenderContext context, string levelKey, LevelSettings levelSettings)
-    {
-        if (!_allLevelsVisible || !levelSettings.Enabled || !_levels.TryGetValue(levelKey, out var level) || !level.IsValid)
+        if (!_allLevelsVisible || !levelSettings.Enabled || !_levels.TryGetValue(_keys[period][kind], out var level) || !level.IsValid)
             return;
             
         // Validate price is reasonable
@@ -1344,6 +1501,7 @@ public class OHLCPlusPro : Indicator
 
         // Get pen from LevelSettings
         var renderPen = levelSettings.RenderPen;
+        var labelText = BuildLabel(period, kind);
 
         // Draw line first (if LineType != None)
         switch (levelSettings.LineType)
@@ -1353,7 +1511,6 @@ public class OHLCPlusPro : Indicator
                 if (levelSettings.LabelPosition == LabelPosition.Bar)
                 {
                     // Calculate actual label width for better positioning
-                    var labelText = level.Label;
                     var labelSize = context.MeasureString(labelText, _font);
                     var labelStartX = currentBarRightX + 5;
                     var lineStartX = labelStartX + labelSize.Width + 4; // 4px padding
@@ -1384,15 +1541,15 @@ public class OHLCPlusPro : Indicator
         {
             case LabelPosition.Bar:
                 var barLabelX = currentBarRightX + 5;
-                DrawTextLabel(context, level.Label, barLabelX, y, renderPen, levelSettings.TextColor, false);
+                DrawTextLabel(context, labelText, barLabelX, y, renderPen, levelSettings.TextColor, false);
                 break;
             case LabelPosition.Right:
                 var rightLabelX = chartWidth - 5;
-                DrawTextLabel(context, level.Label, rightLabelX, y, renderPen, levelSettings.TextColor, true);
+                DrawTextLabel(context, labelText, rightLabelX, y, renderPen, levelSettings.TextColor, true);
                 break;
             case LabelPosition.Left:
                 var leftLabelX = 5;
-                DrawTextLabel(context, level.Label, leftLabelX, y, renderPen, levelSettings.TextColor, false);
+                DrawTextLabel(context, labelText, leftLabelX, y, renderPen, levelSettings.TextColor, false);
                 break;
             case LabelPosition.None:
                 // No text label to draw
@@ -1451,41 +1608,54 @@ public class OHLCPlusPro : Indicator
         context.DrawString(text, _font, textColor.Convert(), textRect, format);
     }
 
-    private void RenderLevelGroup(RenderContext context, string prefix,
-      LevelSettings openLevel, LevelSettings highLevel, LevelSettings lowLevel, LevelSettings closeLevel,
-      LevelSettings eqLevel, LevelSettings pocLevel, LevelSettings vwapLevel, LevelSettings vahLevel, LevelSettings valLevel)
-    {
-        var keys = _keys[PeriodFromPrefix(prefix)];
-        // 0 Open, 1 High, 2 Low, 3 Close, 4 EQ, 5 POC, 6 VWAP, 7 VAH, 8 VAL
-
-        RenderLevel(context, keys[0], openLevel);
-        RenderLevel(context, keys[1], highLevel);
-        RenderLevel(context, keys[2], lowLevel);
-        RenderLevel(context, keys[3], closeLevel);
-        RenderLevel(context, keys[4], eqLevel);
-        RenderLevel(context, keys[5], pocLevel);
-        RenderLevel(context, keys[6], vwapLevel);
-        RenderLevel(context, keys[7], vahLevel);
-        RenderLevel(context, keys[8], valLevel);
-    }
-
     #endregion
 
     #region SubscribeAllLevels
 
-    private static bool TryParsePeriodFromPropertyName(string propertyName, out FixedProfilePeriods period)
+    /// <summary>
+    /// The nine levels of a period, in the order of <see cref="LevelCount"/>: open, high, low,
+    /// close, equilibrium, POC, VWAP, VAH, VAL. Written out rather than found by reflection,
+    /// because the order is what names every level and places every band.
+    /// </summary>
+    private LevelSettings[] BuildLevelsOf(FixedProfilePeriods period) => period switch
     {
-        if (propertyName.StartsWith("Day")) { period = FixedProfilePeriods.CurrentDay; return true; }
-        if (propertyName.StartsWith("PrevDay")) { period = FixedProfilePeriods.LastDay; return true; }
-        if (propertyName.StartsWith("Week")) { period = FixedProfilePeriods.CurrentWeek; return true; }
-        if (propertyName.StartsWith("PrevWeek")) { period = FixedProfilePeriods.LastWeek; return true; }
-        if (propertyName.StartsWith("Month")) { period = FixedProfilePeriods.CurrentMonth; return true; }
-        if (propertyName.StartsWith("PrevMonth")) { period = FixedProfilePeriods.LastMonth; return true; }
-        if (propertyName.StartsWith("Contract")) { period = FixedProfilePeriods.Contract; return true; }
-
-        period = default;
-        return false;
-    }
+        FixedProfilePeriods.CurrentDay =>
+        [
+            DayOpenLevel, DayHighLevel, DayLowLevel, DayCloseLevel, DayEquilibriumLevel,
+            DayPOCLevel, DayVWAPLevel, DayVAHLevel, DayVALLevel,
+        ],
+        FixedProfilePeriods.LastDay =>
+        [
+            PrevDayOpenLevel, PrevDayHighLevel, PrevDayLowLevel, PrevDayCloseLevel, PrevDayEquilibriumLevel,
+            PrevDayPOCLevel, PrevDayVWAPLevel, PrevDayVAHLevel, PrevDayVALLevel,
+        ],
+        FixedProfilePeriods.CurrentWeek =>
+        [
+            WeekOpenLevel, WeekHighLevel, WeekLowLevel, WeekCloseLevel, WeekEquilibriumLevel,
+            WeekPOCLevel, WeekVWAPLevel, WeekVAHLevel, WeekVALLevel,
+        ],
+        FixedProfilePeriods.LastWeek =>
+        [
+            PrevWeekOpenLevel, PrevWeekHighLevel, PrevWeekLowLevel, PrevWeekCloseLevel, PrevWeekEquilibriumLevel,
+            PrevWeekPOCLevel, PrevWeekVWAPLevel, PrevWeekVAHLevel, PrevWeekVALLevel,
+        ],
+        FixedProfilePeriods.CurrentMonth =>
+        [
+            MonthOpenLevel, MonthHighLevel, MonthLowLevel, MonthCloseLevel, MonthEquilibriumLevel,
+            MonthPOCLevel, MonthVWAPLevel, MonthVAHLevel, MonthVALLevel,
+        ],
+        FixedProfilePeriods.LastMonth =>
+        [
+            PrevMonthOpenLevel, PrevMonthHighLevel, PrevMonthLowLevel, PrevMonthCloseLevel, PrevMonthEquilibriumLevel,
+            PrevMonthPOCLevel, PrevMonthVWAPLevel, PrevMonthVAHLevel, PrevMonthVALLevel,
+        ],
+        FixedProfilePeriods.Contract =>
+        [
+            ContractOpenLevel, ContractHighLevel, ContractLowLevel, ContractCloseLevel, ContractEquilibriumLevel,
+            ContractPOCLevel, ContractVWAPLevel, ContractVAHLevel, ContractVALLevel,
+        ],
+        _ => [],
+    };
 
     /// <summary>
     /// Rebuilds the table of levels per period and keeps the handlers in step with it. A restored
@@ -1493,23 +1663,21 @@ public class OHLCPlusPro : Indicator
     /// </summary>
     private void SubscribeAllLevels()
     {
-        var lists = new List<LevelSettings>[AllPeriods.Length];
         var current = new HashSet<LevelSettings>(RefEqComparer.Instance);
 
-        foreach (var (ls, period) in EnumerateAllLevelSettingsWithPeriods())
+        for (var i = 0; i < AllPeriods.Length; i++)
         {
-            var index = IndexOf(period);
+            var period = AllPeriods[i];
+            var levels = BuildLevelsOf(period);
 
-            if (index < 0)
-                continue;
+            foreach (var ls in levels)
+            {
+                current.Add(ls);
+                TrySubscribe(ls, period);
+            }
 
-            (lists[index] ??= []).Add(ls);
-            current.Add(ls);
-            TrySubscribe(ls, period);
+            _levelsByPeriod[i] = levels;
         }
-
-        for (var i = 0; i < lists.Length; i++)
-            _levelsByPeriod[i] = lists[i]?.ToArray() ?? [];
 
         foreach (var ls in _subscribedLevels.ToArray())
         {
@@ -1519,19 +1687,6 @@ public class OHLCPlusPro : Indicator
             ls.PropertyChanged -= OnLevelSettingsChanged;
             _subscribedLevels.Remove(ls);
             _periodByLevel.Remove(ls);
-        }
-    }
-
-    private IEnumerable<(LevelSettings ls, FixedProfilePeriods period)> EnumerateAllLevelSettingsWithPeriods()
-    {
-        var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public;
-        foreach (var pi in GetType().GetProperties(flags))
-        {
-            if (pi.PropertyType != typeof(LevelSettings) || !pi.CanRead)
-                continue;
-
-            if (pi.GetValue(this) is LevelSettings ls && TryParsePeriodFromPropertyName(pi.Name, out var period))
-                yield return (ls, period);
         }
     }
 

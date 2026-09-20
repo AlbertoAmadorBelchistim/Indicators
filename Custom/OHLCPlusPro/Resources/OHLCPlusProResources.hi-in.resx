@@ -63,6 +63,15 @@
   <data name="Label" xml:space="preserve">
     <value>लेबल</value>
   </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>टेम्पलेट</value>
+  </data>
+  <data name="LabelTemplateDescription" xml:space="preserve">
+    <value>हर लेबल का टेक्स्ट: {prefix} अवधि का उपसर्ग और {level} स्तर का नाम लेता है। खाली छोड़ने पर केवल स्तर का नाम लिखा जाता है।</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>लेबल</value>
+  </data>
   <data name="Left" xml:space="preserve">
     <value>बाएं</value>
   </data>
@@ -89,6 +98,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>उपसर्ग</value>
   </data>
   <data name="PreviousDay" xml:space="preserve">
     <value>पिछला दिन</value>

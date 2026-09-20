@@ -63,6 +63,15 @@
   <data name="Label" xml:space="preserve">
     <value>标签</value>
   </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>模板</value>
+  </data>
+  <data name="LabelTemplateDescription" xml:space="preserve">
+    <value>每个标签的文字：{prefix} 取周期前缀，{level} 取水平线名称。留空则只写名称。</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>标签</value>
+  </data>
   <data name="Left" xml:space="preserve">
     <value>左</value>
   </data>
@@ -89,6 +98,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>前缀</value>
   </data>
   <data name="PreviousDay" xml:space="preserve">
     <value>昨天</value>

@@ -63,6 +63,15 @@
   <data name="Label" xml:space="preserve">
     <value>Label</value>
   </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>Beschriftungsvorlage</value>
+  </data>
+  <data name="LabelTemplateDescription" xml:space="preserve">
+    <value>Text jeder Beschriftung: {prefix} steht für das Kürzel der Periode und {level} für den Namen des Levels. Leer lassen, um nur den Namen des Levels zu schreiben.</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Beschriftungen</value>
+  </data>
   <data name="Left" xml:space="preserve">
     <value>Left</value>
   </data>
@@ -89,6 +98,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Präfixe</value>
   </data>
   <data name="PreviousDay" xml:space="preserve">
     <value>Vorheriger Tag</value>

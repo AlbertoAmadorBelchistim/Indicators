@@ -63,6 +63,15 @@
   <data name="Label" xml:space="preserve">
     <value>Label</value>
   </data>
+  <data name="LabelTemplate" xml:space="preserve">
+    <value>Modèle</value>
+  </data>
+  <data name="LabelTemplateDescription" xml:space="preserve">
+    <value>Texte de chaque étiquette : {prefix} prend le préfixe de la période et {level} le nom du niveau. Laissez vide pour n'écrire que le nom du niveau.</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>Étiquettes</value>
+  </data>
   <data name="Left" xml:space="preserve">
     <value>À gauche</value>
   </data>
@@ -89,6 +98,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Prefixes" xml:space="preserve">
+    <value>Préfixes</value>
   </data>
   <data name="PreviousDay" xml:space="preserve">
     <value>Dernier jour</value>
