@@ -12,6 +12,7 @@ internal static class Program
 			("SessionClock", SessionClockTests.Run),
 			("TrailingDrawdown", TrailingDrawdownTests.Run),
 			("DailyRails", DailyRailsTests.Run),
+			("TradeLedger", TradeLedgerTests.Run),
 		};
 
 		var failed = 0;
