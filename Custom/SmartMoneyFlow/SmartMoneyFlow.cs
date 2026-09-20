@@ -18,6 +18,25 @@ using Utils.Common.Logging;
 [Description("Cumulative delta of five trade-size filters, with the smart money spread and its signal line.")]
 public class SmartMoneyFlow : Indicator
 {
+	#region Nested Types
+
+	public enum SessionMode
+	{
+		// The chart's default session.
+		[Display(Name = "Default session")]
+		Default,
+
+		// Sessions that start every day at CustomSessionStart, in chart time.
+		[Display(Name = "Custom start time")]
+		Custom,
+
+		// No restart: the lines accumulate from the first calculated bar.
+		[Display(Name = "Continuous")]
+		Continuous
+	}
+
+	#endregion
+
 	#region Fields
 
 	// Number of trade-size filters.
@@ -66,6 +85,8 @@ public class SmartMoneyFlow : Indicator
 
 	// Number of sessions calculated, counting the current one; 0 = every loaded bar.
 	private int _sessions = 1;
+	private SessionMode _sessionMode = SessionMode.Default;
+	private TimeSpan _customSessionStart = new(15, 30, 0);
 
 	// Whether each written bar starts a session: the lines restart from 0 there.
 	private readonly List<bool> _sessionStart = new();
@@ -112,8 +133,41 @@ public class SmartMoneyFlow : Indicator
 
 	#region Properties
 
+	[Display(Name = "Session", GroupName = "Session",
+		Description = "Where the lines restart from 0: at each default session of the chart, every day at a custom time, or never (continuous).",
+		Order = 20)]
+	public SessionMode SessionType
+	{
+		get => _sessionMode;
+		set
+		{
+			if (_sessionMode == value)
+				return;
+
+			_sessionMode = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Custom session start", GroupName = "Session",
+		Description = "Start time of the custom session, in chart time. A session runs until the same time the next day.",
+		Order = 25)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public TimeSpan CustomSessionStart
+	{
+		get => _customSessionStart;
+		set
+		{
+			if (_customSessionStart == value)
+				return;
+
+			_customSessionStart = value;
+			RecalculateValues();
+		}
+	}
+
 	[Display(Name = "Sessions to calculate", GroupName = "Session",
-		Description = "Number of sessions calculated, counting the current one. The lines restart from 0 at the start of each session. 0 = every loaded bar.",
+		Description = "Number of sessions calculated, counting the current one: default or custom sessions, and default sessions in continuous mode. 0 = every loaded bar.",
 		Order = 30)]
 	[Range(0, 1000)]
 	[PostValueMode(PostValueModes.OnLostFocus)]
@@ -531,7 +585,10 @@ public class SmartMoneyFlow : Indicator
 
 		for (var bar = CurrentBar - 1; bar > 0; bar--)
 		{
-			if (!IsSessionStart(bar))
+			// Continuous mode counts the default sessions to find where to start.
+			var start = _sessionMode == SessionMode.Continuous ? IsNewSession(bar) : IsSessionStart(bar);
+
+			if (!start)
 				continue;
 
 			found++;
@@ -545,7 +602,36 @@ public class SmartMoneyFlow : Indicator
 
 	private bool IsSessionStart(int bar)
 	{
-		return bar == 0 || IsNewSession(bar);
+		if (bar == 0)
+			return true;
+
+		return _sessionMode switch
+		{
+			SessionMode.Custom => CustomSessionDay(bar) != CustomSessionDay(bar - 1),
+			SessionMode.Continuous => false,
+			_ => IsNewSession(bar)
+		};
+	}
+
+	// Day of the custom session a bar opens in: the chart date of its open time shifted back by
+	// the session start. A session starts on the first bar whose day differs from the previous
+	// bar's, which also finds the start after a weekend or a daily break that spans the start time,
+	// and a start at 00:00.
+	private DateTime CustomSessionDay(int bar)
+	{
+		return (ChartTime(GetCandle(bar).Time) - _customSessionStart).Date;
+	}
+
+	private DateTime ChartTime(DateTime utc)
+	{
+		if (InstrumentInfo is null)
+			return utc;
+
+#if ATAS_STABLE || ATAS_LATEST
+		return utc.AddHours(InstrumentInfo.TimeZone);
+#else
+		return utc.Add(InstrumentInfo.TimeZoneOffset);
+#endif
 	}
 
 	// Called under _calcLock. Records whether the bar starts a session and, if so, restarts the
@@ -965,9 +1051,19 @@ public class SmartMoneyFlow : Indicator
 
 		this.LogInfo($"SmartMoneyFlow: history calculated, {count} {(_cumulativeTrades ? "cumulative trades" : "ticks")}" +
 			(count > 0 ? $" from {firstTime:yyyy-MM-dd HH:mm:ss.fff} to {lastTime:yyyy-MM-dd HH:mm:ss.fff}" : "") +
-			$", bars {_firstBar}-{lastBar} ({_sessions} sessions); last values {string.Join(" / ", _delta.Select(d => d.ToString("0.##")))}.");
+			$", bars {_firstBar}-{lastBar} ({_sessions} sessions, {SessionDescription()}); last values {string.Join(" / ", _delta.Select(d => d.ToString("0.##")))}.");
 
 		RedrawChart();
+	}
+
+	private string SessionDescription()
+	{
+		return _sessionMode switch
+		{
+			SessionMode.Custom => $"custom start {_customSessionStart:hh\\:mm}",
+			SessionMode.Continuous => "continuous",
+			_ => "default session"
+		};
 	}
 
 	// Called under _calcLock. Walks the bars from the first calculated bar to lastBar and counts
