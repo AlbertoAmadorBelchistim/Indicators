@@ -15,6 +15,7 @@ internal static class Program
 			("TradeLedger", TradeLedgerTests.Run),
 			("Recommendations", RecommendationTests.Run),
 			("RailPrices", RailPriceTests.Run),
+			("StateStore", StateStoreTests.Run),
 		};
 
 		var failed = 0;
