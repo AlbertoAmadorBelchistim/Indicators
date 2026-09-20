@@ -62,6 +62,30 @@ public class DeltaThresholds : Indicator
 		BarClose
 	}
 
+	public enum AverageType
+	{
+		[Display(Name = "SMA")]
+		Sma,
+
+		[Display(Name = "EMA")]
+		Ema
+	}
+
+	public enum AverageColoring
+	{
+		// One color.
+		[Display(Name = "Fixed")]
+		Fixed,
+
+		// Up color at or above zero, down color below.
+		[Display(Name = "Zero cross")]
+		ZeroCross,
+
+		// Up color while the average rises or stays, down color while it falls.
+		[Display(Name = "Slope")]
+		Slope
+	}
+
 	// Running mean and variance (Welford). One sample per closed bar.
 	internal struct RunningStats
 	{
@@ -186,6 +210,27 @@ public class DeltaThresholds : Indicator
 	private int _observedBar = -1;
 	private bool _upReachedBefore;
 	private bool _downReachedBefore;
+
+	// Moving average of the bar delta.
+	private readonly ValueDataSeries _averageSeries = new("AverageSeries", "Average")
+	{
+		Color = CrossColor.FromArgb(255, 255, 215, 0),
+		Width = 2,
+		VisualType = VisualMode.Hide,
+		IsHidden = true,
+		UseMinimizedModeIfEnabled = true
+	};
+
+	private bool _showAverage;
+	private int _averagePeriod = 20;
+	private AverageType _averageType = AverageType.Sma;
+	private AverageColoring _averageColoring = AverageColoring.Fixed;
+	private CrossColor _averageUpColor = CrossColor.FromArgb(255, 0, 200, 0);
+	private CrossColor _averageDownColor = CrossColor.FromArgb(255, 220, 0, 0);
+
+	// Running sum of the bar delta up to each bar: the SMA of any bar comes from two sums, so
+	// recalculating the forming bar on every update gives the same value as the history.
+	private readonly List<decimal> _deltaSums = new();
 
 	private bool _showHistogram = true;
 	private CrossColor _upColor = CrossColor.FromArgb(255, 0, 170, 0);
@@ -530,6 +575,93 @@ public class DeltaThresholds : Indicator
 		set => _alertFile = value;
 	}
 
+	[Display(Name = "Show average", GroupName = "Average", Description = "Draws a moving average of the bar delta.", Order = 500)]
+	public bool ShowAverage
+	{
+		get => _showAverage;
+		set
+		{
+			_showAverage = value;
+			_averageSeries.VisualType = value ? VisualMode.Line : VisualMode.Hide;
+		}
+	}
+
+	[Display(Name = "Period", GroupName = "Average", Description = "Number of bars of the average.", Order = 510)]
+	[Range(1, 1000)]
+	[PostValueMode(PostValueModes.OnLostFocus)]
+	public int AveragePeriod
+	{
+		get => _averagePeriod;
+		set
+		{
+			_averagePeriod = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Type", GroupName = "Average", Description = "Simple (SMA) or exponential (EMA) moving average.", Order = 520)]
+	public AverageType AverageKind
+	{
+		get => _averageType;
+		set
+		{
+			_averageType = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Coloring", GroupName = "Average", Description = "Fixed: the line color. Zero cross: up color at or above zero, down color below. Slope: up color while the average rises or stays, down color while it falls.", Order = 530)]
+	public AverageColoring AverageColorMode
+	{
+		get => _averageColoring;
+		set
+		{
+			_averageColoring = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Color", GroupName = "Average", Description = "Line color with fixed coloring.", Order = 540)]
+	public CrossColor AverageColor
+	{
+		get => _averageSeries.Color;
+		set
+		{
+			_averageSeries.Color = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Up color", GroupName = "Average", Description = "Zero cross and slope coloring: color above zero or while rising.", Order = 550)]
+	public CrossColor AverageUpColor
+	{
+		get => _averageUpColor;
+		set
+		{
+			_averageUpColor = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Down color", GroupName = "Average", Description = "Zero cross and slope coloring: color below zero or while falling.", Order = 560)]
+	public CrossColor AverageDownColor
+	{
+		get => _averageDownColor;
+		set
+		{
+			_averageDownColor = value;
+			RecalculateValues();
+		}
+	}
+
+	[Display(Name = "Line width", GroupName = "Average", Description = "Width of the average line.", Order = 570)]
+	[Range(1, 20)]
+	public int AverageWidth
+	{
+		get => _averageSeries.Width;
+		set => _averageSeries.Width = value;
+	}
+
 	#endregion
 
 	#region Ctor
@@ -548,6 +680,7 @@ public class DeltaThresholds : Indicator
 		DataSeries.Add(_upMinorSeries);
 		DataSeries.Add(_downMinorSeries);
 		DataSeries.Add(_downMajorSeries);
+		DataSeries.Add(_averageSeries);
 
 		UpdateThresholdVisibility();
 	}
@@ -574,6 +707,7 @@ public class DeltaThresholds : Indicator
 			_signals.Clear();
 
 		_levels.Clear();
+		_deltaSums.Clear();
 		_positive.Reset();
 		_negative.Reset();
 	}
@@ -590,6 +724,7 @@ public class DeltaThresholds : Indicator
 			OpenBar(bar);
 
 		UpdateSignals(bar, false);
+		UpdateAverage(bar, delta);
 
 		if (_historyLoaded && bar == CurrentBar - 1 && !_alertAtBarClose)
 			CheckReachedAlerts(bar);
@@ -751,6 +886,47 @@ public class DeltaThresholds : Indicator
 
 			_signals[bar] = (up, down);
 		}
+	}
+
+	// Idempotent per bar: the value of a bar only depends on the stored values of the bars before
+	// it and its own delta, so updating the forming bar any number of times gives the same result
+	// as calculating it once in the history.
+	private void UpdateAverage(int bar, decimal delta)
+	{
+		while (_deltaSums.Count < bar)
+			_deltaSums.Add(_deltaSums.Count > 0 ? _deltaSums[^1] : 0);
+
+		var previousSum = bar > 0 ? _deltaSums[bar - 1] : 0;
+
+		if (_deltaSums.Count == bar)
+			_deltaSums.Add(previousSum + delta);
+		else
+			_deltaSums[bar] = previousSum + delta;
+
+		decimal average;
+
+		if (_averageType == AverageType.Sma)
+		{
+			var count = Math.Min(_averagePeriod, bar + 1);
+			var startSum = bar - count >= 0 ? _deltaSums[bar - count] : 0;
+			average = (_deltaSums[bar] - startSum) / count;
+		}
+		else
+		{
+			var alpha = 2m / (_averagePeriod + 1);
+			average = bar == 0 ? delta : _averageSeries[bar - 1] + alpha * (delta - _averageSeries[bar - 1]);
+		}
+
+		_averageSeries[bar] = average;
+
+		var color = _averageColoring switch
+		{
+			AverageColoring.ZeroCross => average >= 0 ? _averageUpColor : _averageDownColor,
+			AverageColoring.Slope => bar == 0 || average >= _averageSeries[bar - 1] ? _averageUpColor : _averageDownColor,
+			_ => _averageSeries.Color
+		};
+
+		_averageSeries.Colors[bar] = color.Convert();
 	}
 
 	private decimal AlertLevel(int bar, bool up)
