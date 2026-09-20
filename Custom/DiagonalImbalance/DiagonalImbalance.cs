@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Text;
 
 using OFT.Attributes.Editors;
+using OFT.Rendering.Context;
 
 using Utils.Common.Logging;
 
@@ -49,10 +51,19 @@ public class DiagonalImbalance : Indicator
 	// Maximum number of levels listed per logged bar.
 	private const int LoggedLevelsPerBar = 12;
 
+	// Minimum bar width in pixels to draw buy and sell marks on separate halves of the bar.
+	private const int MinSplitBarWidth = 6;
+
 	private static readonly ImbalanceLevel[] NoImbalances = Array.Empty<ImbalanceLevel>();
 
 	// Imbalances per bar index; null until the bar has been calculated as a closed bar.
 	private readonly List<ImbalanceLevel[]> _barImbalances = new();
+
+	// Guards _barImbalances: written by the calculation thread, read by the render thread.
+	private readonly object _barsLock = new();
+
+	// Visible bars copied under the lock by OnRender, reused between frames.
+	private readonly List<(int Bar, ImbalanceLevel[] Levels)> _renderBars = new();
 
 	private readonly PriceVolumeInfo _levelCache = new();
 
@@ -60,6 +71,10 @@ public class DiagonalImbalance : Indicator
 	private decimal _minDominantVolume = 20m;
 	private bool _ignoreZeroLevels;
 	private decimal _minVolumeDifference;
+
+	private bool _showMarks = true;
+	private Color _buyColor = Color.FromArgb(140, 0, 200, 83);
+	private Color _sellColor = Color.FromArgb(140, 229, 57, 53);
 
 	private bool _historyLoaded;
 	private int _historyBuyCount;
@@ -138,6 +153,46 @@ public class DiagonalImbalance : Indicator
 
 	#endregion
 
+	#region Properties: Visuals
+
+	[Display(Name = "Show imbalance marks", GroupName = "Visuals", Order = 200,
+		Description = "Highlights every level with a diagonal imbalance.")]
+	public bool ShowMarks
+	{
+		get => _showMarks;
+		set
+		{
+			_showMarks = value;
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Buy imbalance color", GroupName = "Visuals", Order = 210,
+		Description = "Color of buy imbalances (Ask against the Bid one tick below).")]
+	public CrossColor BuyColor
+	{
+		get => _buyColor.Convert();
+		set
+		{
+			_buyColor = value.Convert();
+			RedrawChart();
+		}
+	}
+
+	[Display(Name = "Sell imbalance color", GroupName = "Visuals", Order = 220,
+		Description = "Color of sell imbalances (Bid against the Ask one tick above).")]
+	public CrossColor SellColor
+	{
+		get => _sellColor.Convert();
+		set
+		{
+			_sellColor = value.Convert();
+			RedrawChart();
+		}
+	}
+
+	#endregion
+
 	#region Ctor
 
 	public DiagonalImbalance()
@@ -149,6 +204,9 @@ public class DiagonalImbalance : Indicator
 		// so it does not show up as an empty line in the chart or the Drawing panel.
 		DataSeries[0].IsHidden = true;
 		((ValueDataSeries)DataSeries[0]).VisualType = VisualMode.Hide;
+
+		EnableCustomDrawing = true;
+		SubscribeToDrawingEvents(DrawingLayouts.Final);
 	}
 
 	#endregion
@@ -162,7 +220,9 @@ public class DiagonalImbalance : Indicator
 
 	protected override void OnRecalculate()
 	{
-		_barImbalances.Clear();
+		lock (_barsLock)
+			_barImbalances.Clear();
+
 		_historyLoaded = false;
 		_historyBuyCount = 0;
 		_historySellCount = 0;
@@ -182,12 +242,7 @@ public class DiagonalImbalance : Indicator
 		// Forming bar: it is evaluated once it closes (the realtime evaluation of the
 		// forming bar comes later). A new forming bar means the previous one just closed.
 		if (bar > 0 && !IsCalculated(bar - 1))
-		{
 			CalculateClosedBar(bar - 1);
-
-			if (_historyLoaded)
-				LogBar(bar - 1);
-		}
 	}
 
 	protected override void OnFinishRecalculate()
@@ -205,6 +260,61 @@ public class DiagonalImbalance : Indicator
 			LogBar(bar);
 	}
 
+	protected override void OnRender(RenderContext context, DrawingLayouts layout)
+	{
+		if (!_showMarks || ChartInfo is null || InstrumentInfo is null)
+			return;
+
+		var tickSize = InstrumentInfo.TickSize;
+
+		if (tickSize <= 0)
+			return;
+
+		var container = ChartInfo.PriceChartContainer;
+		var barWidth = Math.Max(1, (int)container.BarsWidth);
+
+		// Wide enough bars split like a Bid x Ask footprint: sell imbalances (Bid) on the left
+		// half, buy imbalances (Ask) on the right half. Narrow bars use the full width.
+		var split = barWidth >= MinSplitBarWidth;
+		var leftWidth = split ? barWidth / 2 : barWidth;
+		var rightWidth = split ? barWidth - leftWidth : barWidth;
+
+		_renderBars.Clear();
+
+		lock (_barsLock)
+		{
+			var firstBar = Math.Max(0, FirstVisibleBarNumber);
+			var lastBar = Math.Min(LastVisibleBarNumber, _barImbalances.Count - 1);
+
+			for (var bar = firstBar; bar <= lastBar; bar++)
+			{
+				var barLevels = _barImbalances[bar];
+
+				if (barLevels is { Length: > 0 })
+					_renderBars.Add((bar, barLevels));
+			}
+		}
+
+		foreach (var (bar, levels) in _renderBars)
+		{
+			var x = ChartInfo.GetXByBar(bar);
+
+			foreach (var level in levels)
+			{
+				// GetYByPrice(price, true) is the top edge of the price row.
+				var top = ChartInfo.GetYByPrice(level.Price, true);
+				var bottom = ChartInfo.GetYByPrice(level.Price - tickSize, true);
+				var height = Math.Max(1, bottom - top);
+
+				var rect = level.IsBuy
+					? new Rectangle(split ? x + leftWidth : x, top, rightWidth, height)
+					: new Rectangle(x, top, leftWidth, height);
+
+				context.FillRectangle(level.IsBuy ? _buyColor : _sellColor, rect);
+			}
+		}
+	}
+
 	#endregion
 
 	#region Private Methods: Engine
@@ -218,10 +328,13 @@ public class DiagonalImbalance : Indicator
 	{
 		var levels = FindImbalances(bar);
 
-		while (_barImbalances.Count <= bar)
-			_barImbalances.Add(null);
+		lock (_barsLock)
+		{
+			while (_barImbalances.Count <= bar)
+				_barImbalances.Add(null);
 
-		_barImbalances[bar] = levels;
+			_barImbalances[bar] = levels;
+		}
 
 		foreach (var level in levels)
 		{
@@ -230,6 +343,11 @@ public class DiagonalImbalance : Indicator
 			else
 				_historySellCount++;
 		}
+
+		// After the history, a bar only reaches this point when it closes (in realtime or replay,
+		// possibly several at once). Bars without imbalances are not logged.
+		if (_historyLoaded && levels.Length > 0)
+			LogBar(bar);
 	}
 
 	// Walks the bar from Low to High. At each price P the Ask of P and the Bid of P - 1 tick
