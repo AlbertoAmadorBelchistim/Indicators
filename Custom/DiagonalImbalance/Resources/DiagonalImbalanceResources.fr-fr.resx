@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DiagonalImbalance_Description" xml:space="preserve">
+    <value>Détecte les déséquilibres diagonaux bid/ask dans le footprint et trace les déséquilibres empilés sous forme de zones.</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Calcul</value>
+  </data>
+  <data name="Group_Scope" xml:space="preserve">
+    <value>Portée</value>
+  </data>
+  <data name="Group_Zones" xml:space="preserve">
+    <value>Zones</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Affichage</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alertes</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnostic</value>
+  </data>
+  <data name="MarkLayout_Auto" xml:space="preserve">
+    <value>Automatique</value>
+  </data>
+  <data name="MarkLayout_FootprintHalves" xml:space="preserve">
+    <value>Moitiés du footprint</value>
+  </data>
+  <data name="MarkLayout_FullBar" xml:space="preserve">
+    <value>Barre entière</value>
+  </data>
+  <data name="ZoneBreakMode_Touch" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="ZoneBreakMode_TradeThrough" xml:space="preserve">
+    <value>Traversée</value>
+  </data>
+  <data name="ZoneBreakMode_CloseBeyond" xml:space="preserve">
+    <value>Clôture au-delà</value>
+  </data>
+  <data name="ImbalanceRatio_DisplayName" xml:space="preserve">
+    <value>Ratio de déséquilibre</value>
+  </data>
+  <data name="ImbalanceRatio_Description" xml:space="preserve">
+    <value>Ratio minimal entre le côté dominant et le côté passif en diagonale, par ex. 3 = 300 %.</value>
+  </data>
+  <data name="MinDominantVolume_DisplayName" xml:space="preserve">
+    <value>Volume dominant minimal</value>
+  </data>
+  <data name="MinDominantVolume_Description" xml:space="preserve">
+    <value>Volume minimal du côté dominant pour qu’un niveau compte comme déséquilibre.</value>
+  </data>
+  <data name="MinVolumeDifference_DisplayName" xml:space="preserve">
+    <value>Différence de volume minimale</value>
+  </data>
+  <data name="MinVolumeDifference_Description" xml:space="preserve">
+    <value>Différence minimale entre le côté dominant et le côté passif en diagonale. 0 désactive le filtre.</value>
+  </data>
+  <data name="IgnoreZeroLevels_DisplayName" xml:space="preserve">
+    <value>Ignorer les niveaux à zéro</value>
+  </data>
+  <data name="IgnoreZeroLevels_Description" xml:space="preserve">
+    <value>Activé : un niveau dont le côté passif en diagonale n’a pas de volume n’est jamais un déséquilibre. Désactivé : il compte comme un ratio infini et seul le volume dominant minimal s’applique.</value>
+  </data>
+  <data name="RowTicks_DisplayName" xml:space="preserve">
+    <value>Ticks par ligne</value>
+  </data>
+  <data name="RowTicks_Description" xml:space="preserve">
+    <value>Nombre de niveaux de prix regroupés en une ligne avant la comparaison, comme un footprint à lignes groupées. Les lignes sont alignées sur des multiples de cette taille.</value>
+  </data>
+  <data name="MinStackedLevels_DisplayName" xml:space="preserve">
+    <value>Niveaux empilés</value>
+  </data>
+  <data name="MinStackedLevels_Description" xml:space="preserve">
+    <value>Nombre minimal de niveaux de prix consécutifs avec un déséquilibre du même côté pour former un déséquilibre empilé.</value>
+  </data>
+  <data name="Days_DisplayName" xml:space="preserve">
+    <value>Jours à calculer</value>
+  </data>
+  <data name="Days_Description" xml:space="preserve">
+    <value>Nombre de séances, séance en cours comprise, dans lesquelles les déséquilibres sont évalués. 0 = tout le graphique.</value>
+  </data>
+  <data name="UseSessionFilter_DisplayName" xml:space="preserve">
+    <value>Utiliser le filtre de séance</value>
+  </data>
+  <data name="UseSessionFilter_Description" xml:space="preserve">
+    <value>N’évalue que les barres qui ouvrent dans la plage horaire de la séance (fuseau du graphique). Les zones créées pendant la séance continuent de s’étendre et peuvent être cassées en dehors.</value>
+  </data>
+  <data name="SessionStart_DisplayName" xml:space="preserve">
+    <value>Début de séance</value>
+  </data>
+  <data name="SessionStart_Description" xml:space="preserve">
+    <value>Début de la plage horaire (inclus). Un début postérieur à la fin passe minuit.</value>
+  </data>
+  <data name="SessionEnd_DisplayName" xml:space="preserve">
+    <value>Fin de séance</value>
+  </data>
+  <data name="SessionEnd_Description" xml:space="preserve">
+    <value>Fin de la plage horaire (exclue).</value>
+  </data>
+  <data name="BreakMode_DisplayName" xml:space="preserve">
+    <value>Règle de cassure de zone</value>
+  </data>
+  <data name="BreakMode_Description" xml:space="preserve">
+    <value>Contact : le prix entre dans la zone. Traversée : le prix traite au-delà du bord opposé (sous une zone d’achat, au-dessus d’une zone de vente). Clôture au-delà : une barre clôture au-delà du bord opposé.</value>
+  </data>
+  <data name="MaxZoneAgeBars_DisplayName" xml:space="preserve">
+    <value>Âge maximal de zone (barres)</value>
+  </data>
+  <data name="MaxZoneAgeBars_Description" xml:space="preserve">
+    <value>Une zone non cassée après ce nombre de barres cesse de s’étendre. 0 = sans limite.</value>
+  </data>
+  <data name="MaxActiveZones_DisplayName" xml:space="preserve">
+    <value>Nombre maximal de zones actives</value>
+  </data>
+  <data name="MaxActiveZones_Description" xml:space="preserve">
+    <value>Si une nouvelle zone dépasse ce nombre de zones actives, la plus ancienne zone active cesse de s’étendre. 0 = sans limite.</value>
+  </data>
+  <data name="ShowMarks_DisplayName" xml:space="preserve">
+    <value>Afficher les marques de déséquilibre</value>
+  </data>
+  <data name="ShowMarks_Description" xml:space="preserve">
+    <value>Met en évidence chaque niveau présentant un déséquilibre diagonal.</value>
+  </data>
+  <data name="MarksLayout_DisplayName" xml:space="preserve">
+    <value>Disposition des marques</value>
+  </data>
+  <data name="MarksLayout_Description" xml:space="preserve">
+    <value>Moitiés du footprint : marques de vente à gauche (Bid), marques d’achat à droite (Ask). Barre entière : les marques couvrent toute la largeur. Automatique : moitiés si la barre est assez large, sinon barre entière.</value>
+  </data>
+  <data name="BuyColor_DisplayName" xml:space="preserve">
+    <value>Couleur déséquilibre acheteur</value>
+  </data>
+  <data name="BuyColor_Description" xml:space="preserve">
+    <value>Couleur des déséquilibres acheteurs (Ask face au Bid un tick plus bas).</value>
+  </data>
+  <data name="SellColor_DisplayName" xml:space="preserve">
+    <value>Couleur déséquilibre vendeur</value>
+  </data>
+  <data name="SellColor_Description" xml:space="preserve">
+    <value>Couleur des déséquilibres vendeurs (Bid face à l’Ask un tick plus haut).</value>
+  </data>
+  <data name="ShowZones_DisplayName" xml:space="preserve">
+    <value>Afficher les zones empilées</value>
+  </data>
+  <data name="ShowZones_Description" xml:space="preserve">
+    <value>Trace chaque déséquilibre empilé comme une zone qui s’étend vers la droite jusqu’à sa cassure (voir Règle de cassure de zone).</value>
+  </data>
+  <data name="BuyZoneColor_DisplayName" xml:space="preserve">
+    <value>Couleur de zone d’achat</value>
+  </data>
+  <data name="BuyZoneColor_Description" xml:space="preserve">
+    <value>Couleur de remplissage des zones issues de déséquilibres acheteurs empilés.</value>
+  </data>
+  <data name="SellZoneColor_DisplayName" xml:space="preserve">
+    <value>Couleur de zone de vente</value>
+  </data>
+  <data name="SellZoneColor_Description" xml:space="preserve">
+    <value>Couleur de remplissage des zones issues de déséquilibres vendeurs empilés.</value>
+  </data>
+  <data name="ZoneBorderWidth_DisplayName" xml:space="preserve">
+    <value>Épaisseur du contour de zone</value>
+  </data>
+  <data name="ZoneBorderWidth_Description" xml:space="preserve">
+    <value>Épaisseur du contour de la zone, tracé dans la couleur de la zone sans transparence. 0 = aucun contour.</value>
+  </data>
+  <data name="ShowZoneLabels_DisplayName" xml:space="preserve">
+    <value>Afficher les étiquettes de zone</value>
+  </data>
+  <data name="ShowZoneLabels_Description" xml:space="preserve">
+    <value>Affiche le nombre de niveaux empilés (par ex. x4) au début de chaque zone.</value>
+  </data>
+  <data name="LabelFontSize_DisplayName" xml:space="preserve">
+    <value>Taille de police des étiquettes</value>
+  </data>
+  <data name="LabelFontSize_Description" xml:space="preserve">
+    <value>Taille de police des étiquettes de zone.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Journal détaillé</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Écrit dans le journal ATAS chaque déséquilibre des 20 dernières barres après un recalcul, puis de chaque barre qui clôture ensuite. Pour vérifier l’indicateur par rapport au footprint.</value>
+  </data>
+  <data name="AlertOnNewZone_DisplayName" xml:space="preserve">
+    <value>Alerte nouvelle zone</value>
+  </data>
+  <data name="AlertOnNewZone_Description" xml:space="preserve">
+    <value>Alerte lorsqu’une barre clôture avec un déséquilibre empilé et qu’une nouvelle zone est créée.</value>
+  </data>
+  <data name="AlertOnRetest_DisplayName" xml:space="preserve">
+    <value>Alerte retest de zone</value>
+  </data>
+  <data name="AlertOnRetest_Description" xml:space="preserve">
+    <value>Alerte lorsque le prix entre dans une zone active depuis l’extérieur.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Son d’alerte</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Fichier son utilisé par les alertes.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Délai entre retests (secondes)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Délai minimal entre deux alertes de retest de la même zone.</value>
+  </data>
+</root>

@@ -6,4 +6,21 @@
 		<AssemblyName>DiagonalImbalance</AssemblyName>
 		<Version>0.9.0</Version>
 	</PropertyGroup>
+
+	<!-- Localized UI strings. The public DiagonalImbalanceResources class is generated at build time
+	     from the neutral file (no checked-in Designer.cs); each culture file becomes a satellite
+	     assembly that the deploy step copies to the root of the Indicators folder. -->
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\DiagonalImbalanceResources.resx">
+			<StronglyTypedLanguage>CSharp</StronglyTypedLanguage>
+			<StronglyTypedNamespace>ATAS.Indicators.Technical</StronglyTypedNamespace>
+			<StronglyTypedClassName>DiagonalImbalanceResources</StronglyTypedClassName>
+			<StronglyTypedFileName>$(IntermediateOutputPath)DiagonalImbalanceResources.Designer.cs</StronglyTypedFileName>
+			<StronglyTypedManifestPrefix>ATAS.Indicators.Technical.Resources</StronglyTypedManifestPrefix>
+			<PublicClass>true</PublicClass>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\DiagonalImbalanceResources.*.resx">
+			<DependentUpon>DiagonalImbalanceResources.resx</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
 </Project>

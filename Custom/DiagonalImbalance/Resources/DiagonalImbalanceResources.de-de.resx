@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DiagonalImbalance_Description" xml:space="preserve">
+    <value>Erkennt diagonale Bid/Ask-Ungleichgewichte im Footprint und zeichnet gestapelte Ungleichgewichte als Zonen.</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Berechnung</value>
+  </data>
+  <data name="Group_Scope" xml:space="preserve">
+    <value>Bereich</value>
+  </data>
+  <data name="Group_Zones" xml:space="preserve">
+    <value>Zonen</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Darstellung</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alarme</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnose</value>
+  </data>
+  <data name="MarkLayout_Auto" xml:space="preserve">
+    <value>Automatisch</value>
+  </data>
+  <data name="MarkLayout_FootprintHalves" xml:space="preserve">
+    <value>Footprint-Hälften</value>
+  </data>
+  <data name="MarkLayout_FullBar" xml:space="preserve">
+    <value>Ganze Kerze</value>
+  </data>
+  <data name="ZoneBreakMode_Touch" xml:space="preserve">
+    <value>Berührung</value>
+  </data>
+  <data name="ZoneBreakMode_TradeThrough" xml:space="preserve">
+    <value>Durchhandeln</value>
+  </data>
+  <data name="ZoneBreakMode_CloseBeyond" xml:space="preserve">
+    <value>Schluss jenseits</value>
+  </data>
+  <data name="ImbalanceRatio_DisplayName" xml:space="preserve">
+    <value>Ungleichgewichtsverhältnis</value>
+  </data>
+  <data name="ImbalanceRatio_Description" xml:space="preserve">
+    <value>Mindestverhältnis zwischen der dominanten Seite und der diagonalen passiven Seite, z. B. 3 = 300 %.</value>
+  </data>
+  <data name="MinDominantVolume_DisplayName" xml:space="preserve">
+    <value>Mindestvolumen dominante Seite</value>
+  </data>
+  <data name="MinDominantVolume_Description" xml:space="preserve">
+    <value>Mindestvolumen auf der dominanten Seite, damit ein Level als Ungleichgewicht zählt.</value>
+  </data>
+  <data name="MinVolumeDifference_DisplayName" xml:space="preserve">
+    <value>Mindestvolumendifferenz</value>
+  </data>
+  <data name="MinVolumeDifference_Description" xml:space="preserve">
+    <value>Mindestdifferenz zwischen der dominanten und der diagonalen passiven Seite. 0 deaktiviert den Filter.</value>
+  </data>
+  <data name="IgnoreZeroLevels_DisplayName" xml:space="preserve">
+    <value>Null-Level ignorieren</value>
+  </data>
+  <data name="IgnoreZeroLevels_Description" xml:space="preserve">
+    <value>Aktiviert: Ein Level ohne Volumen auf der diagonalen passiven Seite ist nie ein Ungleichgewicht. Deaktiviert: Es zählt als unendliches Verhältnis, nur das Mindestvolumen der dominanten Seite gilt.</value>
+  </data>
+  <data name="RowTicks_DisplayName" xml:space="preserve">
+    <value>Ticks pro Zeile</value>
+  </data>
+  <data name="RowTicks_Description" xml:space="preserve">
+    <value>Anzahl der Preislevel, die vor dem Vergleich zu einer Zeile zusammengefasst werden, wie bei einem Footprint mit gruppierten Zeilen. Die Zeilen sind an Vielfachen dieser Größe ausgerichtet.</value>
+  </data>
+  <data name="MinStackedLevels_DisplayName" xml:space="preserve">
+    <value>Gestapelte Level</value>
+  </data>
+  <data name="MinStackedLevels_Description" xml:space="preserve">
+    <value>Mindestanzahl aufeinanderfolgender Preislevel mit Ungleichgewicht auf derselben Seite für ein gestapeltes Ungleichgewicht.</value>
+  </data>
+  <data name="Days_DisplayName" xml:space="preserve">
+    <value>Zu berechnende Tage</value>
+  </data>
+  <data name="Days_Description" xml:space="preserve">
+    <value>Anzahl der Sitzungen einschließlich der aktuellen, in denen Ungleichgewichte ausgewertet werden. 0 = gesamter Chart.</value>
+  </data>
+  <data name="UseSessionFilter_DisplayName" xml:space="preserve">
+    <value>Sitzungsfilter verwenden</value>
+  </data>
+  <data name="UseSessionFilter_Description" xml:space="preserve">
+    <value>Nur Kerzen auswerten, die innerhalb des Sitzungszeitraums öffnen (Zeitzone des Charts). Innerhalb der Sitzung entstandene Zonen laufen weiter und können außerhalb brechen.</value>
+  </data>
+  <data name="SessionStart_DisplayName" xml:space="preserve">
+    <value>Sitzungsbeginn</value>
+  </data>
+  <data name="SessionStart_Description" xml:space="preserve">
+    <value>Beginn des Sitzungszeitraums (einschließlich). Ein Beginn nach dem Ende reicht über Mitternacht.</value>
+  </data>
+  <data name="SessionEnd_DisplayName" xml:space="preserve">
+    <value>Sitzungsende</value>
+  </data>
+  <data name="SessionEnd_Description" xml:space="preserve">
+    <value>Ende des Sitzungszeitraums (ausschließlich).</value>
+  </data>
+  <data name="BreakMode_DisplayName" xml:space="preserve">
+    <value>Zonen-Bruchregel</value>
+  </data>
+  <data name="BreakMode_Description" xml:space="preserve">
+    <value>Berührung: Der Preis handelt in die Zone. Durchhandeln: Der Preis handelt jenseits der fernen Kante (unter einer Kaufzone, über einer Verkaufszone). Schluss jenseits: Eine Kerze schließt jenseits der fernen Kante.</value>
+  </data>
+  <data name="MaxZoneAgeBars_DisplayName" xml:space="preserve">
+    <value>Maximales Zonenalter (Kerzen)</value>
+  </data>
+  <data name="MaxZoneAgeBars_Description" xml:space="preserve">
+    <value>Eine Zone, die nach so vielen Kerzen nicht gebrochen wurde, wird nicht weiter verlängert. 0 = unbegrenzt.</value>
+  </data>
+  <data name="MaxActiveZones_DisplayName" xml:space="preserve">
+    <value>Maximale aktive Zonen</value>
+  </data>
+  <data name="MaxActiveZones_Description" xml:space="preserve">
+    <value>Würde eine neue Zone diese Anzahl aktiver Zonen überschreiten, wird die älteste aktive Zone nicht weiter verlängert. 0 = unbegrenzt.</value>
+  </data>
+  <data name="ShowMarks_DisplayName" xml:space="preserve">
+    <value>Ungleichgewichtsmarken anzeigen</value>
+  </data>
+  <data name="ShowMarks_Description" xml:space="preserve">
+    <value>Hebt jedes Level mit diagonalem Ungleichgewicht hervor.</value>
+  </data>
+  <data name="MarksLayout_DisplayName" xml:space="preserve">
+    <value>Markenlayout</value>
+  </data>
+  <data name="MarksLayout_Description" xml:space="preserve">
+    <value>Footprint-Hälften: Verkaufsmarken links (Bid), Kaufmarken rechts (Ask). Ganze Kerze: Marken über die gesamte Breite. Automatisch: Hälften bei ausreichend breiter Kerze, sonst ganze Kerze.</value>
+  </data>
+  <data name="BuyColor_DisplayName" xml:space="preserve">
+    <value>Farbe Kauf-Ungleichgewicht</value>
+  </data>
+  <data name="BuyColor_Description" xml:space="preserve">
+    <value>Farbe der Kauf-Ungleichgewichte (Ask gegen den Bid einen Tick darunter).</value>
+  </data>
+  <data name="SellColor_DisplayName" xml:space="preserve">
+    <value>Farbe Verkauf-Ungleichgewicht</value>
+  </data>
+  <data name="SellColor_Description" xml:space="preserve">
+    <value>Farbe der Verkauf-Ungleichgewichte (Bid gegen den Ask einen Tick darüber).</value>
+  </data>
+  <data name="ShowZones_DisplayName" xml:space="preserve">
+    <value>Gestapelte Zonen anzeigen</value>
+  </data>
+  <data name="ShowZones_Description" xml:space="preserve">
+    <value>Zeichnet jedes gestapelte Ungleichgewicht als Zone, die nach rechts verlängert wird, bis sie gebrochen wird (siehe Zonen-Bruchregel).</value>
+  </data>
+  <data name="BuyZoneColor_DisplayName" xml:space="preserve">
+    <value>Farbe Kaufzone</value>
+  </data>
+  <data name="BuyZoneColor_Description" xml:space="preserve">
+    <value>Füllfarbe der Zonen aus gestapelten Kauf-Ungleichgewichten.</value>
+  </data>
+  <data name="SellZoneColor_DisplayName" xml:space="preserve">
+    <value>Farbe Verkaufszone</value>
+  </data>
+  <data name="SellZoneColor_Description" xml:space="preserve">
+    <value>Füllfarbe der Zonen aus gestapelten Verkauf-Ungleichgewichten.</value>
+  </data>
+  <data name="ZoneBorderWidth_DisplayName" xml:space="preserve">
+    <value>Zonenrahmenbreite</value>
+  </data>
+  <data name="ZoneBorderWidth_Description" xml:space="preserve">
+    <value>Breite des Zonenrahmens in der Zonenfarbe ohne Transparenz. 0 = kein Rahmen.</value>
+  </data>
+  <data name="ShowZoneLabels_DisplayName" xml:space="preserve">
+    <value>Zonenbeschriftung anzeigen</value>
+  </data>
+  <data name="ShowZoneLabels_Description" xml:space="preserve">
+    <value>Schreibt die Anzahl gestapelter Level (z. B. x4) an den Anfang jeder Zone.</value>
+  </data>
+  <data name="LabelFontSize_DisplayName" xml:space="preserve">
+    <value>Schriftgröße der Beschriftung</value>
+  </data>
+  <data name="LabelFontSize_Description" xml:space="preserve">
+    <value>Schriftgröße der Zonenbeschriftungen.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Ausführliches Protokoll</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Schreibt jedes Ungleichgewicht der letzten 20 Kerzen nach einer Neuberechnung sowie jeder danach schließenden Kerze in das ATAS-Protokoll. Zum Abgleich des Indikators mit dem Footprint.</value>
+  </data>
+  <data name="AlertOnNewZone_DisplayName" xml:space="preserve">
+    <value>Alarm bei neuer Zone</value>
+  </data>
+  <data name="AlertOnNewZone_Description" xml:space="preserve">
+    <value>Alarm, wenn eine Kerze mit gestapeltem Ungleichgewicht schließt und eine neue Zone entsteht.</value>
+  </data>
+  <data name="AlertOnRetest_DisplayName" xml:space="preserve">
+    <value>Alarm bei Zonen-Retest</value>
+  </data>
+  <data name="AlertOnRetest_Description" xml:space="preserve">
+    <value>Alarm, wenn der Preis von außerhalb in eine aktive Zone läuft.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Alarmton</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Tondatei der Alarme.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Retest-Sperrzeit (Sekunden)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Mindestzeit zwischen zwei Retest-Alarmen derselben Zone.</value>
+  </data>
+</root>

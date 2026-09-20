@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DiagonalImbalance_Description" xml:space="preserve">
+    <value>फ़ुटप्रिंट में डायगोनल bid/ask असंतुलन का पता लगाता है और स्टैक्ड असंतुलन को ज़ोन के रूप में दिखाता है।</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>गणना</value>
+  </data>
+  <data name="Group_Scope" xml:space="preserve">
+    <value>दायरा</value>
+  </data>
+  <data name="Group_Zones" xml:space="preserve">
+    <value>ज़ोन</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>दृश्य</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>अलर्ट</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>निदान</value>
+  </data>
+  <data name="MarkLayout_Auto" xml:space="preserve">
+    <value>स्वचालित</value>
+  </data>
+  <data name="MarkLayout_FootprintHalves" xml:space="preserve">
+    <value>फ़ुटप्रिंट के आधे हिस्से</value>
+  </data>
+  <data name="MarkLayout_FullBar" xml:space="preserve">
+    <value>पूरा बार</value>
+  </data>
+  <data name="ZoneBreakMode_Touch" xml:space="preserve">
+    <value>स्पर्श</value>
+  </data>
+  <data name="ZoneBreakMode_TradeThrough" xml:space="preserve">
+    <value>पार होना</value>
+  </data>
+  <data name="ZoneBreakMode_CloseBeyond" xml:space="preserve">
+    <value>बाहर क्लोज़</value>
+  </data>
+  <data name="ImbalanceRatio_DisplayName" xml:space="preserve">
+    <value>असंतुलन अनुपात</value>
+  </data>
+  <data name="ImbalanceRatio_Description" xml:space="preserve">
+    <value>प्रमुख पक्ष और डायगोनल निष्क्रिय पक्ष के बीच न्यूनतम अनुपात, जैसे 3 = 300%।</value>
+  </data>
+  <data name="MinDominantVolume_DisplayName" xml:space="preserve">
+    <value>न्यूनतम प्रमुख वॉल्यूम</value>
+  </data>
+  <data name="MinDominantVolume_Description" xml:space="preserve">
+    <value>किसी लेवल को असंतुलन माने जाने के लिए प्रमुख पक्ष का न्यूनतम वॉल्यूम।</value>
+  </data>
+  <data name="MinVolumeDifference_DisplayName" xml:space="preserve">
+    <value>न्यूनतम वॉल्यूम अंतर</value>
+  </data>
+  <data name="MinVolumeDifference_Description" xml:space="preserve">
+    <value>प्रमुख पक्ष और डायगोनल निष्क्रिय पक्ष के बीच न्यूनतम अंतर। 0 फ़िल्टर बंद करता है।</value>
+  </data>
+  <data name="IgnoreZeroLevels_DisplayName" xml:space="preserve">
+    <value>शून्य लेवल अनदेखा करें</value>
+  </data>
+  <data name="IgnoreZeroLevels_Description" xml:space="preserve">
+    <value>चालू होने पर, जिस लेवल के डायगोनल निष्क्रिय पक्ष में वॉल्यूम नहीं है वह कभी असंतुलन नहीं होता। बंद होने पर इसे अनंत अनुपात माना जाता है और केवल न्यूनतम प्रमुख वॉल्यूम लागू होता है।</value>
+  </data>
+  <data name="RowTicks_DisplayName" xml:space="preserve">
+    <value>प्रति पंक्ति टिक</value>
+  </data>
+  <data name="RowTicks_Description" xml:space="preserve">
+    <value>तुलना से पहले एक पंक्ति में मिलाए जाने वाले प्राइस लेवल की संख्या, जैसे समूहीकृत पंक्तियों वाला फ़ुटप्रिंट। पंक्तियाँ इस आकार के गुणकों पर संरेखित होती हैं।</value>
+  </data>
+  <data name="MinStackedLevels_DisplayName" xml:space="preserve">
+    <value>स्टैक्ड लेवल</value>
+  </data>
+  <data name="MinStackedLevels_Description" xml:space="preserve">
+    <value>स्टैक्ड असंतुलन बनाने के लिए एक ही पक्ष में असंतुलन वाले लगातार प्राइस लेवल की न्यूनतम संख्या।</value>
+  </data>
+  <data name="Days_DisplayName" xml:space="preserve">
+    <value>गणना के दिन</value>
+  </data>
+  <data name="Days_Description" xml:space="preserve">
+    <value>सत्रों की संख्या, वर्तमान सहित, जिनमें असंतुलन जाँचे जाते हैं। 0 = पूरा चार्ट।</value>
+  </data>
+  <data name="UseSessionFilter_DisplayName" xml:space="preserve">
+    <value>सत्र फ़िल्टर उपयोग करें</value>
+  </data>
+  <data name="UseSessionFilter_Description" xml:space="preserve">
+    <value>केवल उन बार की जाँच करें जो सत्र समय सीमा (चार्ट टाइम ज़ोन) के भीतर खुलते हैं। सत्र में बने ज़ोन आगे बढ़ते रहते हैं और सत्र के बाहर टूट सकते हैं।</value>
+  </data>
+  <data name="SessionStart_DisplayName" xml:space="preserve">
+    <value>सत्र प्रारंभ</value>
+  </data>
+  <data name="SessionStart_Description" xml:space="preserve">
+    <value>सत्र समय सीमा की शुरुआत (शामिल)। अंत से बाद की शुरुआत आधी रात को पार करती है।</value>
+  </data>
+  <data name="SessionEnd_DisplayName" xml:space="preserve">
+    <value>सत्र समाप्ति</value>
+  </data>
+  <data name="SessionEnd_Description" xml:space="preserve">
+    <value>सत्र समय सीमा का अंत (शामिल नहीं)।</value>
+  </data>
+  <data name="BreakMode_DisplayName" xml:space="preserve">
+    <value>ज़ोन ब्रेक नियम</value>
+  </data>
+  <data name="BreakMode_Description" xml:space="preserve">
+    <value>स्पर्श: कीमत ज़ोन में आती है। पार होना: कीमत दूर वाले किनारे के पार ट्रेड होती है (बाय ज़ोन के नीचे, सेल ज़ोन के ऊपर)। बाहर क्लोज़: कोई बार दूर वाले किनारे के पार बंद होता है।</value>
+  </data>
+  <data name="MaxZoneAgeBars_DisplayName" xml:space="preserve">
+    <value>अधिकतम ज़ोन आयु (बार)</value>
+  </data>
+  <data name="MaxZoneAgeBars_Description" xml:space="preserve">
+    <value>इतने बार के बाद भी न टूटा ज़ोन आगे बढ़ना बंद कर देता है। 0 = कोई सीमा नहीं।</value>
+  </data>
+  <data name="MaxActiveZones_DisplayName" xml:space="preserve">
+    <value>अधिकतम सक्रिय ज़ोन</value>
+  </data>
+  <data name="MaxActiveZones_Description" xml:space="preserve">
+    <value>यदि नया ज़ोन सक्रिय ज़ोन की इस संख्या से अधिक हो, तो सबसे पुराना सक्रिय ज़ोन आगे बढ़ना बंद कर देता है। 0 = कोई सीमा नहीं।</value>
+  </data>
+  <data name="ShowMarks_DisplayName" xml:space="preserve">
+    <value>असंतुलन मार्क दिखाएँ</value>
+  </data>
+  <data name="ShowMarks_Description" xml:space="preserve">
+    <value>डायगोनल असंतुलन वाले हर लेवल को हाइलाइट करता है।</value>
+  </data>
+  <data name="MarksLayout_DisplayName" xml:space="preserve">
+    <value>मार्क लेआउट</value>
+  </data>
+  <data name="MarksLayout_Description" xml:space="preserve">
+    <value>फ़ुटप्रिंट के आधे हिस्से: सेल मार्क बाईं (Bid) ओर, बाय मार्क दाईं (Ask) ओर। पूरा बार: मार्क पूरी चौड़ाई लेते हैं। स्वचालित: बार पर्याप्त चौड़ा हो तो आधे, वरना पूरा बार।</value>
+  </data>
+  <data name="BuyColor_DisplayName" xml:space="preserve">
+    <value>बाय असंतुलन रंग</value>
+  </data>
+  <data name="BuyColor_Description" xml:space="preserve">
+    <value>बाय असंतुलन का रंग (Ask बनाम एक टिक नीचे का Bid)।</value>
+  </data>
+  <data name="SellColor_DisplayName" xml:space="preserve">
+    <value>सेल असंतुलन रंग</value>
+  </data>
+  <data name="SellColor_Description" xml:space="preserve">
+    <value>सेल असंतुलन का रंग (Bid बनाम एक टिक ऊपर का Ask)।</value>
+  </data>
+  <data name="ShowZones_DisplayName" xml:space="preserve">
+    <value>स्टैक्ड ज़ोन दिखाएँ</value>
+  </data>
+  <data name="ShowZones_Description" xml:space="preserve">
+    <value>हर स्टैक्ड असंतुलन को ज़ोन के रूप में दिखाता है जो टूटने तक दाईं ओर बढ़ता है (ज़ोन ब्रेक नियम देखें)।</value>
+  </data>
+  <data name="BuyZoneColor_DisplayName" xml:space="preserve">
+    <value>बाय ज़ोन रंग</value>
+  </data>
+  <data name="BuyZoneColor_Description" xml:space="preserve">
+    <value>स्टैक्ड बाय असंतुलन से बने ज़ोन का भराव रंग।</value>
+  </data>
+  <data name="SellZoneColor_DisplayName" xml:space="preserve">
+    <value>सेल ज़ोन रंग</value>
+  </data>
+  <data name="SellZoneColor_Description" xml:space="preserve">
+    <value>स्टैक्ड सेल असंतुलन से बने ज़ोन का भराव रंग।</value>
+  </data>
+  <data name="ZoneBorderWidth_DisplayName" xml:space="preserve">
+    <value>ज़ोन बॉर्डर चौड़ाई</value>
+  </data>
+  <data name="ZoneBorderWidth_Description" xml:space="preserve">
+    <value>ज़ोन रूपरेखा की चौड़ाई, ज़ोन रंग में बिना पारदर्शिता के। 0 = कोई रूपरेखा नहीं।</value>
+  </data>
+  <data name="ShowZoneLabels_DisplayName" xml:space="preserve">
+    <value>ज़ोन लेबल दिखाएँ</value>
+  </data>
+  <data name="ShowZoneLabels_Description" xml:space="preserve">
+    <value>हर ज़ोन की शुरुआत में स्टैक्ड लेवल की संख्या (जैसे x4) लिखता है।</value>
+  </data>
+  <data name="LabelFontSize_DisplayName" xml:space="preserve">
+    <value>लेबल फ़ॉन्ट आकार</value>
+  </data>
+  <data name="LabelFontSize_Description" xml:space="preserve">
+    <value>ज़ोन लेबल का फ़ॉन्ट आकार।</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>विस्तृत लॉग</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>पुनर्गणना के बाद पिछले 20 बार और उसके बाद बंद होने वाले हर बार के प्रत्येक असंतुलन को ATAS लॉग में लिखता है। फ़ुटप्रिंट से इंडिकेटर की जाँच के लिए।</value>
+  </data>
+  <data name="AlertOnNewZone_DisplayName" xml:space="preserve">
+    <value>नए ज़ोन पर अलर्ट</value>
+  </data>
+  <data name="AlertOnNewZone_Description" xml:space="preserve">
+    <value>जब कोई बार स्टैक्ड असंतुलन के साथ बंद हो और नया ज़ोन बने तब अलर्ट।</value>
+  </data>
+  <data name="AlertOnRetest_DisplayName" xml:space="preserve">
+    <value>ज़ोन रीटेस्ट पर अलर्ट</value>
+  </data>
+  <data name="AlertOnRetest_Description" xml:space="preserve">
+    <value>जब कीमत किसी सक्रिय ज़ोन के बाहर से उसके अंदर आए तब अलर्ट।</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>अलर्ट ध्वनि</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>अलर्ट द्वारा उपयोग की जाने वाली ध्वनि फ़ाइल।</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>रीटेस्ट कूलडाउन (सेकंड)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>एक ही ज़ोन के दो रीटेस्ट अलर्ट के बीच न्यूनतम समय।</value>
+  </data>
+</root>

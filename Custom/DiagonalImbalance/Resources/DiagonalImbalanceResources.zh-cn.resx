@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DiagonalImbalance_Description" xml:space="preserve">
+    <value>检测足迹图中的对角 bid/ask 失衡，并将堆叠失衡绘制为区域。</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>计算</value>
+  </data>
+  <data name="Group_Scope" xml:space="preserve">
+    <value>范围</value>
+  </data>
+  <data name="Group_Zones" xml:space="preserve">
+    <value>区域</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>警报</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="MarkLayout_Auto" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="MarkLayout_FootprintHalves" xml:space="preserve">
+    <value>足迹图两半</value>
+  </data>
+  <data name="MarkLayout_FullBar" xml:space="preserve">
+    <value>整根K线</value>
+  </data>
+  <data name="ZoneBreakMode_Touch" xml:space="preserve">
+    <value>触及</value>
+  </data>
+  <data name="ZoneBreakMode_TradeThrough" xml:space="preserve">
+    <value>穿越</value>
+  </data>
+  <data name="ZoneBreakMode_CloseBeyond" xml:space="preserve">
+    <value>收盘越过</value>
+  </data>
+  <data name="ImbalanceRatio_DisplayName" xml:space="preserve">
+    <value>失衡比率</value>
+  </data>
+  <data name="ImbalanceRatio_Description" xml:space="preserve">
+    <value>主导方与对角被动方之间的最小比率，例如 3 = 300%。</value>
+  </data>
+  <data name="MinDominantVolume_DisplayName" xml:space="preserve">
+    <value>最小主导成交量</value>
+  </data>
+  <data name="MinDominantVolume_Description" xml:space="preserve">
+    <value>价位被视为失衡所需的主导方最小成交量。</value>
+  </data>
+  <data name="MinVolumeDifference_DisplayName" xml:space="preserve">
+    <value>最小成交量差</value>
+  </data>
+  <data name="MinVolumeDifference_Description" xml:space="preserve">
+    <value>主导方与对角被动方之间的最小差值。0 表示禁用此过滤。</value>
+  </data>
+  <data name="IgnoreZeroLevels_DisplayName" xml:space="preserve">
+    <value>忽略零值价位</value>
+  </data>
+  <data name="IgnoreZeroLevels_Description" xml:space="preserve">
+    <value>启用时，对角被动方无成交量的价位永远不算失衡。禁用时视为无限比率，仅适用最小主导成交量。</value>
+  </data>
+  <data name="RowTicks_DisplayName" xml:space="preserve">
+    <value>每行跳动点数</value>
+  </data>
+  <data name="RowTicks_Description" xml:space="preserve">
+    <value>比较前合并为一行的价位数量，类似分组行的足迹图。行按该大小的倍数对齐。</value>
+  </data>
+  <data name="MinStackedLevels_DisplayName" xml:space="preserve">
+    <value>堆叠价位数</value>
+  </data>
+  <data name="MinStackedLevels_Description" xml:space="preserve">
+    <value>形成堆叠失衡所需的同侧连续失衡价位的最少数量。</value>
+  </data>
+  <data name="Days_DisplayName" xml:space="preserve">
+    <value>计算天数</value>
+  </data>
+  <data name="Days_Description" xml:space="preserve">
+    <value>评估失衡的交易时段数（含当前时段）。0 = 整个图表。</value>
+  </data>
+  <data name="UseSessionFilter_DisplayName" xml:space="preserve">
+    <value>使用时段过滤</value>
+  </data>
+  <data name="UseSessionFilter_Description" xml:space="preserve">
+    <value>仅评估在时段时间范围内开盘的K线（图表时区）。时段内创建的区域会继续延伸，并可能在时段外被突破。</value>
+  </data>
+  <data name="SessionStart_DisplayName" xml:space="preserve">
+    <value>时段开始</value>
+  </data>
+  <data name="SessionStart_Description" xml:space="preserve">
+    <value>时段范围的开始（包含）。开始晚于结束表示跨越午夜。</value>
+  </data>
+  <data name="SessionEnd_DisplayName" xml:space="preserve">
+    <value>时段结束</value>
+  </data>
+  <data name="SessionEnd_Description" xml:space="preserve">
+    <value>时段范围的结束（不包含）。</value>
+  </data>
+  <data name="BreakMode_DisplayName" xml:space="preserve">
+    <value>区域突破规则</value>
+  </data>
+  <data name="BreakMode_Description" xml:space="preserve">
+    <value>触及：价格进入区域。穿越：价格交易至远侧边界之外（买入区域下方、卖出区域上方）。收盘越过：K线收盘于远侧边界之外。</value>
+  </data>
+  <data name="MaxZoneAgeBars_DisplayName" xml:space="preserve">
+    <value>区域最大存续（K线数）</value>
+  </data>
+  <data name="MaxZoneAgeBars_Description" xml:space="preserve">
+    <value>在此数量的K线后仍未被突破的区域停止延伸。0 = 不限制。</value>
+  </data>
+  <data name="MaxActiveZones_DisplayName" xml:space="preserve">
+    <value>最大活动区域数</value>
+  </data>
+  <data name="MaxActiveZones_Description" xml:space="preserve">
+    <value>当新区域超过此活动区域数量时，最早的活动区域停止延伸。0 = 不限制。</value>
+  </data>
+  <data name="ShowMarks_DisplayName" xml:space="preserve">
+    <value>显示失衡标记</value>
+  </data>
+  <data name="ShowMarks_Description" xml:space="preserve">
+    <value>高亮显示每个存在对角失衡的价位。</value>
+  </data>
+  <data name="MarksLayout_DisplayName" xml:space="preserve">
+    <value>标记布局</value>
+  </data>
+  <data name="MarksLayout_Description" xml:space="preserve">
+    <value>足迹图两半：卖出标记在左半（Bid），买入标记在右半（Ask）。整根K线：标记占满宽度。自动：K线足够宽时分两半，否则占满。</value>
+  </data>
+  <data name="BuyColor_DisplayName" xml:space="preserve">
+    <value>买入失衡颜色</value>
+  </data>
+  <data name="BuyColor_Description" xml:space="preserve">
+    <value>买入失衡的颜色（Ask 对比下方一个跳动点的 Bid）。</value>
+  </data>
+  <data name="SellColor_DisplayName" xml:space="preserve">
+    <value>卖出失衡颜色</value>
+  </data>
+  <data name="SellColor_Description" xml:space="preserve">
+    <value>卖出失衡的颜色（Bid 对比上方一个跳动点的 Ask）。</value>
+  </data>
+  <data name="ShowZones_DisplayName" xml:space="preserve">
+    <value>显示堆叠区域</value>
+  </data>
+  <data name="ShowZones_Description" xml:space="preserve">
+    <value>将每个堆叠失衡绘制为向右延伸的区域，直到被突破（见区域突破规则）。</value>
+  </data>
+  <data name="BuyZoneColor_DisplayName" xml:space="preserve">
+    <value>买入区域颜色</value>
+  </data>
+  <data name="BuyZoneColor_Description" xml:space="preserve">
+    <value>由堆叠买入失衡形成的区域的填充颜色。</value>
+  </data>
+  <data name="SellZoneColor_DisplayName" xml:space="preserve">
+    <value>卖出区域颜色</value>
+  </data>
+  <data name="SellZoneColor_Description" xml:space="preserve">
+    <value>由堆叠卖出失衡形成的区域的填充颜色。</value>
+  </data>
+  <data name="ZoneBorderWidth_DisplayName" xml:space="preserve">
+    <value>区域边框宽度</value>
+  </data>
+  <data name="ZoneBorderWidth_Description" xml:space="preserve">
+    <value>区域轮廓的宽度，使用不透明的区域颜色绘制。0 = 无轮廓。</value>
+  </data>
+  <data name="ShowZoneLabels_DisplayName" xml:space="preserve">
+    <value>显示区域标签</value>
+  </data>
+  <data name="ShowZoneLabels_Description" xml:space="preserve">
+    <value>在每个区域起点显示堆叠价位数量（例如 x4）。</value>
+  </data>
+  <data name="LabelFontSize_DisplayName" xml:space="preserve">
+    <value>标签字号</value>
+  </data>
+  <data name="LabelFontSize_Description" xml:space="preserve">
+    <value>区域标签的字号。</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>详细日志</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>将重新计算后最近 20 根K线以及之后每根收盘K线的每个失衡写入 ATAS 日志，用于与足迹图核对指标。</value>
+  </data>
+  <data name="AlertOnNewZone_DisplayName" xml:space="preserve">
+    <value>新区域警报</value>
+  </data>
+  <data name="AlertOnNewZone_Description" xml:space="preserve">
+    <value>当K线收盘出现堆叠失衡并创建新区域时发出警报。</value>
+  </data>
+  <data name="AlertOnRetest_DisplayName" xml:space="preserve">
+    <value>区域回测警报</value>
+  </data>
+  <data name="AlertOnRetest_Description" xml:space="preserve">
+    <value>当价格从活动区域外进入该区域时发出警报。</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>警报声音</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>警报使用的声音文件。</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>回测冷却时间（秒）</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>同一区域两次回测警报之间的最短时间。</value>
+  </data>
+</root>

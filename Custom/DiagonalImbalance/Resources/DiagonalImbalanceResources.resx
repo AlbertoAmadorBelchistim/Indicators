@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DiagonalImbalance_Description" xml:space="preserve">
+    <value>Detects diagonal bid/ask imbalances in the footprint and draws stacked imbalances as zones.</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Calculation</value>
+  </data>
+  <data name="Group_Scope" xml:space="preserve">
+    <value>Scope</value>
+  </data>
+  <data name="Group_Zones" xml:space="preserve">
+    <value>Zones</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Visuals</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Alerts</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="MarkLayout_Auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="MarkLayout_FootprintHalves" xml:space="preserve">
+    <value>Footprint halves</value>
+  </data>
+  <data name="MarkLayout_FullBar" xml:space="preserve">
+    <value>Full bar</value>
+  </data>
+  <data name="ZoneBreakMode_Touch" xml:space="preserve">
+    <value>Touch</value>
+  </data>
+  <data name="ZoneBreakMode_TradeThrough" xml:space="preserve">
+    <value>Trade through</value>
+  </data>
+  <data name="ZoneBreakMode_CloseBeyond" xml:space="preserve">
+    <value>Close beyond</value>
+  </data>
+  <data name="ImbalanceRatio_DisplayName" xml:space="preserve">
+    <value>Imbalance ratio</value>
+  </data>
+  <data name="ImbalanceRatio_Description" xml:space="preserve">
+    <value>Minimum ratio between the dominant side and the diagonal passive side, e.g. 3 = 300%.</value>
+  </data>
+  <data name="MinDominantVolume_DisplayName" xml:space="preserve">
+    <value>Minimum dominant volume</value>
+  </data>
+  <data name="MinDominantVolume_Description" xml:space="preserve">
+    <value>Minimum volume on the dominant side for a level to count as an imbalance.</value>
+  </data>
+  <data name="MinVolumeDifference_DisplayName" xml:space="preserve">
+    <value>Minimum volume difference</value>
+  </data>
+  <data name="MinVolumeDifference_Description" xml:space="preserve">
+    <value>Minimum difference between the dominant side and the diagonal passive side. 0 disables the filter.</value>
+  </data>
+  <data name="IgnoreZeroLevels_DisplayName" xml:space="preserve">
+    <value>Ignore zero levels</value>
+  </data>
+  <data name="IgnoreZeroLevels_Description" xml:space="preserve">
+    <value>When enabled, a level whose diagonal passive side has no volume is never an imbalance. When disabled, it counts as an infinite ratio and only the minimum dominant volume applies.</value>
+  </data>
+  <data name="RowTicks_DisplayName" xml:space="preserve">
+    <value>Ticks per row</value>
+  </data>
+  <data name="RowTicks_Description" xml:space="preserve">
+    <value>Number of price levels merged into one row before comparing, like a footprint with grouped rows. Rows are aligned to multiples of this size.</value>
+  </data>
+  <data name="MinStackedLevels_DisplayName" xml:space="preserve">
+    <value>Stacked imbalance levels</value>
+  </data>
+  <data name="MinStackedLevels_Description" xml:space="preserve">
+    <value>Minimum number of consecutive price levels with an imbalance on the same side to form a stacked imbalance.</value>
+  </data>
+  <data name="Days_DisplayName" xml:space="preserve">
+    <value>Days to calculate</value>
+  </data>
+  <data name="Days_Description" xml:space="preserve">
+    <value>Number of sessions, counting the current one, in which imbalances are evaluated. 0 = the whole chart.</value>
+  </data>
+  <data name="UseSessionFilter_DisplayName" xml:space="preserve">
+    <value>Use session filter</value>
+  </data>
+  <data name="UseSessionFilter_Description" xml:space="preserve">
+    <value>Only evaluate bars that open inside the session time range (chart time zone). Zones created inside the session keep extending and can break outside it.</value>
+  </data>
+  <data name="SessionStart_DisplayName" xml:space="preserve">
+    <value>Session start</value>
+  </data>
+  <data name="SessionStart_Description" xml:space="preserve">
+    <value>Start of the session time range (inclusive). A start later than the end spans midnight.</value>
+  </data>
+  <data name="SessionEnd_DisplayName" xml:space="preserve">
+    <value>Session end</value>
+  </data>
+  <data name="SessionEnd_Description" xml:space="preserve">
+    <value>End of the session time range (exclusive).</value>
+  </data>
+  <data name="BreakMode_DisplayName" xml:space="preserve">
+    <value>Zone break rule</value>
+  </data>
+  <data name="BreakMode_Description" xml:space="preserve">
+    <value>Touch: price trades into the zone. Trade through: price trades beyond its far edge (below a buy zone, above a sell zone). Close beyond: a bar closes beyond its far edge.</value>
+  </data>
+  <data name="MaxZoneAgeBars_DisplayName" xml:space="preserve">
+    <value>Maximum zone age (bars)</value>
+  </data>
+  <data name="MaxZoneAgeBars_Description" xml:space="preserve">
+    <value>A zone that has not been broken after this many bars stops extending. 0 = no limit.</value>
+  </data>
+  <data name="MaxActiveZones_DisplayName" xml:space="preserve">
+    <value>Maximum active zones</value>
+  </data>
+  <data name="MaxActiveZones_Description" xml:space="preserve">
+    <value>When a new zone would exceed this number of active zones, the oldest active zone stops extending. 0 = no limit.</value>
+  </data>
+  <data name="ShowMarks_DisplayName" xml:space="preserve">
+    <value>Show imbalance marks</value>
+  </data>
+  <data name="ShowMarks_Description" xml:space="preserve">
+    <value>Highlights every level with a diagonal imbalance.</value>
+  </data>
+  <data name="MarksLayout_DisplayName" xml:space="preserve">
+    <value>Mark layout</value>
+  </data>
+  <data name="MarksLayout_Description" xml:space="preserve">
+    <value>Footprint halves: sell marks on the left (Bid) half and buy marks on the right (Ask) half. Full bar: marks use the whole bar width. Auto: halves when the bar is wide enough, full bar otherwise.</value>
+  </data>
+  <data name="BuyColor_DisplayName" xml:space="preserve">
+    <value>Buy imbalance color</value>
+  </data>
+  <data name="BuyColor_Description" xml:space="preserve">
+    <value>Color of buy imbalances (Ask against the Bid one tick below).</value>
+  </data>
+  <data name="SellColor_DisplayName" xml:space="preserve">
+    <value>Sell imbalance color</value>
+  </data>
+  <data name="SellColor_Description" xml:space="preserve">
+    <value>Color of sell imbalances (Bid against the Ask one tick above).</value>
+  </data>
+  <data name="ShowZones_DisplayName" xml:space="preserve">
+    <value>Show stacked zones</value>
+  </data>
+  <data name="ShowZones_Description" xml:space="preserve">
+    <value>Draws each stacked imbalance as a zone that extends to the right until it is broken (see Zone break rule).</value>
+  </data>
+  <data name="BuyZoneColor_DisplayName" xml:space="preserve">
+    <value>Buy zone color</value>
+  </data>
+  <data name="BuyZoneColor_Description" xml:space="preserve">
+    <value>Fill color of zones from stacked buy imbalances.</value>
+  </data>
+  <data name="SellZoneColor_DisplayName" xml:space="preserve">
+    <value>Sell zone color</value>
+  </data>
+  <data name="SellZoneColor_Description" xml:space="preserve">
+    <value>Fill color of zones from stacked sell imbalances.</value>
+  </data>
+  <data name="ZoneBorderWidth_DisplayName" xml:space="preserve">
+    <value>Zone border width</value>
+  </data>
+  <data name="ZoneBorderWidth_Description" xml:space="preserve">
+    <value>Width of the zone outline, drawn in the zone color without transparency. 0 = no outline.</value>
+  </data>
+  <data name="ShowZoneLabels_DisplayName" xml:space="preserve">
+    <value>Show zone labels</value>
+  </data>
+  <data name="ShowZoneLabels_Description" xml:space="preserve">
+    <value>Writes the number of stacked levels (for example x4) at the start of each zone.</value>
+  </data>
+  <data name="LabelFontSize_DisplayName" xml:space="preserve">
+    <value>Label font size</value>
+  </data>
+  <data name="LabelFontSize_Description" xml:space="preserve">
+    <value>Font size of the zone labels.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Detailed log</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Writes every imbalance of the last 20 bars after a recalculation, and of every bar that closes afterwards, to the ATAS log. For checking the indicator against the footprint.</value>
+  </data>
+  <data name="AlertOnNewZone_DisplayName" xml:space="preserve">
+    <value>Alert on new zone</value>
+  </data>
+  <data name="AlertOnNewZone_Description" xml:space="preserve">
+    <value>Alert when a bar closes with a stacked imbalance and a new zone is created.</value>
+  </data>
+  <data name="AlertOnRetest_DisplayName" xml:space="preserve">
+    <value>Alert on zone retest</value>
+  </data>
+  <data name="AlertOnRetest_Description" xml:space="preserve">
+    <value>Alert when price moves from outside an active zone into it.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Alert sound</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Sound file used by the alerts.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Retest cooldown (seconds)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Minimum time between two retest alerts of the same zone.</value>
+  </data>
+</root>

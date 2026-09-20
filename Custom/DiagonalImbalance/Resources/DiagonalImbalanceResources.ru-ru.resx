@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DiagonalImbalance_Description" xml:space="preserve">
+    <value>Находит диагональные дисбалансы bid/ask в футпринте и отображает стековые дисбалансы в виде зон.</value>
+  </data>
+  <data name="Group_Calculation" xml:space="preserve">
+    <value>Расчёт</value>
+  </data>
+  <data name="Group_Scope" xml:space="preserve">
+    <value>Охват</value>
+  </data>
+  <data name="Group_Zones" xml:space="preserve">
+    <value>Зоны</value>
+  </data>
+  <data name="Group_Visuals" xml:space="preserve">
+    <value>Отображение</value>
+  </data>
+  <data name="Group_Alerts" xml:space="preserve">
+    <value>Оповещения</value>
+  </data>
+  <data name="Group_Diagnostics" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="MarkLayout_Auto" xml:space="preserve">
+    <value>Авто</value>
+  </data>
+  <data name="MarkLayout_FootprintHalves" xml:space="preserve">
+    <value>Половины футпринта</value>
+  </data>
+  <data name="MarkLayout_FullBar" xml:space="preserve">
+    <value>Весь бар</value>
+  </data>
+  <data name="ZoneBreakMode_Touch" xml:space="preserve">
+    <value>Касание</value>
+  </data>
+  <data name="ZoneBreakMode_TradeThrough" xml:space="preserve">
+    <value>Пробой</value>
+  </data>
+  <data name="ZoneBreakMode_CloseBeyond" xml:space="preserve">
+    <value>Закрытие за зоной</value>
+  </data>
+  <data name="ImbalanceRatio_DisplayName" xml:space="preserve">
+    <value>Коэффициент дисбаланса</value>
+  </data>
+  <data name="ImbalanceRatio_Description" xml:space="preserve">
+    <value>Минимальное отношение доминирующей стороны к пассивной стороне по диагонали, например 3 = 300%.</value>
+  </data>
+  <data name="MinDominantVolume_DisplayName" xml:space="preserve">
+    <value>Мин. объём доминирующей стороны</value>
+  </data>
+  <data name="MinDominantVolume_Description" xml:space="preserve">
+    <value>Минимальный объём доминирующей стороны, чтобы уровень считался дисбалансом.</value>
+  </data>
+  <data name="MinVolumeDifference_DisplayName" xml:space="preserve">
+    <value>Мин. разница объёмов</value>
+  </data>
+  <data name="MinVolumeDifference_Description" xml:space="preserve">
+    <value>Минимальная разница между доминирующей и пассивной стороной по диагонали. 0 отключает фильтр.</value>
+  </data>
+  <data name="IgnoreZeroLevels_DisplayName" xml:space="preserve">
+    <value>Игнорировать нулевые уровни</value>
+  </data>
+  <data name="IgnoreZeroLevels_Description" xml:space="preserve">
+    <value>Если включено, уровень без объёма на пассивной стороне по диагонали никогда не считается дисбалансом. Если выключено, он считается бесконечным отношением и действует только мин. объём доминирующей стороны.</value>
+  </data>
+  <data name="RowTicks_DisplayName" xml:space="preserve">
+    <value>Тиков в строке</value>
+  </data>
+  <data name="RowTicks_Description" xml:space="preserve">
+    <value>Количество ценовых уровней, объединяемых в одну строку перед сравнением, как в футпринте с группировкой строк. Строки выравниваются по кратным этого размера.</value>
+  </data>
+  <data name="MinStackedLevels_DisplayName" xml:space="preserve">
+    <value>Уровней в стеке</value>
+  </data>
+  <data name="MinStackedLevels_Description" xml:space="preserve">
+    <value>Минимальное число последовательных ценовых уровней с дисбалансом на одной стороне для образования стека.</value>
+  </data>
+  <data name="Days_DisplayName" xml:space="preserve">
+    <value>Дней для расчёта</value>
+  </data>
+  <data name="Days_Description" xml:space="preserve">
+    <value>Количество сессий, включая текущую, в которых оцениваются дисбалансы. 0 = весь график.</value>
+  </data>
+  <data name="UseSessionFilter_DisplayName" xml:space="preserve">
+    <value>Фильтр сессии</value>
+  </data>
+  <data name="UseSessionFilter_Description" xml:space="preserve">
+    <value>Оценивать только бары, открывшиеся внутри времени сессии (часовой пояс графика). Зоны, созданные в сессии, продолжаются и могут быть пробиты вне её.</value>
+  </data>
+  <data name="SessionStart_DisplayName" xml:space="preserve">
+    <value>Начало сессии</value>
+  </data>
+  <data name="SessionStart_Description" xml:space="preserve">
+    <value>Начало времени сессии (включительно). Начало позже конца означает переход через полночь.</value>
+  </data>
+  <data name="SessionEnd_DisplayName" xml:space="preserve">
+    <value>Конец сессии</value>
+  </data>
+  <data name="SessionEnd_Description" xml:space="preserve">
+    <value>Конец времени сессии (не включительно).</value>
+  </data>
+  <data name="BreakMode_DisplayName" xml:space="preserve">
+    <value>Правило пробоя зоны</value>
+  </data>
+  <data name="BreakMode_Description" xml:space="preserve">
+    <value>Касание: цена заходит в зону. Пробой: цена торгуется за дальней границей (ниже зоны покупок, выше зоны продаж). Закрытие за зоной: бар закрывается за дальней границей.</value>
+  </data>
+  <data name="MaxZoneAgeBars_DisplayName" xml:space="preserve">
+    <value>Макс. возраст зоны (бары)</value>
+  </data>
+  <data name="MaxZoneAgeBars_Description" xml:space="preserve">
+    <value>Зона, не пробитая за это число баров, перестаёт продлеваться. 0 = без ограничения.</value>
+  </data>
+  <data name="MaxActiveZones_DisplayName" xml:space="preserve">
+    <value>Макс. активных зон</value>
+  </data>
+  <data name="MaxActiveZones_Description" xml:space="preserve">
+    <value>Если новая зона превышает это число активных зон, самая старая активная зона перестаёт продлеваться. 0 = без ограничения.</value>
+  </data>
+  <data name="ShowMarks_DisplayName" xml:space="preserve">
+    <value>Показывать метки дисбаланса</value>
+  </data>
+  <data name="ShowMarks_Description" xml:space="preserve">
+    <value>Выделяет каждый уровень с диагональным дисбалансом.</value>
+  </data>
+  <data name="MarksLayout_DisplayName" xml:space="preserve">
+    <value>Расположение меток</value>
+  </data>
+  <data name="MarksLayout_Description" xml:space="preserve">
+    <value>Половины футпринта: метки продаж слева (Bid), покупок справа (Ask). Весь бар: метки на всю ширину. Авто: половины при достаточной ширине бара, иначе весь бар.</value>
+  </data>
+  <data name="BuyColor_DisplayName" xml:space="preserve">
+    <value>Цвет дисбаланса покупок</value>
+  </data>
+  <data name="BuyColor_Description" xml:space="preserve">
+    <value>Цвет дисбалансов покупок (Ask против Bid на тик ниже).</value>
+  </data>
+  <data name="SellColor_DisplayName" xml:space="preserve">
+    <value>Цвет дисбаланса продаж</value>
+  </data>
+  <data name="SellColor_Description" xml:space="preserve">
+    <value>Цвет дисбалансов продаж (Bid против Ask на тик выше).</value>
+  </data>
+  <data name="ShowZones_DisplayName" xml:space="preserve">
+    <value>Показывать зоны стеков</value>
+  </data>
+  <data name="ShowZones_Description" xml:space="preserve">
+    <value>Отображает каждый стек как зону, продлеваемую вправо до пробоя (см. Правило пробоя зоны).</value>
+  </data>
+  <data name="BuyZoneColor_DisplayName" xml:space="preserve">
+    <value>Цвет зоны покупок</value>
+  </data>
+  <data name="BuyZoneColor_Description" xml:space="preserve">
+    <value>Цвет заливки зон из стеков дисбалансов покупок.</value>
+  </data>
+  <data name="SellZoneColor_DisplayName" xml:space="preserve">
+    <value>Цвет зоны продаж</value>
+  </data>
+  <data name="SellZoneColor_Description" xml:space="preserve">
+    <value>Цвет заливки зон из стеков дисбалансов продаж.</value>
+  </data>
+  <data name="ZoneBorderWidth_DisplayName" xml:space="preserve">
+    <value>Толщина границы зоны</value>
+  </data>
+  <data name="ZoneBorderWidth_Description" xml:space="preserve">
+    <value>Толщина контура зоны цветом зоны без прозрачности. 0 = без контура.</value>
+  </data>
+  <data name="ShowZoneLabels_DisplayName" xml:space="preserve">
+    <value>Показывать подписи зон</value>
+  </data>
+  <data name="ShowZoneLabels_Description" xml:space="preserve">
+    <value>Пишет число уровней в стеке (например x4) в начале каждой зоны.</value>
+  </data>
+  <data name="LabelFontSize_DisplayName" xml:space="preserve">
+    <value>Размер шрифта подписи</value>
+  </data>
+  <data name="LabelFontSize_Description" xml:space="preserve">
+    <value>Размер шрифта подписей зон.</value>
+  </data>
+  <data name="DetailedLog_DisplayName" xml:space="preserve">
+    <value>Подробный журнал</value>
+  </data>
+  <data name="DetailedLog_Description" xml:space="preserve">
+    <value>Записывает в журнал ATAS каждый дисбаланс последних 20 баров после пересчёта и каждого закрывающегося затем бара. Для сверки индикатора с футпринтом.</value>
+  </data>
+  <data name="AlertOnNewZone_DisplayName" xml:space="preserve">
+    <value>Оповещение о новой зоне</value>
+  </data>
+  <data name="AlertOnNewZone_Description" xml:space="preserve">
+    <value>Оповещение, когда бар закрывается со стеком дисбалансов и создаётся новая зона.</value>
+  </data>
+  <data name="AlertOnRetest_DisplayName" xml:space="preserve">
+    <value>Оповещение о ретесте зоны</value>
+  </data>
+  <data name="AlertOnRetest_Description" xml:space="preserve">
+    <value>Оповещение, когда цена входит в активную зону извне.</value>
+  </data>
+  <data name="AlertFile_DisplayName" xml:space="preserve">
+    <value>Звук оповещения</value>
+  </data>
+  <data name="AlertFile_Description" xml:space="preserve">
+    <value>Звуковой файл оповещений.</value>
+  </data>
+  <data name="AlertCooldownSeconds_DisplayName" xml:space="preserve">
+    <value>Пауза между ретестами (сек)</value>
+  </data>
+  <data name="AlertCooldownSeconds_Description" xml:space="preserve">
+    <value>Минимальное время между двумя оповещениями о ретесте одной зоны.</value>
+  </data>
+</root>
