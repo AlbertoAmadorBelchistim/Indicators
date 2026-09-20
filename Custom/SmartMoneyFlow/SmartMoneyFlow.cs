@@ -50,6 +50,9 @@ public class SmartMoneyFlow : Indicator
 	private readonly decimal[] _maxVolume = { 5, 10, 20, 40, 0 };
 	private readonly bool[] _useFilter = { true, true, true, true, true };
 
+	// Cumulative trades (default) or individual ticks.
+	private bool _cumulativeTrades = true;
+
 	// Running signed volume (buy +, sell -) of each filter since the first calculated bar.
 	private readonly decimal[] _delta = new decimal[FilterCount];
 
@@ -72,6 +75,21 @@ public class SmartMoneyFlow : Indicator
 	// Each entry is a copy taken when the event arrived; updates are kept as separate events.
 	private readonly List<(CumulativeTrade Trade, bool IsUpdate)> _pendingTrades = new();
 
+	// Realtime ticks received while the history is pending (tick mode).
+	private readonly List<MarketDataArg> _pendingTicks = new();
+
+	// Tick mode: number of response ticks with the last response time. Ticks carry no identity,
+	// so the buffered ticks with that time are matched by count: the response ticks at that time
+	// that the buffer does not have were received before the recalculation.
+	private int _boundaryTickCount;
+
+	// Tick mode: time of the last realtime tick processed and how many ticks had that time, and
+	// the same values when the last recalculation started buffering.
+	private DateTime _lastTickTime;
+	private int _lastTickCount;
+	private DateTime _bufferStartTickTime;
+	private int _bufferStartTickCount;
+
 	// Time of the last trade in the history response, and the response trades counted at that
 	// time with their bar. Buffered trades before it, or equal to one of those, are already counted
 	// in the history. Several trades can share the last timestamp and the response does not say
@@ -87,6 +105,22 @@ public class SmartMoneyFlow : Indicator
 	#endregion
 
 	#region Properties
+
+	[Display(Name = "Cumulative trades", GroupName = "Calculation",
+		Description = "Counts cumulative trades (all the ticks of one aggressive order as one trade). Off: counts individual ticks.",
+		Order = 10)]
+	public bool CumulativeTrades
+	{
+		get => _cumulativeTrades;
+		set
+		{
+			if (_cumulativeTrades == value)
+				return;
+
+			_cumulativeTrades = value;
+			RecalculateValues();
+		}
+	}
 
 	[Display(Name = "Enabled", GroupName = "Filter 1", Description = "Shows the line of this filter.", Order = 100)]
 	public bool UseFilter1
@@ -351,7 +385,10 @@ public class SmartMoneyFlow : Indicator
 			Array.Clear(_delta);
 			_historyReady = false;
 			_pendingTrades.Clear();
+			_pendingTicks.Clear();
 			_lastTrade = null;
+			_bufferStartTickTime = _lastTickTime;
+			_bufferStartTickCount = _lastTickCount;
 		}
 	}
 
@@ -401,12 +438,36 @@ public class SmartMoneyFlow : Indicator
 
 	protected override void OnCumulativeTrade(CumulativeTrade trade)
 	{
-		OnRealtimeTrade(trade, false);
+		if (_cumulativeTrades)
+			OnRealtimeTrade(trade, false);
 	}
 
 	protected override void OnUpdateCumulativeTrade(CumulativeTrade trade)
 	{
-		OnRealtimeTrade(trade, true);
+		if (_cumulativeTrades)
+			OnRealtimeTrade(trade, true);
+	}
+
+	protected override void OnNewTrade(MarketDataArg trade)
+	{
+		if (_cumulativeTrades)
+			return;
+
+		int bar;
+
+		lock (_calcLock)
+		{
+			if (!_historyReady)
+			{
+				_pendingTicks.Add(trade);
+				return;
+			}
+
+			bar = ProcessTick(trade);
+		}
+
+		if (bar >= 0)
+			RaiseBarValueChanged(bar);
 	}
 
 	#endregion
@@ -573,6 +634,28 @@ public class SmartMoneyFlow : Indicator
 		return _lastBar;
 	}
 
+	// Called under _calcLock. Counts a realtime tick. Returns the last bar changed, or -1.
+	private int ProcessTick(MarketDataArg tick)
+	{
+		if (CurrentBar == 0)
+			return -1;
+
+		EnsureBar(CurrentBar - 1);
+
+		if (tick.Time == _lastTickTime)
+			_lastTickCount++;
+		else
+		{
+			_lastTickTime = tick.Time;
+			_lastTickCount = 1;
+		}
+
+		if (tick.Direction != TradeDirection.Between)
+			ApplyVolumeChange(BarOfTime(tick.Time), 0, tick.Direction, tick.Volume, tick.Direction);
+
+		return _lastBar;
+	}
+
 	// Replays the trades buffered while the history was pending, then switches to realtime.
 	// The buffer is drained in batches without holding the lock across a whole batch; the
 	// switch happens under the lock once the buffer is empty, so no trade is left behind.
@@ -581,14 +664,22 @@ public class SmartMoneyFlow : Indicator
 		var replayed = 0;
 		var skipped = 0;
 		var updates = 0;
+		int boundaryTicksToSkip;
+
+		lock (_calcLock)
+		{
+			boundaryTicksToSkip = _boundaryTickCount -
+				(_bufferStartTickTime == _historyEndTime ? _bufferStartTickCount : 0);
+		}
 
 		while (true)
 		{
 			List<(CumulativeTrade Trade, bool IsUpdate)> batch;
+			List<MarketDataArg> ticks;
 
 			lock (_calcLock)
 			{
-				if (_pendingTrades.Count == 0)
+				if (_pendingTrades.Count == 0 && _pendingTicks.Count == 0)
 				{
 					_historyReady = true;
 					break;
@@ -596,6 +687,26 @@ public class SmartMoneyFlow : Indicator
 
 				batch = new List<(CumulativeTrade Trade, bool IsUpdate)>(_pendingTrades);
 				_pendingTrades.Clear();
+				ticks = new List<MarketDataArg>(_pendingTicks);
+				_pendingTicks.Clear();
+			}
+
+			foreach (var tick in ticks)
+			{
+				lock (_calcLock)
+				{
+					var inHistory = tick.Time < _historyEndTime
+						|| (tick.Time == _historyEndTime && boundaryTicksToSkip-- > 0);
+
+					if (inHistory)
+					{
+						skipped++;
+						continue;
+					}
+
+					ProcessTick(tick);
+					replayed++;
+				}
 			}
 
 			foreach (var (trade, isUpdate) in batch)
@@ -633,7 +744,8 @@ public class SmartMoneyFlow : Indicator
 			}
 		}
 
-		this.LogInfo($"SmartMoneyFlow: realtime started; buffered events: {replayed} new trades, " +
+		this.LogInfo($"SmartMoneyFlow: realtime started ({(_cumulativeTrades ? "cumulative trades" : "ticks")}); " +
+			$"buffered events: {replayed} new trades, " +
 			$"{updates} updates of the last trade, {skipped} skipped as already in the history.");
 
 		if (CurrentBar > 0)
@@ -697,17 +809,14 @@ public class SmartMoneyFlow : Indicator
 			_filterSeries[i][bar] = _delta[i];
 	}
 
-	// Rebuilds every bar from the first calculated bar with the trades of the response.
-	// Trades are assigned by time to the bar whose Time..LastTime contains them; trades before
-	// the first bar or between two bars are not counted, and neither are trades without
-	// direction, as in MultiMarketPower.
+	// Rebuilds every bar from the first calculated bar with the trades of the response, or with
+	// their ticks in tick mode. Items are assigned by time to the bar whose Time..LastTime contains
+	// them; items before the first bar or between two bars are not counted, and neither are items
+	// without direction, as in MultiMarketPower.
 	private void CalculateHistory(IEnumerable<CumulativeTrade> cumulativeTrades)
 	{
-		var trades = cumulativeTrades
-			.Where(t => t.Direction != TradeDirection.Between)
-			.OrderBy(t => t.Time)
-			.ToList();
-
+		int count;
+		DateTime firstTime, lastTime;
 		int lastBar;
 
 		lock (_calcLock)
@@ -717,51 +826,98 @@ public class SmartMoneyFlow : Indicator
 
 			Array.Clear(_delta);
 			lastBar = CurrentBar - 1;
-
-			var index = 0;
 			_lastTrade = null;
 			_boundaryTrades.Clear();
+			_boundaryTickCount = 0;
 
-			for (var bar = _firstBar; bar <= lastBar; bar++)
+			if (_cumulativeTrades)
 			{
-				var candle = GetCandle(bar);
+				var trades = cumulativeTrades
+					.Where(t => t.Direction != TradeDirection.Between)
+					.OrderBy(t => t.Time)
+					.ToList();
 
-				while (index < trades.Count && trades[index].Time < candle.Time)
-					index++;
+				_historyEndTime = trades.Count > 0 ? trades[^1].Time : DateTime.MinValue;
 
-				while (index < trades.Count && trades[index].Time <= candle.LastTime)
+				FillBars(trades, t => t.Time, (trade, bar) =>
 				{
-					AddVolume(trades[index].Volume, trades[index].Direction);
+					AddVolume(trade.Volume, trade.Direction);
 
 					// The last trade of the response may still be aggregating: its later
 					// updates must replace the volume counted here.
-					_lastTrade = trades[index];
+					_lastTrade = trade;
 					_lastTradeBar = bar;
 
-					if (index == trades.Count - 1 || trades[index].Time == trades[^1].Time)
-						_boundaryTrades.Add((trades[index].MemberwiseClone(), bar));
+					if (trade.Time == _historyEndTime)
+						_boundaryTrades.Add((trade.MemberwiseClone(), bar));
+				}, lastBar);
 
-					index++;
-				}
+				if (_lastTrade != null)
+					_lastTrade = _lastTrade.MemberwiseClone();
 
-				WriteBar(bar);
+				count = trades.Count;
+				firstTime = count > 0 ? trades[0].Time : default;
+				lastTime = _historyEndTime;
 			}
+			else
+			{
+				// Ticks without direction are kept for the boundary count: the realtime
+				// buffer receives them too.
+				var ticks = cumulativeTrades
+					.Where(t => t.Ticks != null)
+					.SelectMany(t => t.Ticks)
+					.OrderBy(t => t.Time)
+					.ToList();
 
-			_lastBar = lastBar;
+				_historyEndTime = ticks.Count > 0 ? ticks[^1].Time : DateTime.MinValue;
 
-			if (_lastTrade != null)
-				_lastTrade = _lastTrade.MemberwiseClone();
+				for (var i = ticks.Count - 1; i >= 0 && ticks[i].Time == _historyEndTime; i--)
+					_boundaryTickCount++;
 
-			_historyEndTime = trades.Count > 0 ? trades[^1].Time : DateTime.MinValue;
+				FillBars(ticks, t => t.Time, (tick, _) =>
+				{
+					if (tick.Direction != TradeDirection.Between)
+						AddVolume(tick.Volume, tick.Direction);
+				}, lastBar);
+
+				count = ticks.Count;
+				firstTime = count > 0 ? ticks[0].Time : default;
+				lastTime = _historyEndTime;
+			}
 		}
 
 		UpdateVisibility();
 
-		this.LogInfo($"SmartMoneyFlow: history calculated, {trades.Count} trades" +
-			(trades.Count > 0 ? $" from {trades[0].Time:yyyy-MM-dd HH:mm:ss.fff} to {trades[^1].Time:yyyy-MM-dd HH:mm:ss.fff}" : "") +
+		this.LogInfo($"SmartMoneyFlow: history calculated, {count} {(_cumulativeTrades ? "cumulative trades" : "ticks")}" +
+			(count > 0 ? $" from {firstTime:yyyy-MM-dd HH:mm:ss.fff} to {lastTime:yyyy-MM-dd HH:mm:ss.fff}" : "") +
 			$", bars {_firstBar}-{lastBar}; last values {string.Join(" / ", _delta.Select(d => d.ToString("0.##")))}.");
 
 		RedrawChart();
+	}
+
+	// Called under _calcLock. Walks the bars from the first calculated bar to lastBar and counts
+	// each item (sorted by time) in the bar that contains its time, then writes the bar.
+	private void FillBars<T>(List<T> items, Func<T, DateTime> timeOf, Action<T, int> count, int lastBar)
+	{
+		var index = 0;
+
+		for (var bar = _firstBar; bar <= lastBar; bar++)
+		{
+			var candle = GetCandle(bar);
+
+			while (index < items.Count && timeOf(items[index]) < candle.Time)
+				index++;
+
+			while (index < items.Count && timeOf(items[index]) <= candle.LastTime)
+			{
+				count(items[index], bar);
+				index++;
+			}
+
+			WriteBar(bar);
+		}
+
+		_lastBar = lastBar;
 	}
 
 	#endregion
