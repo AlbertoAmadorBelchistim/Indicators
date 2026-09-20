@@ -42,6 +42,22 @@ public enum LineType
     Full = 2
 }
 
+/// <summary>Where the color, the width and the style of a level come from.</summary>
+public enum VisualScheme
+{
+    /// <summary>From the level itself, as the platform indicator does.</summary>
+    [Display(ResourceType = typeof(Res), Name = nameof(Res.SchemeLevels))]
+    Levels = 0,
+
+    /// <summary>From the period: the day stands out and the older periods fade back.</summary>
+    [Display(ResourceType = typeof(Res), Name = nameof(Res.SchemeByPeriod))]
+    ByPeriod = 1,
+
+    /// <summary>From the kind of level: the anchors stand out and the rest support them.</summary>
+    [Display(ResourceType = typeof(Res), Name = nameof(Res.SchemeByLevelType))]
+    ByLevelType = 2,
+}
+
 public abstract class NotifiableObject : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -363,6 +379,44 @@ public class OHLCPlusPro : Indicator
     private const int LabelProbeStep = 12;
     private const int LabelMaxShift = 72;
     private const int LabelVerticalSteps = 4;
+
+    // Scheme tables, indexed like AllPeriods and like the nine levels.
+    private static readonly int[] PeriodWidths = [2, 1, 1, 1, 1, 1, 1];
+
+    private static readonly LineDashStyle[] PeriodDashes =
+    [
+        LineDashStyle.Solid, LineDashStyle.Solid, LineDashStyle.Dash, LineDashStyle.Dot,
+        LineDashStyle.DashDot, LineDashStyle.DashDot, LineDashStyle.Dot,
+    ];
+
+    private static readonly int[] KindWidths = [1, 1, 1, 1, 1, 3, 2, 1, 1];
+
+    private static readonly LineDashStyle[] KindDashes =
+    [
+        LineDashStyle.Dash, LineDashStyle.Solid, LineDashStyle.Solid, LineDashStyle.Dash, LineDashStyle.Dot,
+        LineDashStyle.Solid, LineDashStyle.Solid, LineDashStyle.Dot, LineDashStyle.Dot,
+    ];
+
+    /// <summary>Which label claims its place first: anchors, then the value area, then the rest.</summary>
+    private static readonly int[] KindPriority = [6, 4, 5, 7, 8, 0, 1, 2, 3];
+
+    private readonly CrossColor[] _periodColors =
+    [
+        Rgb(0x29, 0xB6, 0xF6), Rgb(0x02, 0x88, 0xD1), Rgb(0x66, 0xBB, 0x6A), Rgb(0x2E, 0x7D, 0x32),
+        Rgb(0xFF, 0xA7, 0x26), Rgb(0xEF, 0x6C, 0x00), Rgb(0xBD, 0xBD, 0xBD),
+    ];
+
+    private readonly CrossColor[] _levelColors =
+    [
+        Rgb(0x9E, 0x9E, 0x9E), Rgb(0xEF, 0x53, 0x50), Rgb(0x26, 0xA6, 0x9A), Rgb(0x60, 0x7D, 0x8B),
+        Rgb(0x8D, 0x6E, 0x63), Rgb(0xFF, 0xB3, 0x00), Rgb(0x42, 0xA5, 0xF5), Rgb(0xAB, 0x47, 0xBC),
+        Rgb(0x7E, 0x57, 0xC2),
+    ];
+
+    private readonly RenderPen[,] _schemePens = new RenderPen[AllPeriods.Length, LevelCount];
+
+    private VisualScheme _visualScheme = VisualScheme.Levels;
+    private bool _schemeDirty = true;
 
     private bool _avoidLabelOverlap = true;
     private bool _clipLinesAtLabels = true;
@@ -1199,6 +1253,133 @@ public class OHLCPlusPro : Indicator
 
     #endregion
 
+    #region Scheme
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Scheme), Name = nameof(Res.VisualScheme), Description = nameof(Res.OhlcPlusSchemeDescription), Order = 1300)]
+    public VisualScheme Scheme
+    {
+        get => _visualScheme;
+        set
+        {
+            _visualScheme = value;
+            InvalidateScheme();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.PeriodColors), Name = nameof(Res.CurrentDay), Order = 1310)]
+    public CrossColor PeriodColorDay
+    {
+        get => _periodColors[0];
+        set => SetSchemeColor(_periodColors, 0, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.PeriodColors), Name = nameof(Res.PreviousDay), Order = 1320)]
+    public CrossColor PeriodColorPrevDay
+    {
+        get => _periodColors[1];
+        set => SetSchemeColor(_periodColors, 1, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.PeriodColors), Name = nameof(Res.CurrentWeek), Order = 1330)]
+    public CrossColor PeriodColorWeek
+    {
+        get => _periodColors[2];
+        set => SetSchemeColor(_periodColors, 2, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.PeriodColors), Name = nameof(Res.PreviousWeek), Order = 1340)]
+    public CrossColor PeriodColorPrevWeek
+    {
+        get => _periodColors[3];
+        set => SetSchemeColor(_periodColors, 3, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.PeriodColors), Name = nameof(Res.CurrentMonth), Order = 1350)]
+    public CrossColor PeriodColorMonth
+    {
+        get => _periodColors[4];
+        set => SetSchemeColor(_periodColors, 4, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.PeriodColors), Name = nameof(Res.PreviousMonth), Order = 1360)]
+    public CrossColor PeriodColorPrevMonth
+    {
+        get => _periodColors[5];
+        set => SetSchemeColor(_periodColors, 5, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.PeriodColors), Name = nameof(Res.Contract), Order = 1370)]
+    public CrossColor PeriodColorContract
+    {
+        get => _periodColors[6];
+        set => SetSchemeColor(_periodColors, 6, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.BarOpen), Order = 1410)]
+    public CrossColor LevelColorOpen
+    {
+        get => _levelColors[0];
+        set => SetSchemeColor(_levelColors, 0, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.BarHigh), Order = 1420)]
+    public CrossColor LevelColorHigh
+    {
+        get => _levelColors[1];
+        set => SetSchemeColor(_levelColors, 1, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.BarLow), Order = 1430)]
+    public CrossColor LevelColorLow
+    {
+        get => _levelColors[2];
+        set => SetSchemeColor(_levelColors, 2, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.BarClose), Order = 1440)]
+    public CrossColor LevelColorClose
+    {
+        get => _levelColors[3];
+        set => SetSchemeColor(_levelColors, 3, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.Equilibrium), Order = 1450)]
+    public CrossColor LevelColorEquilibrium
+    {
+        get => _levelColors[4];
+        set => SetSchemeColor(_levelColors, 4, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.POC), Order = 1460)]
+    public CrossColor LevelColorPoc
+    {
+        get => _levelColors[5];
+        set => SetSchemeColor(_levelColors, 5, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.VWAP), Order = 1470)]
+    public CrossColor LevelColorVwap
+    {
+        get => _levelColors[6];
+        set => SetSchemeColor(_levelColors, 6, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.VAH), Order = 1480)]
+    public CrossColor LevelColorVah
+    {
+        get => _levelColors[7];
+        set => SetSchemeColor(_levelColors, 7, value);
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.LevelColors), Name = nameof(Res.VAL), Order = 1490)]
+    public CrossColor LevelColorVal
+    {
+        get => _levelColors[8];
+        set => SetSchemeColor(_levelColors, 8, value);
+    }
+
+    #endregion
+
     #region Label layout
 
     [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Labels), Name = nameof(Res.AvoidOverlap), Description = nameof(Res.OhlcPlusAvoidOverlapDescription), Order = 1195)]
@@ -1434,6 +1615,59 @@ public class OHLCPlusPro : Indicator
             .Trim();
     }
 
+    private static CrossColor Rgb(int r, int g, int b) => Color.FromArgb(r, g, b).Convert();
+
+    private void SetSchemeColor(CrossColor[] palette, int index, CrossColor value)
+    {
+        palette[index] = value;
+        InvalidateScheme();
+    }
+
+    private void InvalidateScheme()
+    {
+        _schemeDirty = true;
+        RedrawChart();
+    }
+
+    /// <summary>
+    /// Pen of a level under the active scheme. With the Levels scheme it is the pen of the level
+    /// itself; the other two build one per period and kind and keep it until the scheme changes.
+    /// </summary>
+    private RenderPen PenFor(FixedProfilePeriods period, int kind, LevelSettings levelSettings)
+    {
+        if (_visualScheme == VisualScheme.Levels)
+            return levelSettings.RenderPen;
+
+        var index = IndexOf(period);
+
+        if (index < 0)
+            return levelSettings.RenderPen;
+
+        if (_schemeDirty)
+        {
+            Array.Clear(_schemePens, 0, _schemePens.Length);
+            _schemeDirty = false;
+        }
+
+        return _schemePens[index, kind] ??= new PenSettings
+        {
+            Color = _visualScheme == VisualScheme.ByPeriod ? _periodColors[index] : _levelColors[kind],
+            Width = _visualScheme == VisualScheme.ByPeriod ? PeriodWidths[index] : KindWidths[kind],
+            LineDashStyle = _visualScheme == VisualScheme.ByPeriod ? PeriodDashes[index] : KindDashes[kind],
+        }.RenderObject;
+    }
+
+    /// <summary>Order in which the labels of the frame claim their place.</summary>
+    private int PriorityOf(FixedProfilePeriods period, int kind)
+    {
+        return _visualScheme switch
+        {
+            VisualScheme.ByPeriod => IndexOf(period) * LevelCount + KindPriority[kind],
+            VisualScheme.ByLevelType => KindPriority[kind] * AllPeriods.Length + Math.Max(IndexOf(period), 0),
+            _ => 0,
+        };
+    }
+
     private void SetText(ref string field, string value)
     {
         field = value ?? string.Empty;
@@ -1613,8 +1847,7 @@ public class OHLCPlusPro : Indicator
         var barWidth = (int)ChartInfo.PriceChartContainer.BarsWidth;
         var currentBarRightX = currentBarX + barWidth;
 
-        // Get pen from LevelSettings
-        var renderPen = levelSettings.RenderPen;
+        var renderPen = PenFor(period, kind, levelSettings);
         var labelText = BuildLabel(period, kind, levelSettings);
 
         // The price tag on the axis lives outside the chart area: nothing can collide with it.
@@ -1649,7 +1882,7 @@ public class OHLCPlusPro : Indicator
             chartWidth,
             renderPen,
             levelSettings.TextColor,
-            priority: 0,
+            PriorityOf(period, kind),
             sequence: _labelQueue.Count));
     }
 

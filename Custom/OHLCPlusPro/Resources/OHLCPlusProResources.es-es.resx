@@ -81,6 +81,9 @@
   <data name="Left" xml:space="preserve">
     <value>Izquierda</value>
   </data>
+  <data name="LevelColors" xml:space="preserve">
+    <value>Colores por tipo de nivel</value>
+  </data>
   <data name="Line" xml:space="preserve">
     <value>Línea</value>
   </data>
@@ -108,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Texto de este nivel en el gráfico, en lugar del que construye la plantilla. Vacío usa la plantilla.</value>
   </data>
+  <data name="OhlcPlusSchemeDescription" xml:space="preserve">
+    <value>De dónde salen el color, el grosor y el estilo de cada línea. Con Niveles, cada nivel mantiene los suyos, como en el indicador de la plataforma.</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Color del texto del nivel: la etiqueta del gráfico, el precio de la escala y la insignia del nivel. Con Auto, el color se elige solo para que contraste con el fondo que hay detrás del texto.</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="PeriodColors" xml:space="preserve">
+    <value>Colores por periodo</value>
   </data>
   <data name="Prefixes" xml:space="preserve">
     <value>Prefijos</value>
@@ -128,6 +137,18 @@
   </data>
   <data name="Right" xml:space="preserve">
     <value>A la derecha</value>
+  </data>
+  <data name="Scheme" xml:space="preserve">
+    <value>Esquema</value>
+  </data>
+  <data name="SchemeByLevelType" xml:space="preserve">
+    <value>Por tipo de nivel</value>
+  </data>
+  <data name="SchemeByPeriod" xml:space="preserve">
+    <value>Por periodo</value>
+  </data>
+  <data name="SchemeLevels" xml:space="preserve">
+    <value>Niveles</value>
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>Mostrar precio</value>
@@ -155,6 +176,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Visibilidad</value>
+  </data>
+  <data name="VisualScheme" xml:space="preserve">
+    <value>Esquema visual</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Ancho</value>

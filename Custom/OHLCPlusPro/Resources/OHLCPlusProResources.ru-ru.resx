@@ -81,6 +81,9 @@
   <data name="Left" xml:space="preserve">
     <value>Слева</value>
   </data>
+  <data name="LevelColors" xml:space="preserve">
+    <value>Цвета по типам уровней</value>
+  </data>
   <data name="Line" xml:space="preserve">
     <value>Линия</value>
   </data>
@@ -108,11 +111,17 @@
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Текст этого уровня на графике вместо построенного по шаблону. Пусто — используется шаблон.</value>
   </data>
+  <data name="OhlcPlusSchemeDescription" xml:space="preserve">
+    <value>Откуда берутся цвет, толщина и стиль каждой линии. В режиме «Уровни» каждый уровень сохраняет свои, как в индикаторе платформы.</value>
+  </data>
   <data name="OhlcPlusTextColorDescription" xml:space="preserve">
     <value>Цвет текста уровня: подпись на графике, цена на шкале и бейдж уровня. При «Авто» цвет подбирается автоматически для контраста с фоном под текстом.</value>
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="PeriodColors" xml:space="preserve">
+    <value>Цвета по периодам</value>
   </data>
   <data name="Prefixes" xml:space="preserve">
     <value>Префиксы</value>
@@ -128,6 +137,18 @@
   </data>
   <data name="Right" xml:space="preserve">
     <value>Справа</value>
+  </data>
+  <data name="Scheme" xml:space="preserve">
+    <value>Схема</value>
+  </data>
+  <data name="SchemeByLevelType" xml:space="preserve">
+    <value>По типу уровня</value>
+  </data>
+  <data name="SchemeByPeriod" xml:space="preserve">
+    <value>По периоду</value>
+  </data>
+  <data name="SchemeLevels" xml:space="preserve">
+    <value>Уровни</value>
   </data>
   <data name="ShowPrice" xml:space="preserve">
     <value>Показать цену</value>
@@ -155,6 +176,9 @@
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Видимость</value>
+  </data>
+  <data name="VisualScheme" xml:space="preserve">
+    <value>Визуальная схема</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Ширина</value>
