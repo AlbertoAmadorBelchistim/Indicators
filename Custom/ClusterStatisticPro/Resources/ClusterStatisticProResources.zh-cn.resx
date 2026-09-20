@@ -48,6 +48,12 @@
   <data name="BidColorDescription" xml:space="preserve">
     <value>卖单的可视化突出显示。</value>
   </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>买方失衡</value>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>买方叠加</value>
+  </data>
   <data name="CenterAlign" xml:space="preserve">
     <value>居中对齐</value>
   </data>
@@ -61,10 +67,10 @@
     <value>颜色</value>
   </data>
   <data name="ContrastText" xml:space="preserve">
-    <value>Contrast text</value>
+    <value>对比文字</value>
   </data>
   <data name="ContrastTextDescription" xml:space="preserve">
-    <value>Keeps the text color where it reads well and switches to white or black on the cells where it would not.</value>
+    <value>在可读处保留文字颜色，在不易读的单元格中改用白色或黑色。</value>
   </data>
   <data name="CustomSession" xml:space="preserve">
     <value>自定义会话</value>
@@ -81,14 +87,29 @@
   <data name="Default" xml:space="preserve">
     <value>默认值</value>
   </data>
+  <data name="Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>Delta警报</value>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Delta变化</value>
   </data>
   <data name="DeltaChangeAlert" xml:space="preserve">
     <value>Delta变化警报</value>
   </data>
   <data name="DeltaPerVolumeAlert" xml:space="preserve">
     <value>Delta/交易量警报</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Delta/秒</value>
+  </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Delta/成交量</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>持续时间</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>启用</value>
@@ -114,6 +135,9 @@
   <data name="Headers" xml:space="preserve">
     <value>标头</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
   <data name="HeightAlert" xml:space="preserve">
     <value>高度警报</value>
   </data>
@@ -124,28 +148,28 @@
     <value>隐藏标题</value>
   </data>
   <data name="HighlightStrongCells" xml:space="preserve">
-    <value>Outline strong cells</value>
+    <value>强单元格描边</value>
   </data>
   <data name="HighlightStrongCellsDescription" xml:space="preserve">
-    <value>Draws an outline around the cells at the top of their scale.</value>
+    <value>为处于其刻度顶端的单元格绘制边框。</value>
   </data>
   <data name="ImbalanceGroup" xml:space="preserve">
     <value>失衡</value>
   </data>
   <data name="ImbalanceMinDifferenceDescription" xml:space="preserve">
-    <value>Minimum difference between the dominant and the diagonal volume for an imbalance.</value>
+    <value>构成失衡所需的主导成交量与对角成交量的最小差值。</value>
   </data>
   <data name="ImbalanceMinDifferenceName" xml:space="preserve">
     <value>最小成交量差值</value>
   </data>
   <data name="ImbalanceMinDominantVolumeDescription" xml:space="preserve">
-    <value>Minimum volume of the dominant side for an imbalance.</value>
+    <value>构成失衡所需的主导方最小成交量。</value>
   </data>
   <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
     <value>最小主导成交量</value>
   </data>
   <data name="ImbalanceThresholdPercentDescription" xml:space="preserve">
-    <value>Minimum ratio between the dominant volume and the diagonal one, in percent: 300 means 3 to 1. A diagonal with no volume is not compared.</value>
+    <value>主导成交量与对角成交量的最小比率（百分比）：300表示3比1。没有成交量的对角不参与比较。</value>
   </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>失衡阈值 (%)</value>
@@ -156,17 +180,26 @@
   <data name="LabelTextColorDescription" xml:space="preserve">
     <value>设置标签文本的颜色。</value>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>最大Delta</value>
+  </data>
   <data name="MaxDeltaAlert" xml:space="preserve">
     <value>最大Delta警报</value>
   </data>
   <data name="MaxVolPerSecGroup" xml:space="preserve">
     <value>最大成交量/秒</value>
   </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>最小Delta</value>
+  </data>
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>最小Delta警报</value>
   </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>净失衡</value>
+  </data>
   <data name="NetImbalanceAlertDescription" xml:space="preserve">
-    <value>Alerts when the net imbalance of a bar reaches the threshold, by absolute value, at most once per bar.</value>
+    <value>当K线的净失衡绝对值达到阈值时报警，每根K线最多一次。</value>
   </data>
   <data name="NetImbalanceAlertGroup" xml:space="preserve">
     <value>净失衡警报</value>
@@ -175,22 +208,34 @@
     <value>阈值（绝对）</value>
   </data>
   <data name="NetImbalanceAlertThresholdDescription" xml:space="preserve">
-    <value>Net imbalance, buy or sell, that triggers the alert.</value>
+    <value>触发报警的净失衡（买方或卖方）。</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
     <value>使用已收盘K线</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandleDescription" xml:space="preserve">
-    <value>On: checks each bar once when it closes, and alerts if it reached the threshold and the previous bar did not. Off: alerts while the bar forms, when the net imbalance crosses the threshold.</value>
+    <value>开启：每根K线收盘时检查一次，若其达到阈值而前一根未达到则报警。关闭：K线形成过程中净失衡穿越阈值时报警。</value>
+  </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>无</value>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>最大成交量/秒时Delta</value>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>最大成交量/秒时Delta/量</value>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>最大成交量/秒</value>
   </data>
   <data name="RatiosAsPercent" xml:space="preserve">
     <value>比率（百分比）</value>
   </data>
   <data name="RatiosAsPercentDescription" xml:space="preserve">
-    <value>Shows Delta/Volume and Session Delta/Volume as a percentage (25%) or as a fraction (0.25).</value>
+    <value>以百分比（25%）或小数（0.25）显示Delta/成交量和时段Delta/成交量。</value>
   </data>
   <data name="RowsCandleContextGroup" xml:space="preserve">
     <value>K线背景</value>
@@ -210,8 +255,17 @@
   <data name="RowsSessionContextGroup" xml:space="preserve">
     <value>会话背景</value>
   </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>卖方失衡</value>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>卖方叠加</value>
+  </data>
   <data name="Session" xml:space="preserve">
     <value>会话</value>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>会话 Delta</value>
   </data>
   <data name="SessionDeltaAlert" xml:space="preserve">
     <value>时段Delta警报</value>
@@ -222,8 +276,14 @@
   <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
     <value>时段Delta/交易量警报</value>
   </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>会话 Delta/成交量</value>
+  </data>
   <data name="SessionModeDescription" xml:space="preserve">
     <value>表示会话模式之一。</value>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>会话成交量</value>
   </data>
   <data name="SessionVolumeAlert" xml:space="preserve">
     <value>时段交易量警报</value>
@@ -244,7 +304,7 @@
     <value>买方失衡</value>
   </data>
   <data name="ShowBuyImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances of the bar: levels whose ask volume dominates the bid volume one level below.</value>
+    <value>K线的买方失衡：卖价成交量压倒下一价位买价成交量的价位。</value>
   </data>
   <data name="ShowCandleDurationDescription" xml:space="preserve">
     <value>确定是否应显示蜡烛的时间持续信息。</value>
@@ -301,31 +361,31 @@
     <value>净失衡</value>
   </data>
   <data name="ShowNetImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances minus sell imbalances of the bar.</value>
+    <value>K线的买方失衡减去卖方失衡。</value>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
     <value>最大成交量/秒时的 Delta</value>
   </data>
   <data name="ShowPeakDeltaPerSecDescription" xml:space="preserve">
-    <value>Delta per second at the moment of the highest speed of the bar.</value>
+    <value>K线最高速度时刻的每秒Delta。</value>
   </data>
   <data name="ShowPeakDeltaPerVol" xml:space="preserve">
     <value>最大成交量/秒时的 Delta/成交量</value>
   </data>
   <data name="ShowPeakDeltaPerVolDescription" xml:space="preserve">
-    <value>Delta share of the volume at the moment of the highest speed of the bar.</value>
+    <value>K线最高速度时刻Delta占成交量的比例。</value>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
     <value>最大成交量/秒</value>
   </data>
   <data name="ShowPeakVolPerSecDescription" xml:space="preserve">
-    <value>Highest speed of the tape in the bar: the volume of the last seconds (Time window) divided by the window, after each print.</value>
+    <value>K线内的最高成交速度：每笔成交后，最近若干秒（时间窗口）的成交量除以窗口秒数。</value>
   </data>
   <data name="ShowSellImbalances" xml:space="preserve">
     <value>卖方失衡</value>
   </data>
   <data name="ShowSellImbalancesDescription" xml:space="preserve">
-    <value>Sell imbalances of the bar: levels whose bid volume dominates the ask volume one level above.</value>
+    <value>K线的卖方失衡：买价成交量压倒上一价位卖价成交量的价位。</value>
   </data>
   <data name="ShowSessionDelta" xml:space="preserve">
     <value>会话差值</value>
@@ -349,19 +409,19 @@
     <value>叠加买方失衡</value>
   </data>
   <data name="ShowStackedBuyImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances of the bar: runs of at least the minimum number of consecutive buy imbalance levels.</value>
+    <value>K线的买方堆叠失衡：连续买方失衡价位数达到最小值的区段。</value>
   </data>
   <data name="ShowStackedNetImbalances" xml:space="preserve">
     <value>叠加净失衡</value>
   </data>
   <data name="ShowStackedNetImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances minus stacks of sell imbalances of the bar.</value>
+    <value>K线的买方堆叠减去卖方堆叠。</value>
   </data>
   <data name="ShowStackedSellImbalances" xml:space="preserve">
     <value>叠加卖方失衡</value>
   </data>
   <data name="ShowStackedSellImbalancesDescription" xml:space="preserve">
-    <value>Stacks of sell imbalances of the bar: runs of at least the minimum number of consecutive sell imbalance levels.</value>
+    <value>K线的卖方堆叠失衡：连续卖方失衡价位数达到最小值的区段。</value>
   </data>
   <data name="ShowTime" xml:space="preserve">
     <value>时间</value>
@@ -385,49 +445,55 @@
     <value>确定是否显示有关成交量的信息。</value>
   </data>
   <data name="SotAutoFilterPeriodDescription" xml:space="preserve">
-    <value>Closed bars in the mean of the peaks.</value>
+    <value>峰值均值所用的已收盘K线数。</value>
   </data>
   <data name="SotAutoFilterPeriodName" xml:space="preserve">
     <value>过滤周期</value>
   </data>
   <data name="SotAutoFilterUseEmaDescription" xml:space="preserve">
-    <value>Exponential mean of the peaks; off, simple mean.</value>
+    <value>峰值的指数均值；关闭则为简单均值。</value>
   </data>
   <data name="SotAutoFilterUseEmaName" xml:space="preserve">
     <value>EMA（关=SMA）</value>
   </data>
   <data name="SotMinVolumeDescription" xml:space="preserve">
-    <value>A speed only counts when the window holds at least this volume.</value>
+    <value>仅当窗口内成交量不少于此值时才计入速度。</value>
   </data>
   <data name="SotMinVolumeName" xml:space="preserve">
     <value>每窗口最小成交量</value>
   </data>
   <data name="SotTimeWindowSecDescription" xml:space="preserve">
-    <value>Seconds of prints added up for the speed of the tape.</value>
+    <value>计算成交速度时累加的成交秒数。</value>
   </data>
   <data name="SotTimeWindowSecName" xml:space="preserve">
     <value>时间窗口（秒）</value>
   </data>
   <data name="SotUseAutoFilterDescription" xml:space="preserve">
-    <value>Colors the speed rows by how far each bar is above or below the mean of the recent bar peaks, instead of against the largest one.</value>
+    <value>按每根K线相对近期峰值均值的高低为速度行着色，而不是与最大值比较。</value>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
     <value>使用过滤</value>
   </data>
   <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
-    <value>Consecutive imbalance levels of the same side that make a stack.</value>
+    <value>构成堆叠所需的同方向连续失衡价位数。</value>
   </data>
   <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
     <value>最小叠加层级</value>
   </data>
   <data name="TapeSessionsToLoad" xml:space="preserve">
-    <value>Sessions to load</value>
+    <value>加载的时段数</value>
   </data>
   <data name="TapeSessionsToLoadDescription" xml:space="preserve">
-    <value>Sessions of prints loaded for the history of the speed rows, counting the current one. 0 loads the whole chart. Only requested while a speed row is shown.</value>
+    <value>为速度行历史加载的成交时段数（含当前时段）。0表示整个图表。仅在显示速度行时请求。</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>文本</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Trades" xml:space="preserve">
+    <value>交易</value>
   </data>
   <data name="TradesAlert" xml:space="preserve">
     <value>交易警报</value>
@@ -458,5 +524,8 @@
   </data>
   <data name="VolumePerSecondAlert" xml:space="preserve">
     <value>交易量/秒警报</value>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>成交量/秒</value>
   </data>
 </root>

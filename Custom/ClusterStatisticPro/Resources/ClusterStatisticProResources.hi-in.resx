@@ -48,6 +48,12 @@
   <data name="BidColorDescription" xml:space="preserve">
     <value>बिक्री का दृश्य हाइलाइटिंग।</value>
   </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>खरीद असं.</value>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>खरीद स्टैक</value>
+  </data>
   <data name="CenterAlign" xml:space="preserve">
     <value>केंद्र संरेखित करें</value>
   </data>
@@ -61,10 +67,10 @@
     <value>रंग</value>
   </data>
   <data name="ContrastText" xml:space="preserve">
-    <value>Contrast text</value>
+    <value>कंट्रास्ट टेक्स्ट</value>
   </data>
   <data name="ContrastTextDescription" xml:space="preserve">
-    <value>Keeps the text color where it reads well and switches to white or black on the cells where it would not.</value>
+    <value>जहाँ टेक्स्ट का रंग ठीक पढ़ा जाता है वहाँ उसे रखता है, और जहाँ नहीं वहाँ सफ़ेद या काले में बदलता है।</value>
   </data>
   <data name="CustomSession" xml:space="preserve">
     <value>अनुकूलित सत्र</value>
@@ -81,14 +87,29 @@
   <data name="Default" xml:space="preserve">
     <value>डिफ़ॉल्ट</value>
   </data>
+  <data name="Delta" xml:space="preserve">
+    <value>डेल्टा</value>
+  </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>डेल्टा अलर्ट</value>
   </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>डेल्टा परिवर्तन</value>
+  </data>
   <data name="DeltaChangeAlert" xml:space="preserve">
-    <value>Delta change alert</value>
+    <value>डेल्टा परिवर्तन अलर्ट</value>
   </data>
   <data name="DeltaPerVolumeAlert" xml:space="preserve">
-    <value>Delta/Volume alert</value>
+    <value>डेल्टा/वॉल्यूम अलर्ट</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>डेल्टा/सेक</value>
+  </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>डेल्टा/वॉल</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>अवधि</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>सक्षम</value>
@@ -114,8 +135,11 @@
   <data name="Headers" xml:space="preserve">
     <value>हैडर्स</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>ऊचाई</value>
+  </data>
   <data name="HeightAlert" xml:space="preserve">
-    <value>Height alert</value>
+    <value>ऊँचाई अलर्ट</value>
   </data>
   <data name="HideHeadersDescription" xml:space="preserve">
     <value>यदि सक्षम है, शीर्षक पंक्तियों को छुपाता है।</value>
@@ -124,28 +148,28 @@
     <value>शीर्षक छिपाएँ</value>
   </data>
   <data name="HighlightStrongCells" xml:space="preserve">
-    <value>Outline strong cells</value>
+    <value>मज़बूत सेल को रेखांकित करें</value>
   </data>
   <data name="HighlightStrongCellsDescription" xml:space="preserve">
-    <value>Draws an outline around the cells at the top of their scale.</value>
+    <value>अपने स्केल के शीर्ष पर स्थित सेल के चारों ओर रेखा खींचता है।</value>
   </data>
   <data name="ImbalanceGroup" xml:space="preserve">
     <value>असंतुलन</value>
   </data>
   <data name="ImbalanceMinDifferenceDescription" xml:space="preserve">
-    <value>Minimum difference between the dominant and the diagonal volume for an imbalance.</value>
+    <value>असंतुलन के लिए प्रमुख और विकर्ण वॉल्यूम का न्यूनतम अंतर।</value>
   </data>
   <data name="ImbalanceMinDifferenceName" xml:space="preserve">
     <value>न्यूनतम वॉल्यूम अंतर</value>
   </data>
   <data name="ImbalanceMinDominantVolumeDescription" xml:space="preserve">
-    <value>Minimum volume of the dominant side for an imbalance.</value>
+    <value>असंतुलन के लिए प्रमुख पक्ष का न्यूनतम वॉल्यूम।</value>
   </data>
   <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
     <value>न्यूनतम प्रमुख वॉल्यूम</value>
   </data>
   <data name="ImbalanceThresholdPercentDescription" xml:space="preserve">
-    <value>Minimum ratio between the dominant volume and the diagonal one, in percent: 300 means 3 to 1. A diagonal with no volume is not compared.</value>
+    <value>प्रमुख वॉल्यूम और विकर्ण वॉल्यूम का न्यूनतम अनुपात, प्रतिशत में: 300 का अर्थ 3 से 1। बिना वॉल्यूम वाले विकर्ण की तुलना नहीं होती।</value>
   </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>असंतुलन सीमा (%)</value>
@@ -156,17 +180,26 @@
   <data name="LabelTextColorDescription" xml:space="preserve">
     <value>लेबल पाठ का रंग सेट करता है।</value>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>अधिकतम डेल्टा</value>
+  </data>
   <data name="MaxDeltaAlert" xml:space="preserve">
-    <value>Max delta alert</value>
+    <value>अधिकतम डेल्टा अलर्ट</value>
   </data>
   <data name="MaxVolPerSecGroup" xml:space="preserve">
     <value>अधिकतम वॉल्यूम/सेकंड</value>
   </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>न्यूनतम डेल्टा</value>
+  </data>
   <data name="MinDeltaAlert" xml:space="preserve">
-    <value>Min delta alert</value>
+    <value>न्यूनतम डेल्टा अलर्ट</value>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>शुद्ध असं.</value>
   </data>
   <data name="NetImbalanceAlertDescription" xml:space="preserve">
-    <value>Alerts when the net imbalance of a bar reaches the threshold, by absolute value, at most once per bar.</value>
+    <value>जब किसी बार का शुद्ध असंतुलन निरपेक्ष मान में सीमा तक पहुँचे तो अलर्ट, प्रति बार अधिकतम एक बार।</value>
   </data>
   <data name="NetImbalanceAlertGroup" xml:space="preserve">
     <value>नेट असंतुलन अलर्ट</value>
@@ -175,22 +208,34 @@
     <value>सीमा (abs)</value>
   </data>
   <data name="NetImbalanceAlertThresholdDescription" xml:space="preserve">
-    <value>Net imbalance, buy or sell, that triggers the alert.</value>
+    <value>अलर्ट ट्रिगर करने वाला शुद्ध असंतुलन, खरीद या बिक्री।</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
     <value>बंद कैंडल उपयोग करें</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandleDescription" xml:space="preserve">
-    <value>On: checks each bar once when it closes, and alerts if it reached the threshold and the previous bar did not. Off: alerts while the bar forms, when the net imbalance crosses the threshold.</value>
+    <value>चालू: हर बार को बंद होने पर एक बार जाँचता है और अलर्ट देता है यदि वह सीमा तक पहुँचा और पिछला नहीं। बंद: बार बनते समय, जब शुद्ध असंतुलन सीमा पार करे तब अलर्ट।</value>
+  </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>नेट Stk.</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>कोई नहीं</value>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>डेल्टा @ अधिकतम वॉल/सेक</value>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>डेल्टा/वॉल @ अधिकतम वॉल/सेक</value>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>अधिकतम वॉल/सेक</value>
   </data>
   <data name="RatiosAsPercent" xml:space="preserve">
     <value>अनुपात प्रतिशत के रूप में</value>
   </data>
   <data name="RatiosAsPercentDescription" xml:space="preserve">
-    <value>Shows Delta/Volume and Session Delta/Volume as a percentage (25%) or as a fraction (0.25).</value>
+    <value>Delta/Volume और सत्र Delta/Volume को प्रतिशत (25%) या भिन्न (0.25) के रूप में दिखाता है।</value>
   </data>
   <data name="RowsCandleContextGroup" xml:space="preserve">
     <value>कैंडल संदर्भ</value>
@@ -210,23 +255,38 @@
   <data name="RowsSessionContextGroup" xml:space="preserve">
     <value>सेशन संदर्भ</value>
   </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>बिक्री असं.</value>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>बिक्री स्टैक</value>
+  </data>
   <data name="Session" xml:space="preserve">
     <value>सत्र</value>
   </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>सेशन डेल्टा</value>
+  </data>
   <data name="SessionDeltaAlert" xml:space="preserve">
-    <value>Session delta alert</value>
+    <value>सत्र डेल्टा अलर्ट</value>
   </data>
   <data name="SessionDeltaMode" xml:space="preserve">
     <value>सत्र डेल्टा मोड</value>
   </data>
   <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
-    <value>Session delta/Volume alert</value>
+    <value>सत्र डेल्टा/वॉल्यूम अलर्ट</value>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>सेशन डेल्टा/वॉल्यूम</value>
   </data>
   <data name="SessionModeDescription" xml:space="preserve">
     <value>एक सत्र मोड का प्रतिनिधित्व करता है।</value>
   </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>सेशन वॉल्यूम</value>
+  </data>
   <data name="SessionVolumeAlert" xml:space="preserve">
-    <value>Session volume alert</value>
+    <value>सत्र वॉल्यूम अलर्ट</value>
   </data>
   <data name="ShowAsk" xml:space="preserve">
     <value>दिखाएं आस्क</value>
@@ -244,7 +304,7 @@
     <value>खरीद असंतुलन</value>
   </data>
   <data name="ShowBuyImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances of the bar: levels whose ask volume dominates the bid volume one level below.</value>
+    <value>बार के खरीद असंतुलन: वे स्तर जहाँ ask वॉल्यूम एक स्तर नीचे के bid वॉल्यूम पर हावी है।</value>
   </data>
   <data name="ShowCandleDurationDescription" xml:space="preserve">
     <value>निर्धारित करता है कि मोमबत्ती के समय अवधि के बारे में जानकारी प्रदर्शित की जानी चाहिए या नहीं।</value>
@@ -301,31 +361,31 @@
     <value>नेट असंतुलन</value>
   </data>
   <data name="ShowNetImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances minus sell imbalances of the bar.</value>
+    <value>बार के खरीद असंतुलन घटा बिक्री असंतुलन।</value>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
     <value>अधिकतम वॉल्यूम/सेकंड पर डेल्टा</value>
   </data>
   <data name="ShowPeakDeltaPerSecDescription" xml:space="preserve">
-    <value>Delta per second at the moment of the highest speed of the bar.</value>
+    <value>बार की सबसे तेज़ गति के क्षण में प्रति सेकंड डेल्टा।</value>
   </data>
   <data name="ShowPeakDeltaPerVol" xml:space="preserve">
     <value>अधिकतम वॉल्यूम/सेकंड पर डेल्टा/वॉल्यूम</value>
   </data>
   <data name="ShowPeakDeltaPerVolDescription" xml:space="preserve">
-    <value>Delta share of the volume at the moment of the highest speed of the bar.</value>
+    <value>बार की सबसे तेज़ गति के क्षण में वॉल्यूम में डेल्टा का हिस्सा।</value>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
     <value>अधिकतम वॉल्यूम/सेकंड</value>
   </data>
   <data name="ShowPeakVolPerSecDescription" xml:space="preserve">
-    <value>Highest speed of the tape in the bar: the volume of the last seconds (Time window) divided by the window, after each print.</value>
+    <value>बार में टेप की सबसे तेज़ गति: हर ट्रेड के बाद पिछले सेकंडों (समय विंडो) का वॉल्यूम विंडो से भाग।</value>
   </data>
   <data name="ShowSellImbalances" xml:space="preserve">
     <value>बिक्री असंतुलन</value>
   </data>
   <data name="ShowSellImbalancesDescription" xml:space="preserve">
-    <value>Sell imbalances of the bar: levels whose bid volume dominates the ask volume one level above.</value>
+    <value>बार के बिक्री असंतुलन: वे स्तर जहाँ bid वॉल्यूम एक स्तर ऊपर के ask वॉल्यूम पर हावी है।</value>
   </data>
   <data name="ShowSessionDelta" xml:space="preserve">
     <value>सत्र डेल्टा दिखाएं</value>
@@ -349,19 +409,19 @@
     <value>स्टैक्ड खरीद असंतुलन</value>
   </data>
   <data name="ShowStackedBuyImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances of the bar: runs of at least the minimum number of consecutive buy imbalance levels.</value>
+    <value>बार के स्टैक्ड खरीद असंतुलन: कम से कम न्यूनतम संख्या के लगातार खरीद असंतुलन स्तरों की श्रृंखलाएँ।</value>
   </data>
   <data name="ShowStackedNetImbalances" xml:space="preserve">
     <value>स्टैक्ड नेट असंतुलन</value>
   </data>
   <data name="ShowStackedNetImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances minus stacks of sell imbalances of the bar.</value>
+    <value>बार के खरीद स्टैक घटा बिक्री स्टैक।</value>
   </data>
   <data name="ShowStackedSellImbalances" xml:space="preserve">
     <value>स्टैक्ड बिक्री असंतुलन</value>
   </data>
   <data name="ShowStackedSellImbalancesDescription" xml:space="preserve">
-    <value>Stacks of sell imbalances of the bar: runs of at least the minimum number of consecutive sell imbalance levels.</value>
+    <value>बार के स्टैक्ड बिक्री असंतुलन: कम से कम न्यूनतम संख्या के लगातार बिक्री असंतुलन स्तरों की श्रृंखलाएँ।</value>
   </data>
   <data name="ShowTime" xml:space="preserve">
     <value>समय</value>
@@ -385,52 +445,58 @@
     <value>यह निर्धारित करता है कि आवाजों के बारे में जानकारी प्रदर्शित करनी चाहिए या नहीं।</value>
   </data>
   <data name="SotAutoFilterPeriodDescription" xml:space="preserve">
-    <value>Closed bars in the mean of the peaks.</value>
+    <value>शिखरों के औसत में बंद बार।</value>
   </data>
   <data name="SotAutoFilterPeriodName" xml:space="preserve">
     <value>फ़िल्टर अवधि</value>
   </data>
   <data name="SotAutoFilterUseEmaDescription" xml:space="preserve">
-    <value>Exponential mean of the peaks; off, simple mean.</value>
+    <value>शिखरों का घातीय औसत; बंद होने पर साधारण औसत।</value>
   </data>
   <data name="SotAutoFilterUseEmaName" xml:space="preserve">
     <value>EMA (off=SMA)</value>
   </data>
   <data name="SotMinVolumeDescription" xml:space="preserve">
-    <value>A speed only counts when the window holds at least this volume.</value>
+    <value>गति तभी गिनी जाती है जब विंडो में कम से कम इतना वॉल्यूम हो।</value>
   </data>
   <data name="SotMinVolumeName" xml:space="preserve">
     <value>प्रति विंडो न्यूनतम वॉल्यूम</value>
   </data>
   <data name="SotTimeWindowSecDescription" xml:space="preserve">
-    <value>Seconds of prints added up for the speed of the tape.</value>
+    <value>टेप की गति के लिए जोड़े जाने वाले ट्रेडों के सेकंड।</value>
   </data>
   <data name="SotTimeWindowSecName" xml:space="preserve">
     <value>समय विंडो (सेकंड)</value>
   </data>
   <data name="SotUseAutoFilterDescription" xml:space="preserve">
-    <value>Colors the speed rows by how far each bar is above or below the mean of the recent bar peaks, instead of against the largest one.</value>
+    <value>स्पीड पंक्तियों को इस आधार पर रंगता है कि हर बार हाल के शिखरों के औसत से कितना ऊपर या नीचे है, सबसे बड़े से तुलना के बजाय।</value>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
     <value>फ़िल्टर उपयोग करें</value>
   </data>
   <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
-    <value>Consecutive imbalance levels of the same side that make a stack.</value>
+    <value>एक ही पक्ष के लगातार असंतुलन स्तर जो एक स्टैक बनाते हैं।</value>
   </data>
   <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
     <value>न्यूनतम स्टैक्ड स्तर</value>
   </data>
   <data name="TapeSessionsToLoad" xml:space="preserve">
-    <value>Sessions to load</value>
+    <value>लोड करने के सत्र</value>
   </data>
   <data name="TapeSessionsToLoadDescription" xml:space="preserve">
-    <value>Sessions of prints loaded for the history of the speed rows, counting the current one. 0 loads the whole chart. Only requested while a speed row is shown.</value>
+    <value>स्पीड पंक्तियों के इतिहास के लिए लोड किए जाने वाले ट्रेड सत्र, वर्तमान सहित। 0 पूरा चार्ट लोड करता है। केवल तभी माँगा जाता है जब कोई स्पीड पंक्ति दिखाई गई हो।</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>टेक्स्ट</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>समय</value>
+  </data>
+  <data name="Trades" xml:space="preserve">
+    <value>व्यापार</value>
+  </data>
   <data name="TradesAlert" xml:space="preserve">
-    <value>Trades alert</value>
+    <value>ट्रेड अलर्ट</value>
   </data>
   <data name="Transparency" xml:space="preserve">
     <value>पंक्ति दृश्यता समायोजन।</value>
@@ -457,6 +523,9 @@
     <value>वॉल्यूम प्रदर्शित करने वाले बार का हाइलाइटिंग।</value>
   </data>
   <data name="VolumePerSecondAlert" xml:space="preserve">
-    <value>Volume/sec alert</value>
+    <value>वॉल्यूम/सेकंड अलर्ट</value>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>वॉल/सेक</value>
   </data>
 </root>

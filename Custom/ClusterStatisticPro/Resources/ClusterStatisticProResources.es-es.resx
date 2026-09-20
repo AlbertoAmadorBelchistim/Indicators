@@ -48,6 +48,12 @@
   <data name="BidColorDescription" xml:space="preserve">
     <value>Resaltado visual de ventas.</value>
   </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>Imb Comp</value>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>Stk Comp.</value>
+  </data>
   <data name="CenterAlign" xml:space="preserve">
     <value>Alineación centrada</value>
   </data>
@@ -61,10 +67,10 @@
     <value>Color</value>
   </data>
   <data name="ContrastText" xml:space="preserve">
-    <value>Contrast text</value>
+    <value>Texto con contraste</value>
   </data>
   <data name="ContrastTextDescription" xml:space="preserve">
-    <value>Keeps the text color where it reads well and switches to white or black on the cells where it would not.</value>
+    <value>Mantiene el color del texto donde se lee bien y cambia a blanco o negro en las celdas donde no.</value>
   </data>
   <data name="CustomSession" xml:space="preserve">
     <value>Sesión personalizada</value>
@@ -81,14 +87,29 @@
   <data name="Default" xml:space="preserve">
     <value>Por defecto</value>
   </data>
+  <data name="Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>DeltaAlert</value>
   </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Cambio Delta</value>
+  </data>
   <data name="DeltaChangeAlert" xml:space="preserve">
-    <value>Delta change alert</value>
+    <value>Alerta de cambio de delta</value>
   </data>
   <data name="DeltaPerVolumeAlert" xml:space="preserve">
-    <value>Delta/Volume alert</value>
+    <value>Alerta de Delta/Volumen</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Delta/seg</value>
+  </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Delta/Vol</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duración</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Habilitado</value>
@@ -114,8 +135,11 @@
   <data name="Headers" xml:space="preserve">
     <value>Encabezados</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>Altura</value>
+  </data>
   <data name="HeightAlert" xml:space="preserve">
-    <value>Height alert</value>
+    <value>Alerta de altura</value>
   </data>
   <data name="HideHeadersDescription" xml:space="preserve">
     <value>Si está habilitado, oculta las líneas de encabezado.</value>
@@ -124,28 +148,28 @@
     <value>Ocultar encabezamientos</value>
   </data>
   <data name="HighlightStrongCells" xml:space="preserve">
-    <value>Outline strong cells</value>
+    <value>Resaltar celdas fuertes</value>
   </data>
   <data name="HighlightStrongCellsDescription" xml:space="preserve">
-    <value>Draws an outline around the cells at the top of their scale.</value>
+    <value>Dibuja un contorno alrededor de las celdas en lo más alto de su escala.</value>
   </data>
   <data name="ImbalanceGroup" xml:space="preserve">
     <value>Desequilibrio</value>
   </data>
   <data name="ImbalanceMinDifferenceDescription" xml:space="preserve">
-    <value>Minimum difference between the dominant and the diagonal volume for an imbalance.</value>
+    <value>Diferencia mínima entre el volumen dominante y el de la diagonal para un desequilibrio.</value>
   </data>
   <data name="ImbalanceMinDifferenceName" xml:space="preserve">
     <value>Diferencia mínima de volumen</value>
   </data>
   <data name="ImbalanceMinDominantVolumeDescription" xml:space="preserve">
-    <value>Minimum volume of the dominant side for an imbalance.</value>
+    <value>Volumen mínimo del lado dominante para un desequilibrio.</value>
   </data>
   <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
     <value>Volumen dominante mínimo</value>
   </data>
   <data name="ImbalanceThresholdPercentDescription" xml:space="preserve">
-    <value>Minimum ratio between the dominant volume and the diagonal one, in percent: 300 means 3 to 1. A diagonal with no volume is not compared.</value>
+    <value>Ratio mínimo entre el volumen dominante y el de la diagonal, en porcentaje: 300 significa 3 a 1. Una diagonal sin volumen no se compara.</value>
   </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Umbral de desequilibrio (%)</value>
@@ -156,17 +180,26 @@
   <data name="LabelTextColorDescription" xml:space="preserve">
     <value>Establece el color del texto de la etiqueta.</value>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>Delta máx.</value>
+  </data>
   <data name="MaxDeltaAlert" xml:space="preserve">
-    <value>Max delta alert</value>
+    <value>Alerta de delta máximo</value>
   </data>
   <data name="MaxVolPerSecGroup" xml:space="preserve">
     <value>Vol máx/seg</value>
   </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>Delta mín.</value>
+  </data>
   <data name="MinDeltaAlert" xml:space="preserve">
-    <value>Min delta alert</value>
+    <value>Alerta de delta mínimo</value>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>Imb Neto</value>
   </data>
   <data name="NetImbalanceAlertDescription" xml:space="preserve">
-    <value>Alerts when the net imbalance of a bar reaches the threshold, by absolute value, at most once per bar.</value>
+    <value>Avisa cuando el desequilibrio neto de una barra alcanza el umbral, en valor absoluto, como mucho una vez por barra.</value>
   </data>
   <data name="NetImbalanceAlertGroup" xml:space="preserve">
     <value>Alerta de desequilibrio neto</value>
@@ -175,22 +208,34 @@
     <value>Umbral (abs)</value>
   </data>
   <data name="NetImbalanceAlertThresholdDescription" xml:space="preserve">
-    <value>Net imbalance, buy or sell, that triggers the alert.</value>
+    <value>Desequilibrio neto, comprador o vendedor, que dispara el aviso.</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
     <value>Usar vela cerrada</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandleDescription" xml:space="preserve">
-    <value>On: checks each bar once when it closes, and alerts if it reached the threshold and the previous bar did not. Off: alerts while the bar forms, when the net imbalance crosses the threshold.</value>
+    <value>Activado: revisa cada barra una vez al cerrar y avisa si alcanzó el umbral y la anterior no. Desactivado: avisa mientras se forma la barra, cuando el desequilibrio neto cruza el umbral.</value>
+  </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>Delta @ Vol máx/seg</value>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>Delta/Vol @ Vol máx/seg</value>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>Vol máx/seg</value>
   </data>
   <data name="RatiosAsPercent" xml:space="preserve">
     <value>Ratio como porcentaje</value>
   </data>
   <data name="RatiosAsPercentDescription" xml:space="preserve">
-    <value>Shows Delta/Volume and Session Delta/Volume as a percentage (25%) or as a fraction (0.25).</value>
+    <value>Muestra Delta/Volumen y Delta/Volumen de sesión como porcentaje (25%) o como fracción (0.25).</value>
   </data>
   <data name="RowsCandleContextGroup" xml:space="preserve">
     <value>Contexto de vela</value>
@@ -210,23 +255,38 @@
   <data name="RowsSessionContextGroup" xml:space="preserve">
     <value>Contexto de sesión</value>
   </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>Imb Vend</value>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>Stk Vend.</value>
+  </data>
   <data name="Session" xml:space="preserve">
     <value>Sesión</value>
   </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>Delta de sesión</value>
+  </data>
   <data name="SessionDeltaAlert" xml:space="preserve">
-    <value>Session delta alert</value>
+    <value>Alerta de delta de sesión</value>
   </data>
   <data name="SessionDeltaMode" xml:space="preserve">
     <value>Modo de delta de sesión</value>
   </data>
   <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
-    <value>Session delta/Volume alert</value>
+    <value>Alerta de Delta/Volumen de sesión</value>
+  </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>Delta/volumen de sesión</value>
   </data>
   <data name="SessionModeDescription" xml:space="preserve">
     <value>Representa uno de los modos de sesión.</value>
   </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>Vol sesión</value>
+  </data>
   <data name="SessionVolumeAlert" xml:space="preserve">
-    <value>Session volume alert</value>
+    <value>Alerta de volumen de sesión</value>
   </data>
   <data name="ShowAsk" xml:space="preserve">
     <value>Mostrar asks</value>
@@ -244,7 +304,7 @@
     <value>Desequilibrios compradores</value>
   </data>
   <data name="ShowBuyImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances of the bar: levels whose ask volume dominates the bid volume one level below.</value>
+    <value>Desequilibrios compradores de la barra: niveles cuyo volumen ask domina al volumen bid del nivel inferior.</value>
   </data>
   <data name="ShowCandleDurationDescription" xml:space="preserve">
     <value>Información sobre la duración de la vela.</value>
@@ -301,31 +361,31 @@
     <value>Desequilibrios netos</value>
   </data>
   <data name="ShowNetImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances minus sell imbalances of the bar.</value>
+    <value>Desequilibrios compradores menos vendedores de la barra.</value>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
     <value>Delta en vol máx/seg</value>
   </data>
   <data name="ShowPeakDeltaPerSecDescription" xml:space="preserve">
-    <value>Delta per second at the moment of the highest speed of the bar.</value>
+    <value>Delta por segundo en el momento de mayor velocidad de la barra.</value>
   </data>
   <data name="ShowPeakDeltaPerVol" xml:space="preserve">
     <value>Delta/Vol en vol máx/seg</value>
   </data>
   <data name="ShowPeakDeltaPerVolDescription" xml:space="preserve">
-    <value>Delta share of the volume at the moment of the highest speed of the bar.</value>
+    <value>Proporción de delta sobre el volumen en el momento de mayor velocidad de la barra.</value>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
     <value>Vol máx/seg</value>
   </data>
   <data name="ShowPeakVolPerSecDescription" xml:space="preserve">
-    <value>Highest speed of the tape in the bar: the volume of the last seconds (Time window) divided by the window, after each print.</value>
+    <value>Mayor velocidad de la cinta en la barra: el volumen de los últimos segundos (Ventana de tiempo) dividido por la ventana, tras cada operación.</value>
   </data>
   <data name="ShowSellImbalances" xml:space="preserve">
     <value>Desequilibrios vendedores</value>
   </data>
   <data name="ShowSellImbalancesDescription" xml:space="preserve">
-    <value>Sell imbalances of the bar: levels whose bid volume dominates the ask volume one level above.</value>
+    <value>Desequilibrios vendedores de la barra: niveles cuyo volumen bid domina al volumen ask del nivel superior.</value>
   </data>
   <data name="ShowSessionDelta" xml:space="preserve">
     <value>Session delta</value>
@@ -349,19 +409,19 @@
     <value>Desequilibrios compradores apilados</value>
   </data>
   <data name="ShowStackedBuyImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances of the bar: runs of at least the minimum number of consecutive buy imbalance levels.</value>
+    <value>Apilamientos de desequilibrios compradores de la barra: series de al menos el mínimo de niveles consecutivos con desequilibrio comprador.</value>
   </data>
   <data name="ShowStackedNetImbalances" xml:space="preserve">
     <value>Desequilibrios netos apilados</value>
   </data>
   <data name="ShowStackedNetImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances minus stacks of sell imbalances of the bar.</value>
+    <value>Apilamientos compradores menos apilamientos vendedores de la barra.</value>
   </data>
   <data name="ShowStackedSellImbalances" xml:space="preserve">
     <value>Desequilibrios vendedores apilados</value>
   </data>
   <data name="ShowStackedSellImbalancesDescription" xml:space="preserve">
-    <value>Stacks of sell imbalances of the bar: runs of at least the minimum number of consecutive sell imbalance levels.</value>
+    <value>Apilamientos de desequilibrios vendedores de la barra: series de al menos el mínimo de niveles consecutivos con desequilibrio vendedor.</value>
   </data>
   <data name="ShowTime" xml:space="preserve">
     <value>Tiempo</value>
@@ -385,52 +445,58 @@
     <value>Volumen negociado en cada barra.</value>
   </data>
   <data name="SotAutoFilterPeriodDescription" xml:space="preserve">
-    <value>Closed bars in the mean of the peaks.</value>
+    <value>Barras cerradas en la media de los picos.</value>
   </data>
   <data name="SotAutoFilterPeriodName" xml:space="preserve">
     <value>Periodo del filtro</value>
   </data>
   <data name="SotAutoFilterUseEmaDescription" xml:space="preserve">
-    <value>Exponential mean of the peaks; off, simple mean.</value>
+    <value>Media exponencial de los picos; desactivado, media simple.</value>
   </data>
   <data name="SotAutoFilterUseEmaName" xml:space="preserve">
     <value>EMA (off=SMA)</value>
   </data>
   <data name="SotMinVolumeDescription" xml:space="preserve">
-    <value>A speed only counts when the window holds at least this volume.</value>
+    <value>Una velocidad solo cuenta cuando la ventana tiene al menos este volumen.</value>
   </data>
   <data name="SotMinVolumeName" xml:space="preserve">
     <value>Volumen mínimo por ventana</value>
   </data>
   <data name="SotTimeWindowSecDescription" xml:space="preserve">
-    <value>Seconds of prints added up for the speed of the tape.</value>
+    <value>Segundos de operaciones que se suman para la velocidad de la cinta.</value>
   </data>
   <data name="SotTimeWindowSecName" xml:space="preserve">
     <value>Ventana de tiempo (seg)</value>
   </data>
   <data name="SotUseAutoFilterDescription" xml:space="preserve">
-    <value>Colors the speed rows by how far each bar is above or below the mean of the recent bar peaks, instead of against the largest one.</value>
+    <value>Colorea las filas de velocidad según cuánto está cada barra por encima o por debajo de la media de los picos recientes, en lugar de compararla con el mayor.</value>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
     <value>Usar filtro</value>
   </data>
   <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
-    <value>Consecutive imbalance levels of the same side that make a stack.</value>
+    <value>Niveles consecutivos con desequilibrio del mismo lado que forman un apilamiento.</value>
   </data>
   <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
     <value>Niveles mínimos apilados</value>
   </data>
   <data name="TapeSessionsToLoad" xml:space="preserve">
-    <value>Sessions to load</value>
+    <value>Sesiones a cargar</value>
   </data>
   <data name="TapeSessionsToLoadDescription" xml:space="preserve">
-    <value>Sessions of prints loaded for the history of the speed rows, counting the current one. 0 loads the whole chart. Only requested while a speed row is shown.</value>
+    <value>Sesiones de operaciones que se cargan para el historial de las filas de velocidad, contando la actual. 0 carga todo el gráfico. Solo se piden si hay una fila de velocidad visible.</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Texto</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="Trades" xml:space="preserve">
+    <value>Trades</value>
+  </data>
   <data name="TradesAlert" xml:space="preserve">
-    <value>Trades alert</value>
+    <value>Alerta de operaciones</value>
   </data>
   <data name="Transparency" xml:space="preserve">
     <value>Ajuste de visibilidad de filas.</value>
@@ -457,6 +523,9 @@
     <value>Establece el color del elemento de volumen.</value>
   </data>
   <data name="VolumePerSecondAlert" xml:space="preserve">
-    <value>Volume/sec alert</value>
+    <value>Alerta de volumen/seg</value>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>Vol/seg</value>
   </data>
 </root>

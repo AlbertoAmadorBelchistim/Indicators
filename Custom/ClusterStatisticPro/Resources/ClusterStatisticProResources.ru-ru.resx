@@ -48,6 +48,12 @@
   <data name="BidColorDescription" xml:space="preserve">
     <value>Визуальное выделение продаж.</value>
   </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>Пок. дисб</value>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>Пок. стек</value>
+  </data>
   <data name="CenterAlign" xml:space="preserve">
     <value>Выравнивание по центру</value>
   </data>
@@ -61,10 +67,10 @@
     <value>Цвет</value>
   </data>
   <data name="ContrastText" xml:space="preserve">
-    <value>Contrast text</value>
+    <value>Контрастный текст</value>
   </data>
   <data name="ContrastTextDescription" xml:space="preserve">
-    <value>Keeps the text color where it reads well and switches to white or black on the cells where it would not.</value>
+    <value>Сохраняет цвет текста там, где он хорошо читается, и переключается на белый или чёрный в ячейках, где нет.</value>
   </data>
   <data name="CustomSession" xml:space="preserve">
     <value>Пользовательская сессия</value>
@@ -81,14 +87,29 @@
   <data name="Default" xml:space="preserve">
     <value>По умолчанию</value>
   </data>
+  <data name="Delta" xml:space="preserve">
+    <value>Дельта</value>
+  </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>Алерт дельты</value>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Изм. дельты</value>
   </data>
   <data name="DeltaChangeAlert" xml:space="preserve">
     <value>Алерт изменения дельты</value>
   </data>
   <data name="DeltaPerVolumeAlert" xml:space="preserve">
     <value>Алерт дельта/объем</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Дельта/с</value>
+  </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Дельта/Объём</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Длительность</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Включен</value>
@@ -114,6 +135,9 @@
   <data name="Headers" xml:space="preserve">
     <value>Заголовки</value>
   </data>
+  <data name="Height" xml:space="preserve">
+    <value>Высота</value>
+  </data>
   <data name="HeightAlert" xml:space="preserve">
     <value>Алерт высоты</value>
   </data>
@@ -124,28 +148,28 @@
     <value>Скрыть заголовки</value>
   </data>
   <data name="HighlightStrongCells" xml:space="preserve">
-    <value>Outline strong cells</value>
+    <value>Обводить сильные ячейки</value>
   </data>
   <data name="HighlightStrongCellsDescription" xml:space="preserve">
-    <value>Draws an outline around the cells at the top of their scale.</value>
+    <value>Рисует контур вокруг ячеек в верхней части их шкалы.</value>
   </data>
   <data name="ImbalanceGroup" xml:space="preserve">
     <value>Дисбаланс</value>
   </data>
   <data name="ImbalanceMinDifferenceDescription" xml:space="preserve">
-    <value>Minimum difference between the dominant and the diagonal volume for an imbalance.</value>
+    <value>Минимальная разница между доминирующим и диагональным объёмом для дисбаланса.</value>
   </data>
   <data name="ImbalanceMinDifferenceName" xml:space="preserve">
     <value>Мин. разница объёма</value>
   </data>
   <data name="ImbalanceMinDominantVolumeDescription" xml:space="preserve">
-    <value>Minimum volume of the dominant side for an imbalance.</value>
+    <value>Минимальный объём доминирующей стороны для дисбаланса.</value>
   </data>
   <data name="ImbalanceMinDominantVolumeName" xml:space="preserve">
     <value>Мин. доминирующий объём</value>
   </data>
   <data name="ImbalanceThresholdPercentDescription" xml:space="preserve">
-    <value>Minimum ratio between the dominant volume and the diagonal one, in percent: 300 means 3 to 1. A diagonal with no volume is not compared.</value>
+    <value>Минимальное отношение доминирующего объёма к диагональному, в процентах: 300 означает 3 к 1. Диагональ без объёма не сравнивается.</value>
   </data>
   <data name="ImbalanceThresholdPercentName" xml:space="preserve">
     <value>Порог дисбаланса (%)</value>
@@ -156,17 +180,26 @@
   <data name="LabelTextColorDescription" xml:space="preserve">
     <value>Устанавливает цвет текста метки.</value>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>Макс. дельта</value>
+  </data>
   <data name="MaxDeltaAlert" xml:space="preserve">
     <value>Алерт макс. дельты</value>
   </data>
   <data name="MaxVolPerSecGroup" xml:space="preserve">
     <value>Макс. объём/с</value>
   </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>Мин. дельта</value>
+  </data>
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>Алерт мин. дельты</value>
   </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>Нетто дисб</value>
+  </data>
   <data name="NetImbalanceAlertDescription" xml:space="preserve">
-    <value>Alerts when the net imbalance of a bar reaches the threshold, by absolute value, at most once per bar.</value>
+    <value>Оповещает, когда чистый дисбаланс бара достигает порога по модулю, не более одного раза за бар.</value>
   </data>
   <data name="NetImbalanceAlertGroup" xml:space="preserve">
     <value>Алерт чистого дисбаланса</value>
@@ -175,22 +208,34 @@
     <value>Порог (abs)</value>
   </data>
   <data name="NetImbalanceAlertThresholdDescription" xml:space="preserve">
-    <value>Net imbalance, buy or sell, that triggers the alert.</value>
+    <value>Чистый дисбаланс (покупок или продаж), вызывающий оповещение.</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandle" xml:space="preserve">
     <value>Использовать закрытую свечу</value>
   </data>
   <data name="NetImbalanceAlertUseClosedCandleDescription" xml:space="preserve">
-    <value>On: checks each bar once when it closes, and alerts if it reached the threshold and the previous bar did not. Off: alerts while the bar forms, when the net imbalance crosses the threshold.</value>
+    <value>Вкл.: проверяет каждый бар один раз при закрытии и оповещает, если он достиг порога, а предыдущий нет. Выкл.: оповещает во время формирования бара, когда чистый дисбаланс пересекает порог.</value>
+  </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>Нет</value>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>Дельта @ макс. объём/с</value>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>Дельта/Объём @ макс. объём/с</value>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>Макс. объём/с</value>
   </data>
   <data name="RatiosAsPercent" xml:space="preserve">
     <value>Отношение в процентах</value>
   </data>
   <data name="RatiosAsPercentDescription" xml:space="preserve">
-    <value>Shows Delta/Volume and Session Delta/Volume as a percentage (25%) or as a fraction (0.25).</value>
+    <value>Показывает Дельта/Объём и Дельта/Объём сессии в процентах (25%) или долей (0.25).</value>
   </data>
   <data name="RowsCandleContextGroup" xml:space="preserve">
     <value>Контекст свечи</value>
@@ -210,8 +255,17 @@
   <data name="RowsSessionContextGroup" xml:space="preserve">
     <value>Контекст сессии</value>
   </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>Прод. дисб</value>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>Прод. стек</value>
+  </data>
   <data name="Session" xml:space="preserve">
     <value>Сессия</value>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>Сессионная дельта</value>
   </data>
   <data name="SessionDeltaAlert" xml:space="preserve">
     <value>Алерт сессионной дельты</value>
@@ -222,8 +276,14 @@
   <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
     <value>Алерт сессионной дельты/объем</value>
   </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>Дельта/объём сессии</value>
+  </data>
   <data name="SessionModeDescription" xml:space="preserve">
     <value>Включает или выключает режим расчета дельты по сессиям.</value>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>Объём сессии</value>
   </data>
   <data name="SessionVolumeAlert" xml:space="preserve">
     <value>Алерт сессионного объема</value>
@@ -244,7 +304,7 @@
     <value>Покупочные дисбалансы</value>
   </data>
   <data name="ShowBuyImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances of the bar: levels whose ask volume dominates the bid volume one level below.</value>
+    <value>Дисбалансы покупок бара: уровни, где объём ask преобладает над объёмом bid уровнем ниже.</value>
   </data>
   <data name="ShowCandleDurationDescription" xml:space="preserve">
     <value>Определяет, должна ли отображаться информация о длительности свечи.</value>
@@ -301,31 +361,31 @@
     <value>Чистые дисбалансы</value>
   </data>
   <data name="ShowNetImbalancesDescription" xml:space="preserve">
-    <value>Buy imbalances minus sell imbalances of the bar.</value>
+    <value>Дисбалансы покупок минус дисбалансы продаж бара.</value>
   </data>
   <data name="ShowPeakDeltaPerSec" xml:space="preserve">
     <value>Дельта при макс. объёме/с</value>
   </data>
   <data name="ShowPeakDeltaPerSecDescription" xml:space="preserve">
-    <value>Delta per second at the moment of the highest speed of the bar.</value>
+    <value>Дельта в секунду в момент наибольшей скорости бара.</value>
   </data>
   <data name="ShowPeakDeltaPerVol" xml:space="preserve">
     <value>Дельта/объём при макс. объёме/с</value>
   </data>
   <data name="ShowPeakDeltaPerVolDescription" xml:space="preserve">
-    <value>Delta share of the volume at the moment of the highest speed of the bar.</value>
+    <value>Доля дельты в объёме в момент наибольшей скорости бара.</value>
   </data>
   <data name="ShowPeakVolPerSec" xml:space="preserve">
     <value>Макс. объём/с</value>
   </data>
   <data name="ShowPeakVolPerSecDescription" xml:space="preserve">
-    <value>Highest speed of the tape in the bar: the volume of the last seconds (Time window) divided by the window, after each print.</value>
+    <value>Наибольшая скорость ленты в баре: объём последних секунд (окно времени), делённый на окно, после каждой сделки.</value>
   </data>
   <data name="ShowSellImbalances" xml:space="preserve">
     <value>Продажные дисбалансы</value>
   </data>
   <data name="ShowSellImbalancesDescription" xml:space="preserve">
-    <value>Sell imbalances of the bar: levels whose bid volume dominates the ask volume one level above.</value>
+    <value>Дисбалансы продаж бара: уровни, где объём bid преобладает над объёмом ask уровнем выше.</value>
   </data>
   <data name="ShowSessionDelta" xml:space="preserve">
     <value>Сессионная дельта</value>
@@ -349,19 +409,19 @@
     <value>Сложенные покупочные дисбалансы</value>
   </data>
   <data name="ShowStackedBuyImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances of the bar: runs of at least the minimum number of consecutive buy imbalance levels.</value>
+    <value>Стеки дисбалансов покупок бара: серии не менее минимального числа подряд идущих уровней с дисбалансом покупок.</value>
   </data>
   <data name="ShowStackedNetImbalances" xml:space="preserve">
     <value>Сложенные чистые дисбалансы</value>
   </data>
   <data name="ShowStackedNetImbalancesDescription" xml:space="preserve">
-    <value>Stacks of buy imbalances minus stacks of sell imbalances of the bar.</value>
+    <value>Стеки покупок минус стеки продаж бара.</value>
   </data>
   <data name="ShowStackedSellImbalances" xml:space="preserve">
     <value>Сложенные продажные дисбалансы</value>
   </data>
   <data name="ShowStackedSellImbalancesDescription" xml:space="preserve">
-    <value>Stacks of sell imbalances of the bar: runs of at least the minimum number of consecutive sell imbalance levels.</value>
+    <value>Стеки дисбалансов продаж бара: серии не менее минимального числа подряд идущих уровней с дисбалансом продаж.</value>
   </data>
   <data name="ShowTime" xml:space="preserve">
     <value>Время</value>
@@ -385,49 +445,55 @@
     <value>Определяет, следует ли отображать информацию об объемах.</value>
   </data>
   <data name="SotAutoFilterPeriodDescription" xml:space="preserve">
-    <value>Closed bars in the mean of the peaks.</value>
+    <value>Закрытые бары в среднем пиков.</value>
   </data>
   <data name="SotAutoFilterPeriodName" xml:space="preserve">
     <value>Период фильтра</value>
   </data>
   <data name="SotAutoFilterUseEmaDescription" xml:space="preserve">
-    <value>Exponential mean of the peaks; off, simple mean.</value>
+    <value>Экспоненциальное среднее пиков; выкл. — простое среднее.</value>
   </data>
   <data name="SotAutoFilterUseEmaName" xml:space="preserve">
     <value>EMA (off=SMA)</value>
   </data>
   <data name="SotMinVolumeDescription" xml:space="preserve">
-    <value>A speed only counts when the window holds at least this volume.</value>
+    <value>Скорость учитывается, только если в окне не меньше этого объёма.</value>
   </data>
   <data name="SotMinVolumeName" xml:space="preserve">
     <value>Мин. объём на окно</value>
   </data>
   <data name="SotTimeWindowSecDescription" xml:space="preserve">
-    <value>Seconds of prints added up for the speed of the tape.</value>
+    <value>Секунды сделок, суммируемые для скорости ленты.</value>
   </data>
   <data name="SotTimeWindowSecName" xml:space="preserve">
     <value>Окно времени (с)</value>
   </data>
   <data name="SotUseAutoFilterDescription" xml:space="preserve">
-    <value>Colors the speed rows by how far each bar is above or below the mean of the recent bar peaks, instead of against the largest one.</value>
+    <value>Окрашивает строки скорости по тому, насколько каждый бар выше или ниже среднего недавних пиков, а не относительно наибольшего.</value>
   </data>
   <data name="SotUseAutoFilterName" xml:space="preserve">
     <value>Исп. фильтр</value>
   </data>
   <data name="StackedImbalanceMinLevelsDescription" xml:space="preserve">
-    <value>Consecutive imbalance levels of the same side that make a stack.</value>
+    <value>Подряд идущие уровни дисбаланса одной стороны, образующие стек.</value>
   </data>
   <data name="StackedImbalanceMinLevelsName" xml:space="preserve">
     <value>Мин. сложенные уровни</value>
   </data>
   <data name="TapeSessionsToLoad" xml:space="preserve">
-    <value>Sessions to load</value>
+    <value>Загружаемые сессии</value>
   </data>
   <data name="TapeSessionsToLoadDescription" xml:space="preserve">
-    <value>Sessions of prints loaded for the history of the speed rows, counting the current one. 0 loads the whole chart. Only requested while a speed row is shown.</value>
+    <value>Сессии сделок, загружаемые для истории строк скорости, включая текущую. 0 — весь график. Запрашиваются, только если показана строка скорости.</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Текст</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Trades" xml:space="preserve">
+    <value>Трейды</value>
   </data>
   <data name="TradesAlert" xml:space="preserve">
     <value>Алерт сделок</value>
@@ -458,5 +524,8 @@
   </data>
   <data name="VolumePerSecondAlert" xml:space="preserve">
     <value>Алерт объема/сек</value>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>Объём/с</value>
   </data>
 </root>

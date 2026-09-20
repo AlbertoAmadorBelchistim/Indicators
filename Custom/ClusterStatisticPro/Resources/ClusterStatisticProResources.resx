@@ -48,6 +48,12 @@
   <data name="BidColorDescription" xml:space="preserve">
     <value>Visual highlighting of sells.</value>
   </data>
+  <data name="BuyImbShort" xml:space="preserve">
+    <value>Buy Imb</value>
+  </data>
+  <data name="BuyStkShort" xml:space="preserve">
+    <value>Buy Stk.</value>
+  </data>
   <data name="CenterAlign" xml:space="preserve">
     <value>Center align</value>
   </data>
@@ -81,14 +87,29 @@
   <data name="Default" xml:space="preserve">
     <value>Default</value>
   </data>
+  <data name="Delta" xml:space="preserve">
+    <value>Delta</value>
+  </data>
   <data name="DeltaAlert" xml:space="preserve">
     <value>Delta alert</value>
+  </data>
+  <data name="DeltaChange" xml:space="preserve">
+    <value>Delta Change</value>
   </data>
   <data name="DeltaChangeAlert" xml:space="preserve">
     <value>Delta change alert</value>
   </data>
   <data name="DeltaPerVolumeAlert" xml:space="preserve">
     <value>Delta/Volume alert</value>
+  </data>
+  <data name="DeltaSecond" xml:space="preserve">
+    <value>Delta/sec</value>
+  </data>
+  <data name="DeltaVolume" xml:space="preserve">
+    <value>Delta/Volume</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
   </data>
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
@@ -113,6 +134,9 @@
   </data>
   <data name="Headers" xml:space="preserve">
     <value>Headers</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height</value>
   </data>
   <data name="HeightAlert" xml:space="preserve">
     <value>Height alert</value>
@@ -156,14 +180,23 @@
   <data name="LabelTextColorDescription" xml:space="preserve">
     <value>Sets the color of the label text.</value>
   </data>
+  <data name="MaxDelta" xml:space="preserve">
+    <value>Max.Delta</value>
+  </data>
   <data name="MaxDeltaAlert" xml:space="preserve">
     <value>Max delta alert</value>
   </data>
   <data name="MaxVolPerSecGroup" xml:space="preserve">
     <value>Max vol/sec</value>
   </data>
+  <data name="MinDelta" xml:space="preserve">
+    <value>Min.Delta</value>
+  </data>
   <data name="MinDeltaAlert" xml:space="preserve">
     <value>Min delta alert</value>
+  </data>
+  <data name="NetImbShort" xml:space="preserve">
+    <value>Net Imb</value>
   </data>
   <data name="NetImbalanceAlertDescription" xml:space="preserve">
     <value>Alerts when the net imbalance of a bar reaches the threshold, by absolute value, at most once per bar.</value>
@@ -183,8 +216,20 @@
   <data name="NetImbalanceAlertUseClosedCandleDescription" xml:space="preserve">
     <value>On: checks each bar once when it closes, and alerts if it reached the threshold and the previous bar did not. Off: alerts while the bar forms, when the net imbalance crosses the threshold.</value>
   </data>
+  <data name="NetStkShort" xml:space="preserve">
+    <value>Net Stk.</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
+  </data>
+  <data name="PeakDeltaPerSec" xml:space="preserve">
+    <value>Delta at Max vol/sec</value>
+  </data>
+  <data name="PeakDeltaPerVol" xml:space="preserve">
+    <value>Delta/Vol Max vol/sec</value>
+  </data>
+  <data name="PeakVolPerSec" xml:space="preserve">
+    <value>Max Vol/sec</value>
   </data>
   <data name="RatiosAsPercent" xml:space="preserve">
     <value>Ratio as percent</value>
@@ -210,8 +255,17 @@
   <data name="RowsSessionContextGroup" xml:space="preserve">
     <value>Session Context</value>
   </data>
+  <data name="SellImbShort" xml:space="preserve">
+    <value>Sell Imb</value>
+  </data>
+  <data name="SellStkShort" xml:space="preserve">
+    <value>Sell Stk.</value>
+  </data>
   <data name="Session" xml:space="preserve">
     <value>Session</value>
+  </data>
+  <data name="SessionDelta" xml:space="preserve">
+    <value>Session Delta</value>
   </data>
   <data name="SessionDeltaAlert" xml:space="preserve">
     <value>Session delta alert</value>
@@ -222,8 +276,14 @@
   <data name="SessionDeltaPerVolumeAlert" xml:space="preserve">
     <value>Session delta/Volume alert</value>
   </data>
+  <data name="SessionDeltaVolume" xml:space="preserve">
+    <value>Session Delta/Volume</value>
+  </data>
   <data name="SessionModeDescription" xml:space="preserve">
     <value>Enables or disables session-based delta calculation mode.</value>
+  </data>
+  <data name="SessionVolume" xml:space="preserve">
+    <value>Session Volume</value>
   </data>
   <data name="SessionVolumeAlert" xml:space="preserve">
     <value>Session volume alert</value>
@@ -429,6 +489,12 @@
   <data name="Text" xml:space="preserve">
     <value>Text</value>
   </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Trades" xml:space="preserve">
+    <value>Trades</value>
+  </data>
   <data name="TradesAlert" xml:space="preserve">
     <value>Trades alert</value>
   </data>
@@ -458,5 +524,8 @@
   </data>
   <data name="VolumePerSecondAlert" xml:space="preserve">
     <value>Volume/sec alert</value>
+  </data>
+  <data name="VolumeSecond" xml:space="preserve">
+    <value>Volume/sec</value>
   </data>
 </root>
