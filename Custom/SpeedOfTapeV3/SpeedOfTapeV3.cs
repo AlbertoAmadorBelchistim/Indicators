@@ -14,7 +14,7 @@ namespace ATAS.Indicators.Technical
 {
     [DisplayName("Speed of Tape V3")]
     [Category(IndicatorCategories.VolumeOrderFlow)]
-    [Description("Event-driven tape speed detector with multi-burst tracking, symmetric Buy/Sell context, percentile-based threshold over a rolling time window, persistent zones in the price panel, fading extension lines for primary events, and a floating info panel with the most recent bursts.")]
+    [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Description = nameof(SpeedOfTapeV3Resources.SpeedOfTapeV3_Description))]
     public class SpeedOfTapeV3 : Indicator
     {
         #region Nested types
@@ -24,11 +24,11 @@ namespace ATAS.Indicators.Technical
         /// </summary>
         public enum SpeedType
         {
-            [Display(Name = "Ticks (HFT)")] Ticks,
-            [Display(Name = "Volume (Blocks)")] Volume,
-            [Display(Name = "Delta (Aggression)")] Delta,
-            [Display(Name = "Buy Volume")] Buys,
-            [Display(Name = "Sell Volume")] Sells
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.SpeedType_Ticks))] Ticks,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.SpeedType_Volume))] Volume,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.SpeedType_Delta))] Delta,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.SpeedType_Buys))] Buys,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.SpeedType_Sells))] Sells
         }
 
         /// <summary>
@@ -136,10 +136,10 @@ namespace ATAS.Indicators.Technical
         /// </summary>
         public enum InfoPanelLocation
         {
-            [Display(Name = "Top right")] TopRight,
-            [Display(Name = "Top left")] TopLeft,
-            [Display(Name = "Bottom right")] BottomRight,
-            [Display(Name = "Bottom left")] BottomLeft
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.InfoPanelLocation_TopRight))] TopRight,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.InfoPanelLocation_TopLeft))] TopLeft,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.InfoPanelLocation_BottomRight))] BottomRight,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.InfoPanelLocation_BottomLeft))] BottomLeft
         }
 
         /// <summary>
@@ -150,9 +150,9 @@ namespace ATAS.Indicators.Technical
         /// </summary>
         public enum ZoneDisplayMode
         {
-            [Display(Name = "All events")] All,
-            [Display(Name = "Primary only")] PrimaryOnly,
-            [Display(Name = "Hidden")] Hidden
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ZoneDisplayMode_All))] All,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ZoneDisplayMode_PrimaryOnly))] PrimaryOnly,
+            [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ZoneDisplayMode_Hidden))] Hidden
         }
 
         #endregion
@@ -397,10 +397,9 @@ namespace ATAS.Indicators.Technical
 
         #region Properties
 
-        [Display(Name = "Time window (seconds)",
-                 GroupName = "Calculation",
-                 Description = "Length of the sliding window over which the speed metric is computed. Smaller values react faster but are noisier; larger values smooth out micro-bursts.",
-                 Order = 10)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.TimeWindow_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Calculation), Order = 10,
+                 Description = nameof(SpeedOfTapeV3Resources.TimeWindow_Description))]
         [Range(1, 600)]
         public int TimeWindow
         {
@@ -408,10 +407,9 @@ namespace ATAS.Indicators.Technical
             set { _timeWindow = value; RecalculateValues(); }
         }
 
-        [Display(Name = "Data type",
-                 GroupName = "Calculation",
-                 Description = "Which metric the engine accumulates inside the time window. Ticks counts trades; Volume sums lots; Delta is the size of the buy-minus-sell volume, whichever side leads; Buy/Sell Volume isolate one side.",
-                 Order = 20)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.DataType_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Calculation), Order = 20,
+                 Description = nameof(SpeedOfTapeV3Resources.DataType_Description))]
         public SpeedType DataType
         {
             get => _dataType;
@@ -426,10 +424,9 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        [Display(Name = "Sessions to calculate",
-                 GroupName = "Calculation",
-                 Description = "Number of the most recent sessions whose trades are requested and replayed. 0 replays the whole chart, which can take long with many days loaded.",
-                 Order = 30)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.SessionsToCalculate_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Calculation), Order = 30,
+                 Description = nameof(SpeedOfTapeV3Resources.SessionsToCalculate_Description))]
         [Range(0, 1000)]
         public int SessionsToCalculate
         {
@@ -437,10 +434,9 @@ namespace ATAS.Indicators.Technical
             set { _sessionsToCalculate = Math.Max(0, value); RecalculateValues(); }
         }
 
-        [Display(Name = "Context window (minutes)",
-                 GroupName = "Threshold",
-                 Description = "How far back the engine looks to compute the percentile threshold. Adapts to time-of-day rhythm: short enough to track session phases, long enough to be statistically stable.",
-                 Order = 10)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ContextWindowMinutes_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Threshold), Order = 10,
+                 Description = nameof(SpeedOfTapeV3Resources.ContextWindowMinutes_Description))]
         [Range(1, 120)]
         public int ContextWindowMinutes
         {
@@ -448,10 +444,9 @@ namespace ATAS.Indicators.Technical
             set { _contextWindowMinutes = value; RecalculateValues(); }
         }
 
-        [Display(Name = "Threshold percentile",
-                 GroupName = "Threshold",
-                 Description = "Percentile of recent speed observations above which a burst is detected. P95 means 'speeds that occur only 5% of the time in the recent context'. Higher values are more selective.",
-                 Order = 20)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ThresholdPercentile_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Threshold), Order = 20,
+                 Description = nameof(SpeedOfTapeV3Resources.ThresholdPercentile_Description))]
         [Range(50, 99)]
         public int ThresholdPercentile
         {
@@ -459,10 +454,9 @@ namespace ATAS.Indicators.Technical
             set { _thresholdPercentile = value; RecalculateValues(); }
         }
 
-        [Display(Name = "Manual threshold",
-                 GroupName = "Threshold",
-                 Description = "Fixed speed above which a burst is detected, in the units of the data type. 0 uses the percentile of the context window.",
-                 Order = 30)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ManualThreshold_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Threshold), Order = 30,
+                 Description = nameof(SpeedOfTapeV3Resources.ManualThreshold_Description))]
         [Range(0, 100000000)]
         public decimal ManualThreshold
         {
@@ -470,20 +464,18 @@ namespace ATAS.Indicators.Technical
             set { _manualThreshold = Math.Max(0m, value); RecalculateValues(); }
         }
 
-        [Display(Name = "Zone display",
-         GroupName = "Visuals",
-         Description = "How burst zones appear in the price panel. 'All events' shows every detected burst (default). 'Primary only' shows only the highest-speed burst of each bar. 'Hidden' hides the price-panel overlay entirely; the histogram and floating info panel keep showing events.",
-         Order = 5)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ZoneDisplay_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Visuals), Order = 5,
+                 Description = nameof(SpeedOfTapeV3Resources.ZoneDisplay_Description))]
         public ZoneDisplayMode ZoneDisplay
         {
             get => _zoneDisplay;
             set { _zoneDisplay = value; RedrawChart(); }
         }
 
-        [Display(Name = "Buy color",
-         GroupName = "Visuals",
-         Description = "Color of zones whose dominant side is buying. Efficiency near 1 paints close to this color; lower efficiency blends toward the neutral color.",
-         Order = 10)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.BuyColor_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Visuals), Order = 10,
+                 Description = nameof(SpeedOfTapeV3Resources.BuyColor_Description))]
         public CrossColor BuyColor
         {
             get => _buyColor.Convert();
@@ -495,10 +487,9 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        [Display(Name = "Sell color",
-                 GroupName = "Visuals",
-                 Description = "Color of zones whose dominant side is selling. Efficiency near 1 paints close to this color; lower efficiency blends toward the neutral color.",
-                 Order = 20)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.SellColor_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Visuals), Order = 20,
+                 Description = nameof(SpeedOfTapeV3Resources.SellColor_Description))]
         public CrossColor SellColor
         {
             get => _sellColor.Convert();
@@ -510,10 +501,9 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        [Display(Name = "Neutral color",
-                 GroupName = "Visuals",
-                 Description = "Color used when a burst is balanced (low efficiency). Also acts as the blend origin for low-efficiency directional bursts.",
-                 Order = 30)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.NeutralColor_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Visuals), Order = 30,
+                 Description = nameof(SpeedOfTapeV3Resources.NeutralColor_Description))]
         public CrossColor NeutralColor
         {
             get => _neutralColor.Convert();
@@ -525,10 +515,9 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        [Display(Name = "Extension bars (full)",
-         GroupName = "Visuals",
-         Description = "Number of bars to the right of a primary event drawn at full opacity. The horizontal line marks the centre of the burst's price range as a transient support/resistance reference.",
-         Order = 40)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ExtensionBars_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Visuals), Order = 40,
+                 Description = nameof(SpeedOfTapeV3Resources.ExtensionBars_Description))]
         [Range(0, 200)]
         public int ExtensionBars
         {
@@ -536,10 +525,9 @@ namespace ATAS.Indicators.Technical
             set { _extensionBars = value; RedrawChart(); }
         }
 
-        [Display(Name = "Extension bars (fade)",
-                 GroupName = "Visuals",
-                 Description = "Number of bars after the full-opacity segment drawn with linearly decreasing alpha. Set to 0 for an abrupt cutoff; higher for a longer visual decay.",
-                 Order = 50)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.FadeBars_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Visuals), Order = 50,
+                 Description = nameof(SpeedOfTapeV3Resources.FadeBars_Description))]
         [Range(0, 100)]
         public int FadeBars
         {
@@ -547,30 +535,27 @@ namespace ATAS.Indicators.Technical
             set { _fadeBars = value; RedrawChart(); }
         }
 
-        [Display(Name = "Show info panel",
-         GroupName = "Info panel",
-         Description = "Toggle the floating panel that lists recent burst events with their metrics.",
-         Order = 10)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.ShowInfoPanel_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_InfoPanel), Order = 10,
+                 Description = nameof(SpeedOfTapeV3Resources.ShowInfoPanel_Description))]
         public bool ShowInfoPanel
         {
             get => _showInfoPanel;
             set { _showInfoPanel = value; RedrawChart(); }
         }
 
-        [Display(Name = "Position",
-                 GroupName = "Info panel",
-                 Description = "Corner of the price chart where the info panel is anchored.",
-                 Order = 20)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.InfoPanelPosition_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_InfoPanel), Order = 20,
+                 Description = nameof(SpeedOfTapeV3Resources.InfoPanelPosition_Description))]
         public InfoPanelLocation InfoPanelPosition
         {
             get => _infoPanelPosition;
             set { _infoPanelPosition = value; RedrawChart(); }
         }
 
-        [Display(Name = "Max events shown",
-                 GroupName = "Info panel",
-                 Description = "Number of most-recent burst events listed in the panel. Older events drop off the bottom as new ones arrive.",
-                 Order = 30)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.MaxEventsInPanel_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_InfoPanel), Order = 30,
+                 Description = nameof(SpeedOfTapeV3Resources.MaxEventsInPanel_Description))]
         [Range(1, 20)]
         public int MaxEventsInPanel
         {
@@ -589,30 +574,27 @@ namespace ATAS.Indicators.Technical
             }
         }
 
-        [Display(Name = "Use alerts",
-         GroupName = "Alerts",
-         Description = "Master toggle for audio + popup alerts on detected bursts. Off by default — enable explicitly when you want sound notifications.",
-         Order = 10)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.UseAlerts_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Alerts), Order = 10,
+                 Description = nameof(SpeedOfTapeV3Resources.UseAlerts_Description))]
         public bool UseAlerts
         {
             get => _useAlerts;
             set => _useAlerts = value;
         }
 
-        [Display(Name = "Alert sound file",
-                 GroupName = "Alerts",
-                 Description = "Name of the .wav file ATAS plays. Default 'alert1' is bundled with ATAS. Other built-in options include 'alert2', 'alert3', etc. Custom files can be placed in the ATAS sounds folder.",
-                 Order = 20)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.AlertFile_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Alerts), Order = 20,
+                 Description = nameof(SpeedOfTapeV3Resources.AlertFile_Description))]
         public string AlertFile
         {
             get => _alertFile;
             set => _alertFile = value;
         }
 
-        [Display(Name = "Alert cooldown (seconds)",
-                 GroupName = "Alerts",
-                 Description = "Minimum seconds between consecutive alerts, regardless of bar boundaries. Useful in short timeframes where per-bar deduplication alone allows too many alerts. Set to 0 to disable cooldown.",
-                 Order = 30)]
+        [Display(ResourceType = typeof(SpeedOfTapeV3Resources), Name = nameof(SpeedOfTapeV3Resources.AlertCooldownSeconds_DisplayName),
+                 GroupName = nameof(SpeedOfTapeV3Resources.Group_Alerts), Order = 30,
+                 Description = nameof(SpeedOfTapeV3Resources.AlertCooldownSeconds_Description))]
         [Range(0, 3600)]
         public int AlertCooldownSeconds
         {
