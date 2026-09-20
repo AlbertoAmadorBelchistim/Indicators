@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\AtasFlavors.props" />
+
+	<PropertyGroup>
+		<!-- Same assembly name in every flavor, so saved templates resolve the type after switching flavors. -->
+		<AssemblyName>SmartMoneyFlow</AssemblyName>
+		<Version>0.1.0</Version>
+	</PropertyGroup>
+</Project>
