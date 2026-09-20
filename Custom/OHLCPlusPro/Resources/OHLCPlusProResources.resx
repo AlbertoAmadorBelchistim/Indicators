@@ -66,6 +66,15 @@
   <data name="FullWidth" xml:space="preserve">
     <value>Full width</value>
   </data>
+  <data name="GapTolerance" xml:space="preserve">
+    <value>Gap tolerance, prices</value>
+  </data>
+  <data name="HighVolumeNodes" xml:space="preserve">
+    <value>High volume</value>
+  </data>
+  <data name="HighVolumeThreshold" xml:space="preserve">
+    <value>High volume, % of the peak</value>
+  </data>
   <data name="Label" xml:space="preserve">
     <value>Label</value>
   </data>
@@ -90,6 +99,15 @@
   <data name="LineStyle" xml:space="preserve">
     <value>Line style</value>
   </data>
+  <data name="LowVolumeNodes" xml:space="preserve">
+    <value>Low volume</value>
+  </data>
+  <data name="LowVolumeThreshold" xml:space="preserve">
+    <value>Low volume, % of the peak</value>
+  </data>
+  <data name="MinimumPrices" xml:space="preserve">
+    <value>Minimum prices</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
   </data>
@@ -108,8 +126,23 @@
   <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
     <value>A line stops at each label it would cross and starts again after it, instead of striking through the text.</value>
   </data>
+  <data name="OhlcPlusGapToleranceDescription" xml:space="preserve">
+    <value>Prices that break a run without ending it. A band never reaches past the last price that belongs to it.</value>
+  </data>
+  <data name="OhlcPlusHighNodesDescription" xml:space="preserve">
+    <value>Bands where the volume reaches the threshold: prices the market has already agreed on.</value>
+  </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Text of this level on the chart, in place of the one built from the template. Empty uses the template.</value>
+  </data>
+  <data name="OhlcPlusLowNodesDescription" xml:space="preserve">
+    <value>Bands where the volume stays under the threshold, prices that never traded included: where the market went through without stopping.</value>
+  </data>
+  <data name="OhlcPlusMinPricesDescription" xml:space="preserve">
+    <value>Prices a run needs before it becomes a band.</value>
+  </data>
+  <data name="OhlcPlusNodesPeriodDescription" xml:space="preserve">
+    <value>Profile the bands are read from. Only one period is scanned.</value>
   </data>
   <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
     <value>This level keeps its color, width and style even when a scheme is active.</value>
@@ -125,6 +158,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Period</value>
   </data>
   <data name="PeriodColors" xml:space="preserve">
     <value>Colors by period</value>
@@ -185,6 +221,9 @@
   </data>
   <data name="VisualScheme" xml:space="preserve">
     <value>Visual scheme</value>
+  </data>
+  <data name="VolumeNodes" xml:space="preserve">
+    <value>Volume nodes</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Width</value>

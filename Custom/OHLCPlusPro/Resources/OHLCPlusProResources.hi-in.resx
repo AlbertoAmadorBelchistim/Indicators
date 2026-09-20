@@ -66,6 +66,15 @@
   <data name="FullWidth" xml:space="preserve">
     <value>पूर्ण चौड़ाई</value>
   </data>
+  <data name="GapTolerance" xml:space="preserve">
+    <value>अंतराल सहनशीलता, भाव</value>
+  </data>
+  <data name="HighVolumeNodes" xml:space="preserve">
+    <value>उच्च वॉल्यूम</value>
+  </data>
+  <data name="HighVolumeThreshold" xml:space="preserve">
+    <value>उच्च वॉल्यूम, शिखर का %</value>
+  </data>
   <data name="Label" xml:space="preserve">
     <value>लेबल</value>
   </data>
@@ -90,6 +99,15 @@
   <data name="LineStyle" xml:space="preserve">
     <value>रेखा की शैली</value>
   </data>
+  <data name="LowVolumeNodes" xml:space="preserve">
+    <value>कम वॉल्यूम</value>
+  </data>
+  <data name="LowVolumeThreshold" xml:space="preserve">
+    <value>कम वॉल्यूम, शिखर का %</value>
+  </data>
+  <data name="MinimumPrices" xml:space="preserve">
+    <value>न्यूनतम भाव</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>कोई नहीं</value>
   </data>
@@ -108,8 +126,23 @@
   <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
     <value>रेखा हर उस लेबल पर रुक जाती है जिसे वह काटती और उसके बाद फिर शुरू होती है, टेक्स्ट पर से गुजरने के बजाय।</value>
   </data>
+  <data name="OhlcPlusGapToleranceDescription" xml:space="preserve">
+    <value>वे भाव जो श्रृंखला तोड़ते हैं पर खत्म नहीं करते। बैंड कभी अपने अंतिम भाव से आगे नहीं जाता।</value>
+  </data>
+  <data name="OhlcPlusHighNodesDescription" xml:space="preserve">
+    <value>वे बैंड जहाँ वॉल्यूम सीमा तक पहुँचता है: वे भाव जिन्हें बाज़ार मान चुका है।</value>
+  </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>इस स्तर का चार्ट पर टेक्स्ट, टेम्पलेट से बने टेक्स्ट की जगह। खाली रहने पर टेम्पलेट चलता है।</value>
+  </data>
+  <data name="OhlcPlusLowNodesDescription" xml:space="preserve">
+    <value>वे बैंड जहाँ वॉल्यूम सीमा से नीचे रहता है, बिना सौदे वाले भाव सहित: जहाँ से बाज़ार बिना रुके गुज़रा।</value>
+  </data>
+  <data name="OhlcPlusMinPricesDescription" xml:space="preserve">
+    <value>किसी श्रृंखला को बैंड बनने के लिए कितने भाव चाहिए।</value>
+  </data>
+  <data name="OhlcPlusNodesPeriodDescription" xml:space="preserve">
+    <value>जिस प्रोफ़ाइल से बैंड निकलते हैं। केवल एक अवधि स्कैन होती है।</value>
   </data>
   <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
     <value>स्कीम चालू होने पर भी यह स्तर अपना रंग, मोटाई और शैली बनाए रखता है।</value>
@@ -125,6 +158,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>अवधि</value>
   </data>
   <data name="PeriodColors" xml:space="preserve">
     <value>अवधि के रंग</value>
@@ -185,6 +221,9 @@
   </data>
   <data name="VisualScheme" xml:space="preserve">
     <value>विज़ुअल स्कीम</value>
+  </data>
+  <data name="VolumeNodes" xml:space="preserve">
+    <value>वॉल्यूम नोड</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>चौड़ाई</value>

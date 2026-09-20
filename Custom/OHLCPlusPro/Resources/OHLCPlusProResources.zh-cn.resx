@@ -66,6 +66,15 @@
   <data name="FullWidth" xml:space="preserve">
     <value>全宽</value>
   </data>
+  <data name="GapTolerance" xml:space="preserve">
+    <value>容许间断的价格数</value>
+  </data>
+  <data name="HighVolumeNodes" xml:space="preserve">
+    <value>高成交量</value>
+  </data>
+  <data name="HighVolumeThreshold" xml:space="preserve">
+    <value>高成交量，占峰值 %</value>
+  </data>
   <data name="Label" xml:space="preserve">
     <value>标签</value>
   </data>
@@ -90,6 +99,15 @@
   <data name="LineStyle" xml:space="preserve">
     <value>线条样式</value>
   </data>
+  <data name="LowVolumeNodes" xml:space="preserve">
+    <value>低成交量</value>
+  </data>
+  <data name="LowVolumeThreshold" xml:space="preserve">
+    <value>低成交量，占峰值 %</value>
+  </data>
+  <data name="MinimumPrices" xml:space="preserve">
+    <value>最少价格数</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>无</value>
   </data>
@@ -108,8 +126,23 @@
   <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
     <value>线条在会穿过的每个标签处断开，并在其后继续，而不是划过文字。</value>
   </data>
+  <data name="OhlcPlusGapToleranceDescription" xml:space="preserve">
+    <value>打断连续但不结束它的价格数。band 绝不会越过属于它的最后一个价格。</value>
+  </data>
+  <data name="OhlcPlusHighNodesDescription" xml:space="preserve">
+    <value>成交量达到阈值的区间：市场已经接受的价格。</value>
+  </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>该水平线在图表上的文字，取代按模板生成的文字。留空则用模板。</value>
+  </data>
+  <data name="OhlcPlusLowNodesDescription" xml:space="preserve">
+    <value>成交量低于阈值的区间，含完全没有成交的价格：市场一穿而过的地方。</value>
+  </data>
+  <data name="OhlcPlusMinPricesDescription" xml:space="preserve">
+    <value>一段连续价格成为 band 所需的最少价格数。</value>
+  </data>
+  <data name="OhlcPlusNodesPeriodDescription" xml:space="preserve">
+    <value>读取band的成交分布。只扫描一个周期。</value>
   </data>
   <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
     <value>即使启用了配色方案，该水平线仍保留自己的颜色、粗细和线型。</value>
@@ -125,6 +158,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>时期 </value>
   </data>
   <data name="PeriodColors" xml:space="preserve">
     <value>按周期的颜色</value>
@@ -185,6 +221,9 @@
   </data>
   <data name="VisualScheme" xml:space="preserve">
     <value>视觉方案</value>
+  </data>
+  <data name="VolumeNodes" xml:space="preserve">
+    <value>成交量节点</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>宽度</value>

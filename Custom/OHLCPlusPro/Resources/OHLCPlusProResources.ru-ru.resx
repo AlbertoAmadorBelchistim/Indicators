@@ -66,6 +66,15 @@
   <data name="FullWidth" xml:space="preserve">
     <value>На всю ширину</value>
   </data>
+  <data name="GapTolerance" xml:space="preserve">
+    <value>Допуск разрывов, цен</value>
+  </data>
+  <data name="HighVolumeNodes" xml:space="preserve">
+    <value>Высокий объём</value>
+  </data>
+  <data name="HighVolumeThreshold" xml:space="preserve">
+    <value>Высокий объём, % от пика</value>
+  </data>
   <data name="Label" xml:space="preserve">
     <value>Надпись</value>
   </data>
@@ -90,6 +99,15 @@
   <data name="LineStyle" xml:space="preserve">
     <value>Стиль линии</value>
   </data>
+  <data name="LowVolumeNodes" xml:space="preserve">
+    <value>Низкий объём</value>
+  </data>
+  <data name="LowVolumeThreshold" xml:space="preserve">
+    <value>Низкий объём, % от пика</value>
+  </data>
+  <data name="MinimumPrices" xml:space="preserve">
+    <value>Минимум цен</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>Нет</value>
   </data>
@@ -108,8 +126,23 @@
   <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
     <value>Линия прерывается у каждой подписи, которую пересекла бы, и продолжается после неё, вместо того чтобы перечёркивать текст.</value>
   </data>
+  <data name="OhlcPlusGapToleranceDescription" xml:space="preserve">
+    <value>Цены, прерывающие серию, но не завершающие её. Полоса никогда не выходит за последнюю принадлежащую ей цену.</value>
+  </data>
+  <data name="OhlcPlusHighNodesDescription" xml:space="preserve">
+    <value>Полосы, где объём достигает порога: цены, которые рынок уже принял.</value>
+  </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Текст этого уровня на графике вместо построенного по шаблону. Пусто — используется шаблон.</value>
+  </data>
+  <data name="OhlcPlusLowNodesDescription" xml:space="preserve">
+    <value>Полосы, где объём не достигает порога, включая цены без сделок: там рынок прошёл не останавливаясь.</value>
+  </data>
+  <data name="OhlcPlusMinPricesDescription" xml:space="preserve">
+    <value>Сколько цен нужно серии, чтобы стать полосой.</value>
+  </data>
+  <data name="OhlcPlusNodesPeriodDescription" xml:space="preserve">
+    <value>Профиль, из которого берутся полосы. Сканируется только один период.</value>
   </data>
   <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
     <value>Этот уровень сохраняет свой цвет, толщину и стиль даже при активной схеме.</value>
@@ -125,6 +158,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Период</value>
   </data>
   <data name="PeriodColors" xml:space="preserve">
     <value>Цвета по периодам</value>
@@ -185,6 +221,9 @@
   </data>
   <data name="VisualScheme" xml:space="preserve">
     <value>Визуальная схема</value>
+  </data>
+  <data name="VolumeNodes" xml:space="preserve">
+    <value>Узлы объёма</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Ширина</value>

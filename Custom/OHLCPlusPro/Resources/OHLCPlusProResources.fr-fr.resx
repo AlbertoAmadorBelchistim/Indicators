@@ -66,6 +66,15 @@
   <data name="FullWidth" xml:space="preserve">
     <value>Pleine largeur</value>
   </data>
+  <data name="GapTolerance" xml:space="preserve">
+    <value>Tolérance des trous, prix</value>
+  </data>
+  <data name="HighVolumeNodes" xml:space="preserve">
+    <value>Volume élevé</value>
+  </data>
+  <data name="HighVolumeThreshold" xml:space="preserve">
+    <value>Volume élevé, % du pic</value>
+  </data>
   <data name="Label" xml:space="preserve">
     <value>Label</value>
   </data>
@@ -90,6 +99,15 @@
   <data name="LineStyle" xml:space="preserve">
     <value>Style de ligne</value>
   </data>
+  <data name="LowVolumeNodes" xml:space="preserve">
+    <value>Volume faible</value>
+  </data>
+  <data name="LowVolumeThreshold" xml:space="preserve">
+    <value>Volume faible, % du pic</value>
+  </data>
+  <data name="MinimumPrices" xml:space="preserve">
+    <value>Prix minimum</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>Aucun</value>
   </data>
@@ -108,8 +126,23 @@
   <data name="OhlcPlusClipLinesDescription" xml:space="preserve">
     <value>La ligne s'arrête à chaque étiquette qu'elle croiserait et reprend après, au lieu de barrer le texte.</value>
   </data>
+  <data name="OhlcPlusGapToleranceDescription" xml:space="preserve">
+    <value>Prix qui interrompent une suite sans y mettre fin. Une bande ne dépasse jamais le dernier prix qui lui appartient.</value>
+  </data>
+  <data name="OhlcPlusHighNodesDescription" xml:space="preserve">
+    <value>Bandes où le volume atteint le seuil : des prix que le marché a déjà acceptés.</value>
+  </data>
   <data name="OhlcPlusLevelTextDescription" xml:space="preserve">
     <value>Texte de ce niveau sur le graphique, à la place de celui construit par le modèle. Vide utilise le modèle.</value>
+  </data>
+  <data name="OhlcPlusLowNodesDescription" xml:space="preserve">
+    <value>Bandes où le volume reste sous le seuil, prix jamais traités compris : là où le marché est passé sans s'arrêter.</value>
+  </data>
+  <data name="OhlcPlusMinPricesDescription" xml:space="preserve">
+    <value>Prix nécessaires à une suite pour devenir une bande.</value>
+  </data>
+  <data name="OhlcPlusNodesPeriodDescription" xml:space="preserve">
+    <value>Profil d'où sortent les bandes. Une seule période est parcourue.</value>
   </data>
   <data name="OhlcPlusOwnStyleDescription" xml:space="preserve">
     <value>Ce niveau conserve sa couleur, son épaisseur et son style même lorsqu'un schéma est actif.</value>
@@ -125,6 +158,9 @@
   </data>
   <data name="POC" xml:space="preserve">
     <value>POC</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Période</value>
   </data>
   <data name="PeriodColors" xml:space="preserve">
     <value>Couleurs par période</value>
@@ -185,6 +221,9 @@
   </data>
   <data name="VisualScheme" xml:space="preserve">
     <value>Schéma visuel</value>
+  </data>
+  <data name="VolumeNodes" xml:space="preserve">
+    <value>Nœuds de volume</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Largeur</value>

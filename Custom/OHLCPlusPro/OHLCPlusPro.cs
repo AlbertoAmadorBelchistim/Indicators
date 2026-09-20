@@ -13,6 +13,8 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
+using ATAS.Indicators.Technical.OhlcPlusPro.Core;
+
 using Res = ATAS.Indicators.Technical.OHLCPlusProResources;
 
 public enum LabelPosition
@@ -425,6 +427,19 @@ public class OHLCPlusPro : Indicator
     ];
 
     private readonly RenderPen[,] _schemePens = new RenderPen[AllPeriods.Length, LevelCount];
+
+    // Bands of the chosen period. Computed where the profiles arrive and read while rendering:
+    // each list is replaced as a whole and never edited in place.
+    private readonly NodeSettings _nodeSettings = new();
+
+    private IReadOnlyList<Band> _highBands = [];
+    private IReadOnlyList<Band> _lowBands = [];
+
+    private FixedProfilePeriods _nodesPeriod = FixedProfilePeriods.CurrentDay;
+    private bool _showHighNodes;
+    private bool _showLowNodes;
+    private CrossColor _highNodeColor = Argb(40, 0xFF, 0xB3, 0x00);
+    private CrossColor _lowNodeColor = Argb(40, 0x42, 0xA5, 0xF5);
 
     private VisualScheme _visualScheme = VisualScheme.Levels;
     private bool _schemeDirty = true;
@@ -1264,6 +1279,113 @@ public class OHLCPlusPro : Indicator
 
     #endregion
 
+    #region Volume nodes
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.Period), Description = nameof(Res.OhlcPlusNodesPeriodDescription), Order = 1500)]
+    public FixedProfilePeriods NodesPeriod
+    {
+        get => _nodesPeriod;
+        set
+        {
+            _nodesPeriod = value;
+            RecomputeBands();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.HighVolumeNodes), Description = nameof(Res.OhlcPlusHighNodesDescription), Order = 1510)]
+    public bool ShowHighNodes
+    {
+        get => _showHighNodes;
+        set
+        {
+            _showHighNodes = value;
+            RecomputeBands();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.LowVolumeNodes), Description = nameof(Res.OhlcPlusLowNodesDescription), Order = 1520)]
+    public bool ShowLowNodes
+    {
+        get => _showLowNodes;
+        set
+        {
+            _showLowNodes = value;
+            RecomputeBands();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.HighVolumeThreshold), Order = 1530)]
+    [Range(1, 100)]
+    public decimal HighNodePercent
+    {
+        get => _nodeSettings.HighPercent;
+        set
+        {
+            _nodeSettings.HighPercent = value;
+            RecomputeBands();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.LowVolumeThreshold), Order = 1540)]
+    [Range(0, 100)]
+    public decimal LowNodePercent
+    {
+        get => _nodeSettings.LowPercent;
+        set
+        {
+            _nodeSettings.LowPercent = value;
+            RecomputeBands();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.GapTolerance), Description = nameof(Res.OhlcPlusGapToleranceDescription), Order = 1550)]
+    [Range(0, 20)]
+    public int NodeGapTolerance
+    {
+        get => _nodeSettings.GapTolerance;
+        set
+        {
+            _nodeSettings.GapTolerance = value;
+            RecomputeBands();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.MinimumPrices), Description = nameof(Res.OhlcPlusMinPricesDescription), Order = 1560)]
+    [Range(1, 100)]
+    public int NodeMinLevels
+    {
+        get => _nodeSettings.MinLevels;
+        set
+        {
+            _nodeSettings.MinLevels = value;
+            RecomputeBands();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.HighVolumeNodes), Order = 1570)]
+    public CrossColor HighNodeColor
+    {
+        get => _highNodeColor;
+        set
+        {
+            _highNodeColor = value;
+            RedrawChart();
+        }
+    }
+
+    [Display(ResourceType = typeof(Res), GroupName = nameof(Res.VolumeNodes), Name = nameof(Res.LowVolumeNodes), Order = 1580)]
+    public CrossColor LowNodeColor
+    {
+        get => _lowNodeColor;
+        set
+        {
+            _lowNodeColor = value;
+            RedrawChart();
+        }
+    }
+
+    #endregion
+
     #region Scheme
 
     [Display(ResourceType = typeof(Res), GroupName = nameof(Res.Scheme), Name = nameof(Res.VisualScheme), Description = nameof(Res.OhlcPlusSchemeDescription), Order = 1300)]
@@ -1583,6 +1705,9 @@ public class OHLCPlusPro : Indicator
         if (ChartInfo is null || InstrumentInfo is null)
             return;
 
+        // Behind the lines and their labels.
+        DrawBands(context);
+
         _labelQueue.Clear();
         _placedLabels.Clear();
 
@@ -1627,6 +1752,83 @@ public class OHLCPlusPro : Indicator
     }
 
     private static CrossColor Rgb(int r, int g, int b) => Color.FromArgb(r, g, b).Convert();
+
+    private static CrossColor Argb(int a, int r, int g, int b) => Color.FromArgb(a, r, g, b).Convert();
+
+    /// <summary>Rebuilds the bands from the profile already in hand, after a setting changed.</summary>
+    private void RecomputeBands()
+    {
+        var candles = _useAbsolutePrices ? _originProfileCandles : _profileCandles;
+
+        if (candles.TryGetValue(_nodesPeriod, out var candle))
+            BuildBands(candle);
+        else
+        {
+            _highBands = [];
+            _lowBands = [];
+        }
+
+        RedrawChart();
+    }
+
+    /// <summary>
+    /// Reads the profile of the chosen period into its bands. The step of the scan is the tick
+    /// only when the profile keeps tick prices; grouped, the profile says its own.
+    /// </summary>
+    private void BuildBands(IndicatorCandle candle)
+    {
+        if (candle == null || (!_showHighNodes && !_showLowNodes))
+        {
+            _highBands = [];
+            _lowBands = [];
+            return;
+        }
+
+        var levels = new List<PriceVolume>();
+
+        foreach (var level in candle.GetAllPriceLevels())
+        {
+            if (level != null)
+                levels.Add(new PriceVolume(level.Price, level.Volume));
+        }
+
+        var knownStep = _useAbsolutePrices && InstrumentInfo is not null ? InstrumentInfo.TickSize : 0m;
+
+        _highBands = _showHighNodes ? VolumeNodes.FindHigh(levels, _nodeSettings, knownStep) : [];
+        _lowBands = _showLowNodes ? VolumeNodes.FindLow(levels, _nodeSettings, knownStep) : [];
+    }
+
+    private void DrawBands(RenderContext context)
+    {
+        DrawBands(context, _highBands, _highNodeColor);
+        DrawBands(context, _lowBands, _lowNodeColor);
+    }
+
+    private void DrawBands(RenderContext context, IReadOnlyList<Band> bands, CrossColor color)
+    {
+        if (bands.Count == 0)
+            return;
+
+        var region = ChartInfo.PriceChartContainer.Region;
+        var fill = color.Convert();
+
+        foreach (var band in bands)
+        {
+            var top = ChartInfo.GetYByPrice(band.High, false);
+            var bottom = ChartInfo.GetYByPrice(band.Low, false);
+
+            if (bottom < 0 || top > region.Height)
+                continue;
+
+            top = Math.Max(top, 0);
+            bottom = Math.Min(bottom, region.Height);
+
+            // A band thinner than a pixel still has to be visible.
+            var height = Math.Max(bottom - top, 1);
+
+            context.FillRectangle(fill, new Rectangle(0, top, region.Width, height));
+        }
+    }
 
     private void SetSchemeColor(CrossColor[] palette, int index, CrossColor value)
     {
@@ -1821,6 +2023,9 @@ public class OHLCPlusPro : Indicator
             changed |= UpdateLevel(keys[7], candle.ValueArea.ValueAreaHigh);
             changed |= UpdateLevel(keys[8], candle.ValueArea.ValueAreaLow);
         }
+
+        if (period == _nodesPeriod && changed)
+            BuildBands(candle);
 
         return changed;
     }
