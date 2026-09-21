@@ -153,4 +153,49 @@
   <data name="SpxOnEs" xml:space="preserve">
     <value>SPX sobre ES</value>
   </data>
+  <data name="IndexLayer" xml:space="preserve">
+    <value>Capa del índice</value>
+  </data>
+  <data name="IndexLayerShow" xml:space="preserve">
+    <value>Mostrar los strikes del índice</value>
+  </data>
+  <data name="IndexLayerShowDescription" xml:space="preserve">
+    <value>Dibuja también los strikes del índice que hay detrás del ETF (NDX para QQQ, SPX para SPY) con su propio estilo. Usa la base del par, que es exacta cuando el anclaje llevaba las dos cotizaciones.</value>
+  </data>
+  <data name="IndexSpacingDescription" xml:space="preserve">
+    <value>Distancia entre los strikes del índice que se dibujan, en puntos del índice. Normalmente solo compensan los redondos: 100 en NDX, 25 en SPX.</value>
+  </data>
+  <data name="IndexLine" xml:space="preserve">
+    <value>Línea del índice</value>
+  </data>
+  <data name="IndexLabelsOnLeftDescription" xml:space="preserve">
+    <value>Escribe las etiquetas del índice en el lado contrario a las del ETF, para que cada lado lea un solo instrumento.</value>
+  </data>
+  <data name="IndexNeedsBothQuotes" xml:space="preserve">
+    <value>ancla con las dos cotizaciones</value>
+  </data>
+  <data name="EquivalencePosition" xml:space="preserve">
+    <value>Posición de la equivalencia</value>
+  </data>
+  <data name="EquivalencePositionDescription" xml:space="preserve">
+    <value>Dónde se escribe la equivalencia del último precio. Junto al precio, lo acompaña a lo largo de la escala.</value>
+  </data>
+  <data name="EquivalenceBackground" xml:space="preserve">
+    <value>Fondo de la equivalencia</value>
+  </data>
+  <data name="AtPrice" xml:space="preserve">
+    <value>Junto al precio</value>
+  </data>
+  <data name="TopLeft" xml:space="preserve">
+    <value>Arriba a la izquierda</value>
+  </data>
+  <data name="TopRight" xml:space="preserve">
+    <value>Arriba a la derecha</value>
+  </data>
+  <data name="BottomLeft" xml:space="preserve">
+    <value>Abajo a la izquierda</value>
+  </data>
+  <data name="BottomRight" xml:space="preserve">
+    <value>Abajo a la derecha</value>
+  </data>
 </root>

@@ -153,4 +153,49 @@
   <data name="SpxOnEs" xml:space="preserve">
     <value>ES पर SPX</value>
   </data>
+  <data name="IndexLayer" xml:space="preserve">
+    <value>इंडेक्स परत</value>
+  </data>
+  <data name="IndexLayerShow" xml:space="preserve">
+    <value>इंडेक्स के स्ट्राइक दिखाएँ</value>
+  </data>
+  <data name="IndexLayerShowDescription" xml:space="preserve">
+    <value>ETF के पीछे के इंडेक्स (QQQ के लिए NDX, SPY के लिए SPX) के स्ट्राइक भी अपनी शैली में बनाता है। यह जोड़ी के बेसिस का उपयोग करता है, जो दोनों कोटों से एंकर करने पर सटीक होता है।</value>
+  </data>
+  <data name="IndexSpacingDescription" xml:space="preserve">
+    <value>बनाए जाने वाले इंडेक्स स्ट्राइक के बीच की दूरी, इंडेक्स अंकों में। आमतौर पर केवल गोल स्ट्राइक उपयोगी होते हैं: NDX के लिए 100, SPX के लिए 25।</value>
+  </data>
+  <data name="IndexLine" xml:space="preserve">
+    <value>इंडेक्स रेखा</value>
+  </data>
+  <data name="IndexLabelsOnLeftDescription" xml:space="preserve">
+    <value>इंडेक्स के लेबल ETF के लेबल के विपरीत ओर लिखता है, ताकि हर ओर एक ही इंस्ट्रूमेंट दिखे।</value>
+  </data>
+  <data name="IndexNeedsBothQuotes" xml:space="preserve">
+    <value>दोनों कोटों से एंकर करें</value>
+  </data>
+  <data name="EquivalencePosition" xml:space="preserve">
+    <value>समतुल्यता की स्थिति</value>
+  </data>
+  <data name="EquivalencePositionDescription" xml:space="preserve">
+    <value>अंतिम मूल्य की समतुल्यता कहाँ लिखी जाए। मूल्य के पास होने पर यह स्केल के साथ मूल्य का अनुसरण करती है।</value>
+  </data>
+  <data name="EquivalenceBackground" xml:space="preserve">
+    <value>समतुल्यता की पृष्ठभूमि</value>
+  </data>
+  <data name="AtPrice" xml:space="preserve">
+    <value>मूल्य के पास</value>
+  </data>
+  <data name="TopLeft" xml:space="preserve">
+    <value>ऊपर बाएँ</value>
+  </data>
+  <data name="TopRight" xml:space="preserve">
+    <value>ऊपर दाएँ</value>
+  </data>
+  <data name="BottomLeft" xml:space="preserve">
+    <value>नीचे बाएँ</value>
+  </data>
+  <data name="BottomRight" xml:space="preserve">
+    <value>नीचे दाएँ</value>
+  </data>
 </root>

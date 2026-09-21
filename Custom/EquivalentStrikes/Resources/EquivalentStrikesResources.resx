@@ -153,4 +153,49 @@
   <data name="SpxOnEs" xml:space="preserve">
     <value>SPX on ES</value>
   </data>
+  <data name="IndexLayer" xml:space="preserve">
+    <value>Index layer</value>
+  </data>
+  <data name="IndexLayerShow" xml:space="preserve">
+    <value>Show the index strikes</value>
+  </data>
+  <data name="IndexLayerShowDescription" xml:space="preserve">
+    <value>Also draws the strikes of the index behind the ETF (NDX for QQQ, SPX for SPY) with their own style. It uses the basis of the pair, which is exact when the anchor had both quotes.</value>
+  </data>
+  <data name="IndexSpacingDescription" xml:space="preserve">
+    <value>Distance between the index strikes that are drawn, in index points. Usually only the round ones are worth it: 100 for NDX, 25 for SPX.</value>
+  </data>
+  <data name="IndexLine" xml:space="preserve">
+    <value>Index line</value>
+  </data>
+  <data name="IndexLabelsOnLeftDescription" xml:space="preserve">
+    <value>Writes the index labels on the side opposite the ETF labels, so each side reads a single instrument.</value>
+  </data>
+  <data name="IndexNeedsBothQuotes" xml:space="preserve">
+    <value>anchor with both quotes</value>
+  </data>
+  <data name="EquivalencePosition" xml:space="preserve">
+    <value>Equivalence position</value>
+  </data>
+  <data name="EquivalencePositionDescription" xml:space="preserve">
+    <value>Where the equivalence of the last price is written. Next to the price, it follows the price along the scale.</value>
+  </data>
+  <data name="EquivalenceBackground" xml:space="preserve">
+    <value>Equivalence background</value>
+  </data>
+  <data name="AtPrice" xml:space="preserve">
+    <value>Next to the price</value>
+  </data>
+  <data name="TopLeft" xml:space="preserve">
+    <value>Top left</value>
+  </data>
+  <data name="TopRight" xml:space="preserve">
+    <value>Top right</value>
+  </data>
+  <data name="BottomLeft" xml:space="preserve">
+    <value>Bottom left</value>
+  </data>
+  <data name="BottomRight" xml:space="preserve">
+    <value>Bottom right</value>
+  </data>
 </root>

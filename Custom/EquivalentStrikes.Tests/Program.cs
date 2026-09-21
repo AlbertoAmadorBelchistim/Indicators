@@ -15,6 +15,9 @@ internal static class Program
 			("Anchor", AnchorTests),
 			("Presets", PresetTests),
 			("Scenario", ScenarioTests),
+			("Companion", CompanionTests),
+			("Merge", MergeTests),
+			("Layers", LayerScenarioTests),
 		};
 
 		var failed = 0;
@@ -215,6 +218,96 @@ internal static class Program
 		c.Near(24731.35m, strike600, 0.5m, "QQQ 600 is around NQ 24731");
 		c.True(g.NearestStrike(strike600 + 10m) == 600m, "ten points above is still the same strike");
 	}
+
+	private static void CompanionTests(Check c)
+	{
+		c.True(StrikeCompanion.TryGet(StrikePreset.QqqOnNq, out var ndx), "QQQ has an index behind it");
+		c.Equal("NDX", ndx.Label, "and it is NDX");
+		c.Equal(100m, ndx.Spacing, "drawn every 100 by default");
+
+		c.True(StrikeCompanion.TryGet(StrikePreset.SpyOnEs, out var spx), "SPY has an index behind it");
+		c.Equal("SPX", spx.Label, "and it is SPX");
+		c.Equal(25m, spx.Spacing, "drawn every 25 by default");
+
+		c.True(!StrikeCompanion.TryGet(StrikePreset.NdxOnNq, out _), "the index itself has no second layer");
+		c.True(!StrikeCompanion.TryGet(StrikePreset.SpxOnEs, out _), "nor does SPX");
+		c.True(!StrikeCompanion.TryGet(StrikePreset.Custom, out _), "and a custom pair has none either");
+	}
+
+	private static void MergeTests(Check c)
+	{
+		var merged = new List<MergedLine>();
+
+		var primary = new List<StrikeLine> { new(730m, 29930m, true), new(731m, 29971m, false), new(732m, 30012m, false) };
+		var index = new List<StrikeLine> { new(29900m, 29900m, false), new(30000m, 30000m, false) };
+
+		StrikeMerge.Merge(primary, index, 1m, merged);
+
+		c.Equal(5, merged.Count, "nothing coincides: five lines");
+		c.Equal(29900m, merged[0].Price, "in price order");
+		c.Equal(30012m, merged[4].Price, "up to the highest");
+		c.True(merged[0].Index.HasValue && !merged[0].Primary.HasValue, "the first is an index line alone");
+		c.True(merged[1].Primary.HasValue && !merged[1].Index.HasValue, "the second a primary line alone");
+
+		// Within the tolerance the index strike joins the primary line.
+		StrikeMerge.Merge(primary, new List<StrikeLine> { new(29931m, 29931m, false) }, 2m, merged);
+		c.Equal(3, merged.Count, "a coincidence becomes one line");
+		c.True(merged[0].IsShared, "carrying both strikes");
+		c.Equal(29930m, merged[0].Price, "drawn where the primary strike is");
+		c.Equal(29931m, merged[0].Index.Value.Strike, "and the index strike kept for the label");
+
+		// Just outside the tolerance they stay apart.
+		StrikeMerge.Merge(primary, new List<StrikeLine> { new(29933m, 29933m, false) }, 2m, merged);
+		c.Equal(4, merged.Count, "three points away with a tolerance of two: two lines");
+
+		// Two index lines near the same primary: only the nearest joins it.
+		StrikeMerge.Merge(
+			new List<StrikeLine> { new(730m, 29930m, true) },
+			new List<StrikeLine> { new(29928m, 29928m, false), new(29931m, 29931m, false) },
+			3m,
+			merged);
+		c.Equal(2, merged.Count, "one shared line and one alone");
+		c.Equal(29928m, merged[0].Price, "the farther one stays on its own");
+		c.True(merged[1].IsShared, "the other is shared");
+		c.Equal(29931m, merged[1].Index.Value.Strike, "and it is the nearest one");
+
+		// An empty layer changes nothing.
+		StrikeMerge.Merge(primary, new List<StrikeLine>(), 5m, merged);
+		c.Equal(3, merged.Count, "no index lines: the primary ones");
+		StrikeMerge.Merge(new List<StrikeLine>(), index, 5m, merged);
+		c.Equal(2, merged.Count, "no primary lines: the index ones");
+	}
+
+	/// <summary>QQQ and NDX on NQ from one anchor with both quotes.</summary>
+	private static void LayerScenarioTests(Check c)
+	{
+		// NQ 30177 with NDX 30090 and QQQ 736.02: factor 40.88..., basis 87.
+		var anchor = StrikeAnchor.Solve(30177m, 736.02m, 30090m, 41m, 0m, AnchorTarget.Basis);
+		c.True(anchor.Ok, "the anchor solves");
+
+		var qqq = Grid(anchor.Factor, anchor.Basis, 1m, 5m, 80);
+		var ndx = Grid(1m, anchor.Basis, 100m, 0m, 80);
+
+		c.Equal(30177m - 30090m, anchor.Basis, "the basis is the premium of the future over NDX");
+		c.Close(30090m, ndx.ToStrike(30177m), 0.0001m, "the index layer reads NDX from the chart price");
+		c.Close(736.02m, qqq.ToStrike(30177m), 0.01m, "and the ETF layer reads QQQ");
+
+		// Both layers agree on where a given NDX level is.
+		var ndxLevel = 30100m;
+		c.Close(ndx.ToPrice(ndxLevel), qqq.ToPrice(ndxLevel / anchor.Factor), 0.01m, "an NDX level is the same price in both layers");
+
+		var qqqLines = new List<StrikeLine>();
+		var ndxLines = new List<StrikeLine>();
+		qqq.Build(29500m, 30400m, qqqLines);
+		ndx.Build(29500m, 30400m, ndxLines);
+
+		c.True(ndxLines.Count >= 8 && ndxLines.Count <= 10, $"900 points of chart hold about nine NDX hundreds (got {ndxLines.Count})");
+		c.True(ndxLines.TrueForAll(l => l.Strike % 100m == 0m), "all of them round hundreds");
+
+		var merged = new List<MergedLine>();
+		StrikeMerge.Merge(qqqLines, ndxLines, 0.5m, merged);
+		c.Equal(qqqLines.Count + ndxLines.Count - merged.FindAll(m => m.IsShared).Count, merged.Count, "every line is drawn once");
+	}
 }
 
 internal sealed class Check
@@ -237,6 +330,11 @@ internal sealed class Check
 
 		Failed++;
 		Console.WriteLine($"  FAIL [{_suite}] {what}");
+	}
+
+	public void Close(decimal expected, decimal actual, decimal tolerance, string what)
+	{
+		True(Math.Abs(expected - actual) <= tolerance, $"{what}: expected {expected} ± {tolerance}, got {actual}");
 	}
 
 	public void Equal<T>(T expected, T actual, string what)

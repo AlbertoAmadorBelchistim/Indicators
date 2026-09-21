@@ -153,4 +153,49 @@
   <data name="SpxOnEs" xml:space="preserve">
     <value>ES 上的 SPX</value>
   </data>
+  <data name="IndexLayer" xml:space="preserve">
+    <value>指数图层</value>
+  </data>
+  <data name="IndexLayerShow" xml:space="preserve">
+    <value>显示指数行权价</value>
+  </data>
+  <data name="IndexLayerShowDescription" xml:space="preserve">
+    <value>同时以独立样式绘制 ETF 背后指数的行权价（QQQ 对应 NDX，SPY 对应 SPX）。使用该组合的基差，当锚定同时使用两个报价时是精确的。</value>
+  </data>
+  <data name="IndexSpacingDescription" xml:space="preserve">
+    <value>绘制的指数行权价之间的距离，以指数点计。通常只有整数行权价值得绘制：NDX 为 100，SPX 为 25。</value>
+  </data>
+  <data name="IndexLine" xml:space="preserve">
+    <value>指数线</value>
+  </data>
+  <data name="IndexLabelsOnLeftDescription" xml:space="preserve">
+    <value>将指数标签写在与 ETF 标签相反的一侧，使每一侧只对应一个品种。</value>
+  </data>
+  <data name="IndexNeedsBothQuotes" xml:space="preserve">
+    <value>请用两个报价锚定</value>
+  </data>
+  <data name="EquivalencePosition" xml:space="preserve">
+    <value>等价换算位置</value>
+  </data>
+  <data name="EquivalencePositionDescription" xml:space="preserve">
+    <value>最新价格的等价换算显示的位置。在价格旁边时，它会沿刻度跟随价格。</value>
+  </data>
+  <data name="EquivalenceBackground" xml:space="preserve">
+    <value>等价换算背景</value>
+  </data>
+  <data name="AtPrice" xml:space="preserve">
+    <value>价格旁边</value>
+  </data>
+  <data name="TopLeft" xml:space="preserve">
+    <value>左上</value>
+  </data>
+  <data name="TopRight" xml:space="preserve">
+    <value>右上</value>
+  </data>
+  <data name="BottomLeft" xml:space="preserve">
+    <value>左下</value>
+  </data>
+  <data name="BottomRight" xml:space="preserve">
+    <value>右下</value>
+  </data>
 </root>

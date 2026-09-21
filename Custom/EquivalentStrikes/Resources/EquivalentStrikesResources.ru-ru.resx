@@ -153,4 +153,49 @@
   <data name="SpxOnEs" xml:space="preserve">
     <value>SPX на ES</value>
   </data>
+  <data name="IndexLayer" xml:space="preserve">
+    <value>Слой индекса</value>
+  </data>
+  <data name="IndexLayerShow" xml:space="preserve">
+    <value>Показывать страйки индекса</value>
+  </data>
+  <data name="IndexLayerShowDescription" xml:space="preserve">
+    <value>Также рисует страйки индекса, стоящего за ETF (NDX для QQQ, SPX для SPY), в собственном стиле. Использует базис пары, который точен, если привязка делалась по обеим котировкам.</value>
+  </data>
+  <data name="IndexSpacingDescription" xml:space="preserve">
+    <value>Расстояние между рисуемыми страйками индекса, в пунктах индекса. Обычно имеют смысл только круглые: 100 для NDX, 25 для SPX.</value>
+  </data>
+  <data name="IndexLine" xml:space="preserve">
+    <value>Линия индекса</value>
+  </data>
+  <data name="IndexLabelsOnLeftDescription" xml:space="preserve">
+    <value>Пишет подписи индекса на стороне, противоположной подписям ETF, чтобы каждая сторона показывала один инструмент.</value>
+  </data>
+  <data name="IndexNeedsBothQuotes" xml:space="preserve">
+    <value>привяжите по обеим котировкам</value>
+  </data>
+  <data name="EquivalencePosition" xml:space="preserve">
+    <value>Положение соответствия</value>
+  </data>
+  <data name="EquivalencePositionDescription" xml:space="preserve">
+    <value>Где выводится соответствие последней цены. Рядом с ценой оно следует за ней вдоль шкалы.</value>
+  </data>
+  <data name="EquivalenceBackground" xml:space="preserve">
+    <value>Фон соответствия</value>
+  </data>
+  <data name="AtPrice" xml:space="preserve">
+    <value>Рядом с ценой</value>
+  </data>
+  <data name="TopLeft" xml:space="preserve">
+    <value>Слева вверху</value>
+  </data>
+  <data name="TopRight" xml:space="preserve">
+    <value>Справа вверху</value>
+  </data>
+  <data name="BottomLeft" xml:space="preserve">
+    <value>Слева внизу</value>
+  </data>
+  <data name="BottomRight" xml:space="preserve">
+    <value>Справа внизу</value>
+  </data>
 </root>

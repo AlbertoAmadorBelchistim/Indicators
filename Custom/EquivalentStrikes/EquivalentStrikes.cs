@@ -26,7 +26,11 @@ namespace ATAS.Indicators.Technical
 		#region Fields
 
 		private readonly StrikeGrid _grid = new();
+		private readonly StrikeGrid _indexGrid = new();
 		private readonly List<StrikeLine> _lines = new();
+		private readonly List<StrikeLine> _visible = new();
+		private readonly List<StrikeLine> _indexLines = new();
+		private readonly List<MergedLine> _merged = new();
 
 		private readonly RenderStringFormat _leftFormat = new()
 			{ LineAlignment = StringAlignment.Center, Alignment = StringAlignment.Near };
@@ -37,6 +41,7 @@ namespace ATAS.Indicators.Technical
 		private RenderFont _font = new("Arial", 10);
 		private StrikePreset _preset = StrikePreset.QqqOnNq;
 		private string _underlyingName = "QQQ";
+		private string _indexName = "NDX";
 		private decimal _lastPrice;
 
 		#endregion
@@ -64,6 +69,14 @@ namespace ATAS.Indicators.Technical
 					RaisePropertyChanged(nameof(UnderlyingName));
 				}
 
+				if (StrikeCompanion.TryGet(value, out var index))
+				{
+					_indexName = index.Label;
+					_indexGrid.Spacing = index.Spacing;
+					RaisePropertyChanged(nameof(IndexName));
+					RaisePropertyChanged(nameof(IndexSpacing));
+				}
+
 				RedrawChart();
 			}
 		}
@@ -89,6 +102,9 @@ namespace ATAS.Indicators.Technical
 				if (value <= 0m)
 					return;
 
+				if (_grid.Factor != value)
+					AnchoredWithIndex = false;
+
 				_grid.Factor = value;
 				_preset = StrikePreset.Custom;
 				RaisePropertyChanged(nameof(Preset));
@@ -102,6 +118,9 @@ namespace ATAS.Indicators.Technical
 			get => _grid.Basis;
 			set
 			{
+				if (_grid.Basis != value)
+					AnchoredWithIndex = false;
+
 				_grid.Basis = value;
 				RedrawChart();
 			}
@@ -184,6 +203,53 @@ namespace ATAS.Indicators.Technical
 
 		#endregion
 
+		#region Index layer
+
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.IndexLayerShow), GroupName = nameof(Res.IndexLayer), Description = nameof(Res.IndexLayerShowDescription), Order = 350)]
+		public bool ShowIndex { get; set; }
+
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.Name), GroupName = nameof(Res.IndexLayer), Order = 360)]
+		public string IndexName
+		{
+			get => _indexName;
+			set
+			{
+				_indexName = value ?? string.Empty;
+				RedrawChart();
+			}
+		}
+
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.StrikeSpacing), GroupName = nameof(Res.IndexLayer), Description = nameof(Res.IndexSpacingDescription), Order = 370)]
+		[Range(0.000001, 100000)]
+		public decimal IndexSpacing
+		{
+			get => _indexGrid.Spacing;
+			set
+			{
+				if (value <= 0m)
+					return;
+
+				_indexGrid.Spacing = value;
+				RedrawChart();
+			}
+		}
+
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.IndexLine), GroupName = nameof(Res.IndexLayer), Order = 380)]
+		public PenSettings IndexPen { get; set; } = new()
+			{ Color = DefaultColors.Orange.Convert(), Width = 1, LineDashStyle = LineDashStyle.Dash };
+
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.LabelsOnLeft), GroupName = nameof(Res.IndexLayer), Description = nameof(Res.IndexLabelsOnLeftDescription), Order = 390)]
+		public bool IndexLabelsOnLeft { get; set; } = true;
+
+		/// <summary>
+		/// True when the last anchor had the quote of the index as well, which is what makes the basis
+		/// of the index layer exact. Kept with the template; editing the factor or the basis clears it.
+		/// </summary>
+		[Browsable(false)]
+		public bool AnchoredWithIndex { get; set; }
+
+		#endregion
+
 		#region Visualization
 
 		[Display(ResourceType = typeof(Res), Name = nameof(Res.MinorLine), GroupName = nameof(Res.Visualization), Order = 400)]
@@ -224,6 +290,12 @@ namespace ATAS.Indicators.Technical
 		[Display(ResourceType = typeof(Res), Name = nameof(Res.EquivalenceText), GroupName = nameof(Res.Visualization), Order = 480)]
 		public CrossColor EquivalenceColor { get; set; } = DefaultColors.Blue.Convert();
 
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.EquivalencePosition), GroupName = nameof(Res.Visualization), Description = nameof(Res.EquivalencePositionDescription), Order = 490)]
+		public ReadoutPosition EquivalencePosition { get; set; } = ReadoutPosition.AtPrice;
+
+		[Display(ResourceType = typeof(Res), Name = nameof(Res.EquivalenceBackground), GroupName = nameof(Res.Visualization), Order = 500)]
+		public CrossColor EquivalenceBackground { get; set; } = CrossColor.FromArgb(200, 19, 23, 34);
+
 		#endregion
 
 		#region ctor
@@ -244,6 +316,9 @@ namespace ATAS.Indicators.Technical
 			_grid.Spacing = 1m;
 			_grid.MajorSpacing = 5m;
 			_grid.MaxLines = 80;
+
+			_indexGrid.Factor = 1m;
+			_indexGrid.Spacing = 100m;
 		}
 
 		#endregion
@@ -267,10 +342,34 @@ namespace ATAS.Indicators.Technical
 			if (ChartInfo == null || InstrumentInfo == null || ChartInfo.Region.Height <= 0)
 				return;
 
-			var step = _grid.Build(ChartInfo.PriceChartContainer.Low, ChartInfo.PriceChartContainer.High, _lines);
+			var low = ChartInfo.PriceChartContainer.Low;
+			var high = ChartInfo.PriceChartContainer.High;
 
-			if (step > 0m)
-				DrawLines(context);
+			_visible.Clear();
+
+			if (_grid.Build(low, high, _lines) > 0m)
+			{
+				foreach (var line in _lines)
+				{
+					if (line.IsMajor || ShowMinorLines)
+						_visible.Add(line);
+				}
+			}
+
+			_indexLines.Clear();
+
+			if (IndexLayerActive)
+			{
+				_indexGrid.Basis = _grid.Basis;
+				_indexGrid.MaxLines = _grid.MaxLines;
+				_indexGrid.Build(low, high, _indexLines);
+			}
+
+			// Lines closer than a few pixels are the same line on screen: draw it once, with both strikes.
+			var pointsPerPixel = (high - low) / ChartInfo.Region.Height;
+			StrikeMerge.Merge(_visible, _indexLines, pointsPerPixel * 3m, _merged);
+
+			DrawLines(context);
 
 			if (ShowEquivalence)
 				DrawEquivalence(context);
@@ -280,55 +379,84 @@ namespace ATAS.Indicators.Technical
 
 		#region Private methods
 
+		/// <summary>The index layer only makes sense over an ETF grid; over the index itself it would repeat it.</summary>
+		private bool IndexLayerActive => ShowIndex && _indexGrid.IsValid && _grid.Factor != 1m;
+
 		private void DrawLines(RenderContext context)
 		{
 			var height = ChartInfo.Region.Height;
 			var width = ChartInfo.Region.Width;
 			var textHeight = context.MeasureString("0", _font).Height;
-			var lastLabelY = int.MinValue;
 
-			foreach (var line in _lines)
+			// Each side of the chart keeps its own spacing of labels.
+			var lastLeft = int.MinValue;
+			var lastRight = int.MinValue;
+
+			foreach (var line in _merged)
 			{
-				if (!line.IsMajor && !ShowMinorLines)
-					continue;
-
 				var y = ChartInfo.GetYByPrice(line.Price, false);
 
 				if (y < 0 || y > height)
 					continue;
 
-				var pen = line.IsMajor ? MajorPen : MinorPen;
+				var pen = line.Primary.HasValue
+					? (line.Primary.Value.IsMajor || line.IsShared ? MajorPen : MinorPen)
+					: IndexPen;
+
 				context.DrawLine(pen.RenderObject, 0, y, width, y);
 
-				if (!ShowLabels || (MajorLabelsOnly && !line.IsMajor))
+				if (!ShowLabels)
 					continue;
+
+				var text = LabelOf(line);
+
+				if (text.Length == 0)
+					continue;
+
+				var left = line.Primary.HasValue ? LabelsOnLeft : IndexLabelsOnLeft;
 
 				// Labels closer together than their own height would overlap into a smear.
-				if (Math.Abs(y - lastLabelY) < textHeight)
+				if (Math.Abs(y - (left ? lastLeft : lastRight)) < textHeight)
 					continue;
 
-				DrawLabel(context, line, y, textHeight, width, pen.RenderObject.Color);
-				lastLabelY = y;
+				DrawLabel(context, text, y, textHeight, width, pen.RenderObject.Color, left);
+
+				if (left)
+					lastLeft = y;
+				else
+					lastRight = y;
 			}
 		}
 
-		private void DrawLabel(RenderContext context, StrikeLine line, int y, int textHeight, int width, Color color)
+		private string LabelOf(MergedLine line)
 		{
-			var text = _underlyingName.Length == 0
-				? Format(line.Strike)
-				: _underlyingName + " " + Format(line.Strike);
+			var text = string.Empty;
 
-			if (ShowPriceInLabel)
+			if (line.Primary is { } primary && (!MajorLabelsOnly || primary.IsMajor || line.IsShared))
+				text = Named(_underlyingName, primary.Strike);
+
+			if (line.Index is { } index)
+				text = text.Length == 0 ? Named(_indexName, index.Strike) : text + " · " + Named(_indexName, index.Strike);
+
+			if (text.Length > 0 && ShowPriceInLabel)
 				text += " = " + line.Price.ToString("0.####", CultureInfo.InvariantCulture);
 
+			return text;
+		}
+
+		private static string Named(string name, decimal strike)
+			=> name.Length == 0 ? Format(strike) : name + " " + Format(strike);
+
+		private void DrawLabel(RenderContext context, string text, int y, int textHeight, int width, Color color, bool left)
+		{
 			var textWidth = context.MeasureString(text, _font).Width;
 
 			// Just above the line, so the line itself stays readable under the text.
-			var rect = LabelsOnLeft
+			var rect = left
 				? new Rectangle(2, y - textHeight, textWidth + 2, textHeight)
 				: new Rectangle(width - textWidth - 4, y - textHeight, textWidth + 2, textHeight);
 
-			context.DrawString(text, _font, color, rect, LabelsOnLeft ? _leftFormat : _rightFormat);
+			context.DrawString(text, _font, color, rect, left ? _leftFormat : _rightFormat);
 		}
 
 		private void DrawEquivalence(RenderContext context)
@@ -336,16 +464,61 @@ namespace ATAS.Indicators.Technical
 			if (!_grid.IsValid || _lastPrice <= 0m)
 				return;
 
+			var atPrice = EquivalencePosition == ReadoutPosition.AtPrice;
+
 			var text = string.Format(
 				CultureInfo.InvariantCulture,
-				"{0} {1} = {2} {3}",
-				InstrumentInfo.Instrument,
-				_lastPrice.ToString("0.####", CultureInfo.InvariantCulture),
+				"{0} {1}",
 				_underlyingName,
 				_grid.ToStrike(_lastPrice).ToString("0.00", CultureInfo.InvariantCulture));
 
+			// Next to the price the price itself is already on the scale; in a corner it is not.
+			text = atPrice
+				? "= " + text
+				: InstrumentInfo.Instrument + " " + _lastPrice.ToString("0.####", CultureInfo.InvariantCulture) + " = " + text;
+
+			if (IndexLayerActive)
+			{
+				text += " · " + _indexName + " " + (_lastPrice - _grid.Basis).ToString("0.00", CultureInfo.InvariantCulture);
+
+				if (!AnchoredWithIndex)
+					text += " (" + Res.IndexNeedsBothQuotes + ")";
+			}
+
 			var size = context.MeasureString(text, _font);
-			context.DrawString(text, _font, EquivalenceColor.Convert(), new Rectangle(4, 2, size.Width + 2, size.Height), _leftFormat);
+			var width = ChartInfo.Region.Width;
+			var height = ChartInfo.Region.Height;
+			var boxWidth = size.Width + 8;
+			var boxHeight = size.Height + 4;
+
+			// The top edge belongs to the chart header (instrument, feed, buttons), hence the offset.
+			const int headerHeight = 22;
+
+			var (x, y) = EquivalencePosition switch
+			{
+				ReadoutPosition.TopLeft => (4, headerHeight),
+				ReadoutPosition.TopRight => (width - boxWidth - 4, headerHeight),
+				ReadoutPosition.BottomLeft => (4, height - boxHeight - 4),
+				ReadoutPosition.BottomRight => (width - boxWidth - 4, height - boxHeight - 4),
+				_ => (width - boxWidth - 4, ChartInfo.GetYByPrice(_lastPrice, false) + 2),
+			};
+
+			if (atPrice && (y < 0 || y > height))
+				return;
+
+			// Never past the edges: near the bottom the box goes above the price instead.
+			if (y + boxHeight > height)
+				y = atPrice ? y - boxHeight - 4 : height - boxHeight;
+
+			if (y < 0)
+				y = 0;
+
+			var box = new Rectangle(x, y, boxWidth, boxHeight);
+
+			if (EquivalenceBackground.A > 0)
+				context.FillRectangle(EquivalenceBackground.Convert(), box);
+
+			context.DrawString(text, _font, EquivalenceColor.Convert(), new Rectangle(x + 4, y + 2, size.Width + 2, size.Height), _leftFormat);
 		}
 
 		private void Anchor()
@@ -363,6 +536,7 @@ namespace ATAS.Indicators.Technical
 
 			_grid.Factor = result.Factor;
 			_grid.Basis = result.Basis;
+			AnchoredWithIndex = AnchorIndexPrice > 0m;
 			_preset = StrikePreset.Custom;
 
 			RaisePropertyChanged(nameof(Factor));
